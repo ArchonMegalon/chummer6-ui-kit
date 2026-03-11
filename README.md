@@ -1,17 +1,19 @@
-# ui-kit
+# chummer6-ui-kit
 
-Bootstrapped by Codex Fleet.
+Shared design system package for Chummer6.
 
 Current seed includes:
 
 - token canon for UI-only design values
 - theme compilation to CSS custom properties
-- preview/gallery ownership metadata kept inside `Chummer.Ui.Kit`
+- shell chrome, badges, banners, and accessibility primitives
+- preview/gallery metadata kept inside `Chummer.Ui.Kit`
 
 Excluded by design:
 
 - domain DTOs
 - HTTP clients
+- rules math
 
 ## Release Discipline Gates (U8)
 
@@ -27,22 +29,5 @@ Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.
    - `dotnet pack src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj -c Release --nologo`
 4. Verify gate:
    - `scripts/ai/verify.sh`
-   - Standard release verify path (run both, in order):
-     ```bash
-     dotnet pack src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj -c Release --nologo
-     scripts/ai/verify.sh
-     ```
 5. Downstream adoption evidence gate:
-   - Include proof for both `chummer-presentation` and `chummer-play` before release closure.
-   - Required fields:
-     - repo name
-     - consumed `Chummer.Ui.Kit` package version
-     - removed local/source-copied UI paths
-     - guard check path that prevents reintroduction
-     - commit SHA containing the adoption update
-   - Required evidence template:
-
-| repo | package version | removed local/source-copied UI paths | guard check path | commit SHA |
-| --- | --- | --- | --- | --- |
-| `chummer-presentation` | `<version>` | `<path list>` | `<guard path/command>` | `<sha>` |
-| `chummer-play` | `<version>` | `<path list>` | `<guard path/command>` | `<sha>` |
+   - Include proof for both `chummer6-ui` and `chummer6-mobile` before release closure.
