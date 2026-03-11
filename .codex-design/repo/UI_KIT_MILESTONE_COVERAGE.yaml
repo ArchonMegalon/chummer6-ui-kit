@@ -1,0 +1,160 @@
+repo: chummer-ui-kit
+last_reviewed: 2026-03-11
+truth_model: explicit_u_spine
+notes:
+  - "ETA dates are planning targets, not guarantees."
+  - "Completion is tracked per milestone as percent_complete with evidence."
+
+milestones:
+  - id: U0
+    title: Governance
+    maps_to_program:
+      - A0
+      - B1
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-10
+    evidence:
+      - "Local design mirror is present under .codex-design/."
+      - "Repo-level scope/review guidance is in place."
+    remaining_queue_work: []
+
+  - id: U1
+    title: Token canon
+    maps_to_program:
+      - B1
+    status: in_progress
+    percent_complete: 70
+    eta: 2026-03-18
+    evidence:
+      - "Token canon seed exists and is consumable."
+      - "Token usage still requires package-adoption closure in downstream repos."
+    remaining_queue_work:
+      - "Complete package-consumption checklist and adoption evidence for presentation/play."
+
+  - id: U2
+    title: Primitives
+    maps_to_program:
+      - B1
+    status: in_progress
+    percent_complete: 65
+    eta: 2026-03-20
+    evidence:
+      - "Core primitives and adapter baseline exist."
+      - "Determinism and package-only boundary checks need completion for full closure."
+    remaining_queue_work:
+      - "Extend contract-style tests for deterministic adapter outputs."
+
+  - id: U3
+    title: Shell chrome
+    maps_to_program:
+      - B1
+    status: in_progress
+    percent_complete: 60
+    eta: 2026-03-21
+    evidence:
+      - "Shell primitives are present in the kit."
+      - "Presentation/play package-only consumption proof remains open."
+    remaining_queue_work:
+      - "Finalize shell chrome adapter contract and cross-repo adoption evidence."
+
+  - id: U4
+    title: Dense-data controls
+    maps_to_program:
+      - B1
+    status: in_progress
+    percent_complete: 25
+    eta: 2026-04-02
+    evidence:
+      - "Scope is defined in implementation guidance."
+      - "Queue slice now maps dense-data extraction into explicit runnable backlog."
+      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+    remaining_queue_work:
+      - "Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense row metadata, and explain-affinity row state without domain DTO dependencies."
+      - "Implement adapter payload methods in Blazor and Avalonia adapters for each new dense-data primitive with deterministic attribute keys."
+      - "Register dense-data previews in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`."
+      - "Add contract-style tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` asserting deterministic adapter output for all dense-data primitives."
+      - "Publish downstream adoption checklist for `chummer-presentation` and `chummer-play` to replace local/source-copied dense table primitives with `Chummer.Ui.Kit` package usage."
+      - "Acceptance criteria: no provider SDK/client logic introduced; primitives remain package-only and adapter-only."
+
+  - id: U5
+    title: Chummer-specific patterns
+    maps_to_program:
+      - B1
+    status: in_progress
+    percent_complete: 30
+    eta: 2026-04-09
+    evidence:
+      - "Pattern intent is documented (state badges/explain chips/artifact cards)."
+      - "State badge/chip primitives and adapter payloads are present in the kit."
+      - "Queue slice now maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
+      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+    remaining_queue_work:
+      - "Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only fields."
+      - "Implement Blazor/Avalonia adapter payload methods for these patterns with stable role/class/attribute mappings."
+      - "Expand preview manifest coverage in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for explain and Chummer-specific pattern previews."
+      - "Add deterministic tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` that validate explain chip, stale badge, approval chip, and card payload contracts."
+      - "Publish migration checklist for app repos to delete local pattern copies once package primitives land."
+      - "Acceptance criteria: reusable patterns are app-agnostic, contain no domain/service logic, and preserve accessibility attributes."
+
+  - id: U6
+    title: Accessibility and localization
+    maps_to_program:
+      - B1
+      - F0
+    status: in_progress
+    percent_complete: 55
+    eta: 2026-03-25
+    evidence:
+      - "Accessibility primitives exist in adapters."
+      - "Completion requires full payload guarantees and localization-safe token coverage."
+    remaining_queue_work:
+      - "Finalize accessibility primitive payload contracts for Blazor and Avalonia."
+
+  - id: U7
+    title: Visual regression and catalog
+    maps_to_program:
+      - F0
+    status: open
+    percent_complete: 10
+    eta: 2026-04-18
+    evidence:
+      - "Requirement is recognized in feedback and queue overlay."
+      - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
+    remaining_queue_work:
+      - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
+      - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
+      - "Add regression assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` that fail on payload shape/key drift for catalog-covered components."
+      - "Add CI-targetable verify entrypoint wiring in `scripts/ai/verify.sh` scope so catalog + regression checks run in one standard command."
+      - "Publish downstream adoption instructions for presentation/play to consume catalog outputs rather than maintaining local preview copies."
+      - "Acceptance criteria: catalog is package-owned, regression checks are deterministic, and no external-tool/provider logic is introduced."
+
+  - id: U8
+    title: Release discipline
+    maps_to_program:
+      - F0
+      - F3
+    status: open
+    percent_complete: 10
+    eta: 2026-04-25
+    evidence:
+      - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
+    remaining_queue_work:
+      - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
+      - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
+      - "Add release gate tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` for token/primitive contract continuity expectations tied to major/minor bump behavior."
+      - "Document required adoption evidence fields for presentation/play (package version consumed, removed local copies, guard checks added)."
+      - "Add queue closure criteria linking U8 completion to verified U7 regression baseline stability."
+      - "Acceptance criteria: releases are reproducible, contract drift is detectable pre-publish, and package-only boundary evidence is attached per release."
+
+  - id: U9
+    title: Finished design system
+    maps_to_program:
+      - F3
+    status: open
+    percent_complete: 5
+    eta: 2026-05-09
+    evidence:
+      - "Depends on closure of U1-U8."
+    remaining_queue_work:
+      - "Close all open ui-kit spine milestones and remove uncovered-scope findings."

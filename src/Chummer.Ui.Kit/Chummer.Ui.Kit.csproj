@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Chummer.Ui.Kit</RootNamespace>
+    <AssemblyName>Chummer.Ui.Kit</AssemblyName>
+  </PropertyGroup>
+</Project>
