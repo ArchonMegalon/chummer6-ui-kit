@@ -48,8 +48,8 @@ Acceptance criteria:
 
 - [ ] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
 - [ ] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
-- [ ] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
-- [ ] U8 release discipline: publish queue items for package release gates and verification checklist.
+- [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
+- [x] U8 release discipline: publish queue items for package release gates and verification checklist.
 
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
@@ -71,3 +71,7 @@ Acceptance criteria:
 - [ ] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
 - [ ] Visual regression checks are deterministic and run from the repo-standard verification command.
 - [ ] Release checklist is explicit, repeatable, and requires package/adoption evidence before closure.
+
+Slice closure evidence (2026-03-13):
+- [x] Runnable U7/U8 backlog is explicitly published in this file under `Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)`.
+- [x] Milestone mapping and acceptance criteria are present for catalog, visual-regression, and release-discipline scope.

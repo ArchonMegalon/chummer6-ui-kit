@@ -1,5 +1,5 @@
 repo: chummer-ui-kit
-last_reviewed: 2026-03-11
+last_reviewed: 2026-03-13
 truth_model: explicit_u_spine
 notes:
   - "ETA dates are planning targets, not guarantees."
@@ -116,11 +116,12 @@ milestones:
     maps_to_program:
       - F0
     status: open
-    percent_complete: 10
+    percent_complete: 15
     eta: 2026-04-18
     evidence:
       - "Requirement is recognized in feedback and queue overlay."
       - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
+      - "2026-03-13 re-entry confirmed runnable U7 backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
     remaining_queue_work:
       - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
       - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
@@ -135,10 +136,11 @@ milestones:
       - F0
       - F3
     status: open
-    percent_complete: 10
+    percent_complete: 15
     eta: 2026-04-25
     evidence:
       - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
+      - "2026-03-13 re-entry confirmed runnable U8 backlog publication in WORKLIST.md with release gates and closure evidence."
     remaining_queue_work:
       - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
       - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
