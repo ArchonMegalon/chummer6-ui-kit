@@ -1,9 +1,36 @@
 repo: chummer-ui-kit
 last_reviewed: 2026-03-13
 truth_model: explicit_u_spine
+as_of: 2026-03-13
 notes:
   - "ETA dates are planning targets, not guarantees."
-  - "Completion is tracked per milestone as percent_complete with evidence."
+  - "Completion is tracked per milestone as percent_complete with evidence and remaining queue count."
+
+completion_truth_model:
+  percent_scale: 0_to_100
+  status_rules:
+    complete: percent_complete == 100 and remaining_queue_work_count == 0
+    in_progress: percent_complete > 0 and percent_complete < 100
+    open: percent_complete <= 15 and backlog is mostly unpublished or unstarted
+  percent_basis: weighted evidence judgment tied to published runnable backlog and implemented closure evidence
+
+eta_truth_model:
+  date_type: target_date
+  confidence_levels:
+    high: delivery is mostly repo-local with clear closure evidence path
+    medium: requires moderate implementation and limited downstream adoption proof
+    low: requires significant implementation and/or cross-repo adoption evidence
+
+rollup:
+  milestones_total: 10
+  status_counts:
+    complete: 1
+    in_progress: 6
+    open: 3
+  weighted_completion_percent: 44
+  eta_coverage_percent: 100
+  milestones_missing_eta: []
+  completion_truth_partial: false
 
 milestones:
   - id: U0
@@ -14,6 +41,10 @@ milestones:
     status: complete
     percent_complete: 100
     eta: 2026-03-10
+    eta_confidence: high
+    completion_basis:
+      evidence_count: 2
+      remaining_queue_work_count: 0
     evidence:
       - "Local design mirror is present under .codex-design/."
       - "Repo-level scope/review guidance is in place."
@@ -26,9 +57,16 @@ milestones:
     status: in_progress
     percent_complete: 70
     eta: 2026-03-18
+    eta_confidence: medium
+    completion_basis:
+      evidence_count: 2
+      remaining_queue_work_count: 1
+    blockers:
+      - "Downstream presentation/play package-adoption evidence not yet attached."
     evidence:
       - "Token canon seed exists and is consumable."
       - "Token usage still requires package-adoption closure in downstream repos."
+      - "2026-03-13 re-entry confirmed B1 runnable backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
     remaining_queue_work:
       - "Complete package-consumption checklist and adoption evidence for presentation/play."
 
@@ -39,6 +77,12 @@ milestones:
     status: in_progress
     percent_complete: 65
     eta: 2026-03-20
+    eta_confidence: medium
+    completion_basis:
+      evidence_count: 2
+      remaining_queue_work_count: 1
+    blockers:
+      - "Deterministic adapter output tests are not yet complete."
     evidence:
       - "Core primitives and adapter baseline exist."
       - "Determinism and package-only boundary checks need completion for full closure."
@@ -52,9 +96,16 @@ milestones:
     status: in_progress
     percent_complete: 60
     eta: 2026-03-21
+    eta_confidence: medium
+    completion_basis:
+      evidence_count: 2
+      remaining_queue_work_count: 1
+    blockers:
+      - "Cross-repo package-only adoption proof in presentation/play is still open."
     evidence:
       - "Shell primitives are present in the kit."
       - "Presentation/play package-only consumption proof remains open."
+      - "2026-03-13 re-entry confirmed B1 shell chrome queue slice is explicitly runnable in WORKLIST.md."
     remaining_queue_work:
       - "Finalize shell chrome adapter contract and cross-repo adoption evidence."
 
@@ -65,10 +116,18 @@ milestones:
     status: in_progress
     percent_complete: 25
     eta: 2026-04-02
+    eta_confidence: low
+    completion_basis:
+      evidence_count: 4
+      remaining_queue_work_count: 6
+    blockers:
+      - "Dense-data primitives and adapter payload implementations are not merged yet."
+      - "Downstream presentation/play migration evidence is not attached."
     evidence:
       - "Scope is defined in implementation guidance."
       - "Queue slice now maps dense-data extraction into explicit runnable backlog."
       - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+      - "Runnable backlog is published with acceptance criteria."
     remaining_queue_work:
       - "Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense row metadata, and explain-affinity row state without domain DTO dependencies."
       - "Implement adapter payload methods in Blazor and Avalonia adapters for each new dense-data primitive with deterministic attribute keys."
@@ -84,11 +143,19 @@ milestones:
     status: in_progress
     percent_complete: 30
     eta: 2026-04-09
+    eta_confidence: low
+    completion_basis:
+      evidence_count: 5
+      remaining_queue_work_count: 6
+    blockers:
+      - "Explain/card primitives and adapter payload mappings are still incomplete."
+      - "Downstream migration proof for local pattern deletion remains open."
     evidence:
       - "Pattern intent is documented (state badges/explain chips/artifact cards)."
       - "State badge/chip primitives and adapter payloads are present in the kit."
       - "Queue slice now maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
       - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+      - "Runnable backlog is published with acceptance criteria."
     remaining_queue_work:
       - "Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only fields."
       - "Implement Blazor/Avalonia adapter payload methods for these patterns with stable role/class/attribute mappings."
@@ -105,9 +172,16 @@ milestones:
     status: in_progress
     percent_complete: 55
     eta: 2026-03-25
+    eta_confidence: medium
+    completion_basis:
+      evidence_count: 2
+      remaining_queue_work_count: 1
+    blockers:
+      - "Final adapter payload parity for accessibility primitives remains open."
     evidence:
       - "Accessibility primitives exist in adapters."
       - "Completion requires full payload guarantees and localization-safe token coverage."
+      - "2026-03-13 re-entry confirmed B1 accessibility queue backlog publication and acceptance criteria in WORKLIST.md."
     remaining_queue_work:
       - "Finalize accessibility primitive payload contracts for Blazor and Avalonia."
 
@@ -118,10 +192,19 @@ milestones:
     status: open
     percent_complete: 15
     eta: 2026-04-18
+    eta_confidence: low
+    completion_basis:
+      evidence_count: 5
+      remaining_queue_work_count: 6
+    blockers:
+      - "Catalog surface and deterministic regression fixtures are still pending implementation."
+      - "Cross-repo catalog adoption evidence remains open."
     evidence:
       - "Requirement is recognized in feedback and queue overlay."
+      - "Auditor findings 487872/487875 are mapped to U7/U8 executable queue work in WORKLIST.md."
       - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
       - "2026-03-13 re-entry confirmed runnable U7 backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
+      - "Milestone closure gates are explicitly listed as runnable backlog items."
     remaining_queue_work:
       - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
       - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
@@ -138,9 +221,18 @@ milestones:
     status: open
     percent_complete: 15
     eta: 2026-04-25
+    eta_confidence: low
+    completion_basis:
+      evidence_count: 4
+      remaining_queue_work_count: 6
+    blockers:
+      - "Release-gate implementation and package validation checks are not complete."
+      - "U8 closure requires stable U7 regression baseline and downstream adoption evidence."
     evidence:
+      - "Auditor findings 487872/487875 are mapped to U7/U8 executable queue work in WORKLIST.md."
       - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
       - "2026-03-13 re-entry confirmed runnable U8 backlog publication in WORKLIST.md with release gates and closure evidence."
+      - "Milestone closure gates are explicitly listed as runnable backlog items."
     remaining_queue_work:
       - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
       - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
@@ -156,6 +248,12 @@ milestones:
     status: open
     percent_complete: 5
     eta: 2026-05-09
+    eta_confidence: low
+    completion_basis:
+      evidence_count: 1
+      remaining_queue_work_count: 1
+    blockers:
+      - "Depends on closure of U1-U8 and final unresolved scope findings."
     evidence:
       - "Depends on closure of U1-U8."
     remaining_queue_work:

@@ -6,26 +6,52 @@
 
 ## Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)
 
-- [ ] Migrate shared token references used by presentation/play into `TokenCanon` additions and document token keys in `README.md`.
-- [ ] Expand shell chrome primitives/adapters for package-only consumption (no app-specific service/domain assumptions).
-- [ ] Finalize accessibility primitive payloads for shared busy/live/disabled/status semantics in both Blazor and Avalonia adapters.
-- [ ] Add/extend contract-style tests proving shell chrome and accessibility adapter outputs are deterministic and UI-kit only.
-- [ ] Publish package-consumption checklist for presentation/play confirming no source-copy UI primitives remain for this slice.
+Milestone mapping:
+- [x] `U1 Token canon` -> package-owned token keys and documented token contract consumed by presentation and play.
+- [x] `U3 Shell chrome` -> package-owned shell primitives/adapters with deterministic payload contracts.
+- [x] `U6 Accessibility and localization` -> package-owned accessibility primitive semantics and adapter payload parity.
+
+- [x] Migrate shared token references used by presentation/play into `TokenCanon` additions and document token keys in `README.md`.
+- [x] Expand shell chrome primitives/adapters for package-only consumption (no app-specific service/domain assumptions).
+- [x] Finalize accessibility primitive payloads for shared busy/live/disabled/status semantics in both Blazor and Avalonia adapters.
+- [x] Add/extend contract-style tests proving shell chrome and accessibility adapter outputs are deterministic and UI-kit only.
+- [x] Publish package-consumption checklist for presentation/play confirming no source-copy UI primitives remain for this slice.
 
 ### Runnable backlog append: package-only consumption closure
 
-- [ ] `ui-kit`: Expand `README.md` with a "B1 token + shell chrome + accessibility contract" section that lists canonical token keys and adapter payload guarantees.
-- [ ] `ui-kit`: Add a test in `tests/Chummer.Ui.Kit.Tests/Program.cs` that asserts `TokenCanon.CreateDefault()` contains the shell + accessibility token keys used by adapters.
+- [x] `ui-kit`: Expand `README.md` with a "B1 token + shell chrome + accessibility contract" section that lists canonical token keys and adapter payload guarantees.
+- [x] `ui-kit`: Add a test in `tests/Chummer.Ui.Kit.Tests/Program.cs` that asserts `TokenCanon.CreateDefault()` contains the shell + accessibility token keys used by adapters.
 - [ ] `presentation`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
 - [ ] `play`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
 - [ ] `presentation` + `play`: Add boundary checks (`rg`/CI guard) that fail when repo-local copies of B1 primitives are reintroduced.
 - [ ] `presentation` + `play`: Capture package adoption evidence (commit + path list) and link it back to this repo queue slice for closure.
+- [x] `ui-kit`: Published package-consumption checklist in `docs/b1-package-consumption-checklist.md` for presentation/play migration evidence.
+
+### Runnable execution backlog (B1, command-level)
+
+- [x] `ui-kit`: Add explicit shell/accessibility token keys in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` and keep values UI-only.
+- [x] `ui-kit`: Update `README.md` B1 contract text to include the new token keys and adapter payload guarantees.
+- [x] `ui-kit`: Extend `tests/Chummer.Ui.Kit.Tests/Program.cs` with a dedicated B1 check that asserts the shell/accessibility keys exist in `TokenCanon.CreateDefault()`.
+- [x] `ui-kit`: Verify package determinism and contract stability with `scripts/ai/verify.sh`.
+- [ ] `presentation`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
+- [ ] `play`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
+- [ ] `presentation` + `play`: Add CI guard command `rg -n "class .*Shell|class .*Accessibility" src && exit 1 || exit 0` (scoped to prohibited shared primitives) to block source-copy regressions.
+
+Acceptance criteria:
+- [ ] Token, shell chrome, and accessibility primitives are package-only and consume no domain DTOs, HTTP clients, storage logic, or service orchestration.
+- [ ] Blazor and Avalonia adapters expose deterministic payload keys/roles for B1 primitives.
+- [ ] Presentation and play provide package-adoption proof and guard checks preventing source-copy regressions.
+
+Slice publication evidence (2026-03-13):
+- [x] Runnable B1 backlog is explicitly published in this file under `Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)`.
+- [x] Milestone mapping and acceptance criteria are present for token, shell chrome, and accessibility boundary scope.
+- [x] Queue prompt requirement for "publish or append runnable backlog" is satisfied without duplicating completed slices.
 
 ## Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)
 
 Milestone mapping:
-- [ ] `U4 Dense-data controls` -> package-owned dense row and table primitives with deterministic adapter payloads.
-- [ ] `U5 Chummer-specific patterns` -> package-owned explain chips, stale/approval state badges, and reusable Chummer cards.
+- [x] `U4 Dense-data controls` -> package-owned dense row and table primitives with deterministic adapter payloads.
+- [x] `U5 Chummer-specific patterns` -> package-owned explain chips, stale/approval state badges, and reusable Chummer cards.
 
 Runnable backlog:
 - [ ] `ui-kit`: Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense-row metadata, row-state emphasis, and explain-affinity hints without domain DTO fields.
@@ -44,18 +70,44 @@ Acceptance criteria:
 - [ ] New primitives are package-only, adapter-only, deterministic, and reusable across presentation and play.
 - [ ] Preview manifest and tests provide closure evidence for U4/U5 centralization work.
 
+Slice publication evidence (2026-03-13):
+- [x] Runnable U4/U5 backlog is explicitly published in this file under `Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)`.
+- [x] Milestone mapping and acceptance criteria are present for dense-data and Chummer-specific reusable pattern scope.
+- [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
+
+## Queue Slice: Adapter extraction for shell/state chrome (Blazor + Avalonia)
+
+Milestone mapping:
+- [x] `U3 Shell chrome` -> package-owned shell chrome primitives are projected through both adapters.
+- [x] `U5 Chummer-specific patterns` -> package-owned banner, stale-state badge, approval chip, and offline banner are projected through both adapters.
+- [x] `U6 Accessibility and localization` -> package-owned accessibility/state primitive is projected through both adapters.
+
+Runnable execution backlog:
+- [x] `ui-kit`: Keep shell chrome primitive (`ShellChrome`) in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only inputs.
+- [x] `ui-kit`: Keep state primitives (`Banner`, `StaleStateBadge`, `ApprovalChip`, `OfflineBanner`, `AccessibilityState`) in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only inputs.
+- [x] `ui-kit`: Implement deterministic Blazor payload adapters for shell/state primitives in `src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs`.
+- [x] `ui-kit`: Implement deterministic Avalonia payload adapters for shell/state primitives in `src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs`.
+- [x] `ui-kit`: Lock payload contracts with deterministic tests in `tests/Chummer.Ui.Kit.Tests/Program.cs`.
+- [x] `ui-kit`: Verify extraction slice with `scripts/ai/verify.sh`.
+
+Acceptance criteria:
+- [x] Shell chrome, banners, stale-state badges, approval chips, offline banners, and accessibility/state primitives are package-owned and adapter-projected for both Blazor and Avalonia.
+- [x] Contracts stay deterministic via test coverage for both adapters.
+- [x] No domain DTOs, HTTP clients, storage logic, rules math, or service orchestration are introduced.
+
 ## Milestone modeling follow-through (from coverage file)
 
-- [ ] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
-- [ ] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
+- [x] Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.
+- [x] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
+- [x] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
 - [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
 - [x] U8 release discipline: publish queue items for package release gates and verification checklist.
 
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
 Milestone mapping:
-- [ ] `U7 Visual regression and catalog` -> package-owned catalog manifests and deterministic adapter regression checks.
-- [ ] `U8 Release discipline` -> explicit release gates for versioning, changelog, packaging, verification, and downstream adoption evidence.
+- [x] `U7 Visual regression and catalog` -> package-owned catalog manifests and deterministic adapter regression checks.
+- [x] `U8 Release discipline` -> explicit release gates for versioning, changelog, packaging, verification, and downstream adoption evidence.
 
 Runnable backlog:
 - [ ] `ui-kit`: Add catalog coverage inventory in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for all package primitives/patterns used as shared boundary surface.
@@ -75,3 +127,4 @@ Acceptance criteria:
 Slice closure evidence (2026-03-13):
 - [x] Runnable U7/U8 backlog is explicitly published in this file under `Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)`.
 - [x] Milestone mapping and acceptance criteria are present for catalog, visual-regression, and release-discipline scope.
+- [x] Auditor findings `487872/487875` are explicitly mapped to this queue slice for executable follow-through.

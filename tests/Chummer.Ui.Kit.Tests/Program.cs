@@ -8,6 +8,9 @@ using Chummer.Ui.Kit.Avalonia.Adapters;
 var checks = new Action[]
 {
     DefaultCanonContainsExpectedTokens,
+    DefaultCanonContainsB1ShellAndAccessibilityTokens,
+    AdapterDefaultsStayAlignedWithTokenCanon,
+    AvaloniaCompatibilityAliasesRemainAvailable,
     CompilerProducesCssVariablesFromCanonAndOverrides,
     CompilerRejectsUnknownOverrideKeys,
     PreviewGalleryDefaultManifestCoversPackageCatalog,
@@ -29,6 +32,79 @@ static void DefaultCanonContainsExpectedTokens()
     ExpectEqual("#F7F3EA", canon["color.background.canvas"], "canvas color");
     ExpectEqual("1rem", canon["space.400"], "space token");
     ExpectEqual("\"IBM Plex Sans\", \"Segoe UI\", sans-serif", canon["font.family.base"], "font family");
+}
+
+static void DefaultCanonContainsB1ShellAndAccessibilityTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "shell.chrome.root.class",
+        "shell.chrome.role",
+        "shell.chrome.default.tone",
+        "shell.chrome.default.compact",
+        "accessibility.state.root.class",
+        "accessibility.state.role",
+        "accessibility.state.live.default",
+        "accessibility.state.busy.default",
+        "accessibility.state.disabled.default"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"default canon contains {key}");
+    }
+
+    ExpectEqual("chummer-shell", canon["shell.chrome.root.class"], "shell root class token");
+    ExpectEqual("banner", canon["shell.chrome.role"], "shell role token");
+    ExpectEqual("default", canon["shell.chrome.default.tone"], "shell default tone token");
+    ExpectEqual("false", canon["shell.chrome.default.compact"], "shell compact default token");
+    ExpectEqual("chummer-accessibility", canon["accessibility.state.root.class"], "accessibility root class token");
+    ExpectEqual("status", canon["accessibility.state.role"], "accessibility role token");
+    ExpectEqual("polite", canon["accessibility.state.live.default"], "accessibility live token");
+    ExpectEqual("false", canon["accessibility.state.busy.default"], "accessibility busy default token");
+    ExpectEqual("false", canon["accessibility.state.disabled.default"], "accessibility disabled default token");
+}
+
+static void AdapterDefaultsStayAlignedWithTokenCanon()
+{
+    var canon = TokenCanon.CreateDefault();
+
+    var shell = new ShellChrome("Session", "Read only shell");
+    var blazorShell = BlazorUiKitAdapter.AdaptShellChrome(shell);
+    var avaloniaShell = AvaloniaUiKitAdapter.AdaptShellChrome(shell);
+
+    ExpectEqual(canon["shell.chrome.root.class"], blazorShell.RootClass, "blazor shell root class aligns with canon");
+    ExpectEqual(canon["shell.chrome.root.class"], avaloniaShell.RootClass, "avalonia shell root class aligns with canon");
+    ExpectEqual(canon["shell.chrome.role"], blazorShell.Attributes["role"], "blazor shell role aligns with canon");
+    ExpectEqual(canon["shell.chrome.default.tone"], blazorShell.Attributes["data-tone"], "blazor shell tone aligns with canon");
+    ExpectEqual(canon["shell.chrome.default.compact"], blazorShell.Attributes["data-compact"], "blazor shell compact default aligns with canon");
+    ExpectEqual(canon["shell.chrome.default.compact"], avaloniaShell.Attributes["compact"], "avalonia shell compact default aligns with canon");
+    ExpectEqual("Default", avaloniaShell.Attributes["tone"], "avalonia shell tone aligns with canon");
+
+    var accessibility = new AccessibilityState();
+    var blazorA11y = BlazorUiKitAdapter.AdaptAccessibilityState(accessibility);
+    var avaloniaA11y = AvaloniaUiKitAdapter.AdaptAccessibilityState(accessibility);
+
+    ExpectEqual(canon["accessibility.state.root.class"], blazorA11y.RootClass, "blazor accessibility root class aligns with canon");
+    ExpectEqual(canon["accessibility.state.root.class"], avaloniaA11y.RootClass, "avalonia accessibility root class aligns with canon");
+    ExpectEqual(canon["accessibility.state.role"], blazorA11y.Attributes["role"], "blazor accessibility role aligns with canon");
+    ExpectEqual(canon["accessibility.state.role"], avaloniaA11y.Attributes["role"], "avalonia accessibility role aligns with canon");
+    ExpectEqual(canon["accessibility.state.live.default"], blazorA11y.Attributes["aria-live"], "blazor accessibility live default aligns with canon");
+    ExpectEqual(canon["accessibility.state.live.default"], avaloniaA11y.Attributes["live"], "avalonia accessibility live default aligns with canon");
+    ExpectEqual(canon["accessibility.state.busy.default"], blazorA11y.Attributes["aria-busy"], "blazor accessibility busy default aligns with canon");
+    ExpectEqual(canon["accessibility.state.busy.default"], avaloniaA11y.Attributes["is-busy"], "avalonia accessibility busy default aligns with canon");
+    ExpectEqual(canon["accessibility.state.disabled.default"], blazorA11y.Attributes["aria-disabled"], "blazor accessibility disabled default aligns with canon");
+    ExpectEqual(canon["accessibility.state.disabled.default"], avaloniaA11y.Attributes["is-disabled"], "avalonia accessibility disabled default aligns with canon");
+}
+
+static void AvaloniaCompatibilityAliasesRemainAvailable()
+{
+    var shell = AvaloniaUiKitAdapter.AdaptShellChrome(new ShellChrome("Session", "Body"));
+    var accessibility = AvaloniaUiKitAdapter.AdaptAccessibilityState(new AccessibilityState());
+
+    ExpectContains(shell.Attributes["classes"], "ShellRoot", "avalonia shell includes ShellRoot compatibility alias");
+    ExpectContains(accessibility.Attributes["classes"], "AccessibilityState", "avalonia accessibility includes AccessibilityState compatibility alias");
 }
 
 static void CompilerProducesCssVariablesFromCanonAndOverrides()
@@ -123,11 +199,11 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "blazor shell payload");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptShellChrome(shell),
-        "ShellRoot",
+        "chummer-shell",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "shell",
-            ["classes"] = "ShellWarning ShellCompact",
+            ["classes"] = "ShellRoot ShellWarning ShellCompact",
             ["title"] = "Session",
             ["body"] = "Read only shell",
             ["tone"] = "Warning",
@@ -258,10 +334,11 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "blazor accessibility payload");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptAccessibilityState(accessibility),
-        "AccessibilityState",
+        "chummer-accessibility",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "a11y",
+            ["classes"] = "AccessibilityState",
             ["role"] = "status",
             ["is-busy"] = "true",
             ["is-disabled"] = "false",

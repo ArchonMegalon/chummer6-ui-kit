@@ -10,14 +10,14 @@ public static class AvaloniaUiKitAdapter
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "shell",
-            ["classes"] = $"Shell{chrome.Tone} {(chrome.Compact ? "ShellCompact" : "ShellExpanded")}",
+            ["classes"] = $"ShellRoot Shell{chrome.Tone} {(chrome.Compact ? "ShellCompact" : "ShellExpanded")}",
             ["title"] = chrome.Title,
             ["body"] = chrome.Body,
             ["tone"] = chrome.Tone.ToString(),
             ["compact"] = chrome.Compact.ToString().ToLowerInvariant()
         };
 
-        return new UiAdapterPayload("ShellRoot", new ReadOnlyDictionary<string, string>(attrs));
+        return new UiAdapterPayload("chummer-shell", new ReadOnlyDictionary<string, string>(attrs));
     }
 
     public static UiAdapterPayload AdaptBanner(Banner banner)
@@ -88,6 +88,7 @@ public static class AvaloniaUiKitAdapter
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "a11y",
+            ["classes"] = "AccessibilityState",
             ["role"] = "status",
             ["is-busy"] = state.Busy.ToString().ToLowerInvariant(),
             ["is-disabled"] = state.Disabled.ToString().ToLowerInvariant(),
@@ -104,6 +105,6 @@ public static class AvaloniaUiKitAdapter
             attrs["described-by"] = state.DescribedBy;
         }
 
-        return new UiAdapterPayload("AccessibilityState", new ReadOnlyDictionary<string, string>(attrs));
+        return new UiAdapterPayload("chummer-accessibility", new ReadOnlyDictionary<string, string>(attrs));
     }
 }
