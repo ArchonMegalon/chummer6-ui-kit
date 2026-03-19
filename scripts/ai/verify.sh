@@ -11,6 +11,10 @@ export NUGET_PACKAGES="$dotnet_home/.nuget/packages"
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+test -f "$repo_root/docs/SHARED_SURFACE_SIGNOFF.md"
+rg -n 'scripts/ai/verify\.sh|Blazor|Avalonia|accessibility|localization|performance|dotnet pack' \
+  "$repo_root/docs/SHARED_SURFACE_SIGNOFF.md" >/dev/null
+
 dotnet build "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" --nologo
 dotnet build "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj" --nologo
 dotnet pack "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" -c Release --nologo

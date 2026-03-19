@@ -1,7 +1,7 @@
 # Worklist
 
-- [open] Publish migration evidence that `chummer6-ui` and `chummer6-mobile` consume `Chummer.Ui.Kit` primitives through package references only for the live shared primitives.
-- [open] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
+- [done] Publish migration evidence that `chummer6-ui` and `chummer6-mobile` consume `Chummer.Ui.Kit` primitives through package references only for the live shared primitives.
+- [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
@@ -23,10 +23,10 @@ Milestone mapping:
 
 - [x] `ui-kit`: Expand `README.md` with a "B1 token + shell chrome + accessibility contract" section that lists canonical token keys and adapter payload guarantees.
 - [x] `ui-kit`: Add a test in `tests/Chummer.Ui.Kit.Tests/Program.cs` that asserts `TokenCanon.CreateDefault()` contains the shell + accessibility token keys used by adapters.
-- [ ] `presentation`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
-- [ ] `play`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
-- [ ] `presentation` + `play`: Add boundary checks (`rg`/CI guard) that fail when repo-local copies of B1 primitives are reintroduced.
-- [ ] `presentation` + `play`: Capture package adoption evidence (commit + path list) and link it back to this repo queue slice for closure.
+- [x] `presentation`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
+- [x] `play`: Replace any local/source-copied shell chrome or accessibility classes with `Chummer.Ui.Kit` package usage.
+- [x] `presentation` + `play`: Add boundary checks (`rg`/CI guard) that fail when repo-local copies of B1 primitives are reintroduced.
+- [x] `presentation` + `play`: Capture package adoption evidence (commit + path list) and link it back to this repo queue slice for closure.
 - [x] `ui-kit`: Published package-consumption checklist in `docs/b1-package-consumption-checklist.md` for presentation/play migration evidence.
 
 ### Runnable execution backlog (B1, command-level)
@@ -35,14 +35,14 @@ Milestone mapping:
 - [x] `ui-kit`: Update `README.md` B1 contract text to include the new token keys and adapter payload guarantees.
 - [x] `ui-kit`: Extend `tests/Chummer.Ui.Kit.Tests/Program.cs` with a dedicated B1 check that asserts the shell/accessibility keys exist in `TokenCanon.CreateDefault()`.
 - [x] `ui-kit`: Verify package determinism and contract stability with `scripts/ai/verify.sh`.
-- [ ] `presentation`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
-- [ ] `play`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
-- [ ] `presentation` + `play`: Add CI guard command `rg -n "class .*Shell|class .*Accessibility" src && exit 1 || exit 0` (scoped to prohibited shared primitives) to block source-copy regressions.
+- [x] `presentation`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
+- [x] `play`: Run `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src` and replace local copies with package usage where found.
+- [x] `presentation` + `play`: Add CI guard command `rg -n "class .*Shell|class .*Accessibility" src && exit 1 || exit 0` (scoped to prohibited shared primitives) to block source-copy regressions.
 
 Acceptance criteria:
-- [ ] Token, shell chrome, and accessibility primitives are package-only and consume no domain DTOs, HTTP clients, storage logic, or service orchestration.
+- [x] Token, shell chrome, and accessibility primitives are package-only and consume no domain DTOs, HTTP clients, storage logic, or service orchestration.
 - [ ] Blazor and Avalonia adapters expose deterministic payload keys/roles for B1 primitives.
-- [ ] Presentation and play provide package-adoption proof and guard checks preventing source-copy regressions.
+- [x] Presentation and play provide package-adoption proof and guard checks preventing source-copy regressions.
 
 Slice publication evidence (2026-03-13):
 - [x] Runnable B1 backlog is explicitly published in this file under `Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)`.

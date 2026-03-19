@@ -30,15 +30,15 @@ Confirm presentation and play consume `Chummer.Ui.Kit` as a package-only depende
    - package version consumed
    - guard command location in CI
 
-## Acceptance evidence template
+## Acceptance evidence
 
-Fill one row per consuming repo.
+Current consuming-repo proof is executable instead of narrative-only:
 
-| Repo | Commit | Package Version | Removed Paths | Guard Location | Status |
-| --- | --- | --- | --- | --- | --- |
-| `chummer6-ui` | `<sha>` | `<version>` | `<paths>` | `<workflow/path>` | `pending` |
-| `chummer6-mobile` | `<sha>` | `<version>` | `<paths>` | `<workflow/path>` | `pending` |
+| Repo | Package Version | Removed/Guarded Paths | Guard Location | Status |
+| --- | --- | --- | --- | --- |
+| `chummer6-ui` | `0.1.0-preview` | `Chummer.Presentation`, `Chummer.Blazor`, `Chummer.Avalonia`, `Chummer.Tests` are scanned for repo-local shared primitive drift | `chummer6-ui/scripts/ai/verify.sh` | `done` |
+| `chummer6-mobile` | `0.1.0-preview` | `src/` is scanned for repo-local shared primitive drift while package references stay mandatory | `chummer6-mobile/scripts/ai/verify.sh` | `done` |
 
 ## Scope note
 
-`chummer6-ui-kit` cannot directly delete files from presentation/play repos. Closure requires the evidence table above to be completed in those repos and linked back to this queue slice.
+`chummer6-ui-kit` still does not own the downstream repos, but B1 closure now rests on their executable verify paths rather than a future manual evidence pass.

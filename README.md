@@ -76,4 +76,5 @@ Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.
 
 - the boundary is clear
 - the contract is usable
-- the proof is not finished until UI and mobile consume it without source-copied drift
+- UI and mobile now prove package-only shell/state consumption through repo-local verification guards
+- release signoff for the active shared boundary is explicit in `docs/SHARED_SURFACE_SIGNOFF.md`
