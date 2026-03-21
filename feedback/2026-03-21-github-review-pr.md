@@ -1,8 +1,8 @@
 # GitHub Codex Review
 
-PR: https://github.com/ArchonMegalon/chummer6-ui-kit/pull/3
+PR: https://github.com/ArchonMegalon/chummer6-ui-kit/pull/4
 
 Findings:
-- [high] src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs [contracts] avalonia-rootclass-contract-break
-Compared to `main`, `AdaptShellChrome` changed payload root class from `ShellRoot` to `chummer-shell` and `AdaptAccessibilityState` changed from `AccessibilityState` to `chummer-accessibility`.; The updated tests now enforce the new root classes, but only add legacy aliases in `attributes["classes"]`; consumers binding to `UiAdapterPayload.RootClass` (templates/selectors) will still break.; This is a payload contract drift with likely downstream UI/rendering impact and no explicit compatibility migration evidence in this repo.
-Expected fix: Restore legacy Avalonia `RootClass` values for compatibility, or provide an explicit non-breaking bridge plus documented/versioned migration (and tests proving both legacy and new selector paths remain valid).
+- [high] src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs [correctness] a11y-dense-header-aria-sort-on-unsortable
+Blazor dense header always derives `aria-sort` from `SortDirection` and always emits `chummer-dense-sort-{direction}` even when `data-sortable=false` (lines 10-25), so unsortable headers can still present sorted state.; Avalonia dense header always emits `DenseSort{direction}` and `sort-direction` regardless of `sortable` (lines 10-18), so non-sortable headers can still carry sort affordance classes/state.; Tests cover sortable-desc and unsortable-none (Program.cs lines 189-223), but there is no deterministic test for unsortable headers with non-None direction to prevent this regression.
+Expected fix: Normalize unsortable headers to neutral semantics (no sorted ARIA state/affordance when `Sortable=false`, or coerce output direction to none), and add explicit Blazor+Avalonia tests for unsortable + Asc/Desc inputs.
