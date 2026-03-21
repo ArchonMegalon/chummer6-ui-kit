@@ -115,6 +115,110 @@ public sealed class AccessibilityState
     public string? DescribedBy { get; }
 }
 
+public enum DenseSortDirection
+{
+    None,
+    Asc,
+    Desc
+}
+
+public enum DenseRowEmphasis
+{
+    Normal,
+    Muted,
+    Highlighted,
+    Critical
+}
+
+public enum ExplainChipTone
+{
+    Neutral,
+    Info,
+    Success,
+    Warning,
+    Error
+}
+
+public sealed record DenseTableHeader
+{
+    public DenseTableHeader(string key, string label, bool sortable = false, DenseSortDirection sortDirection = DenseSortDirection.None)
+    {
+        Key = string.IsNullOrWhiteSpace(key) ? throw new ArgumentException("Key is required.", nameof(key)) : key.Trim();
+        Label = string.IsNullOrWhiteSpace(label) ? throw new ArgumentException("Label is required.", nameof(label)) : label.Trim();
+        Sortable = sortable;
+        SortDirection = sortDirection;
+    }
+
+    public string Key { get; }
+    public string Label { get; }
+    public bool Sortable { get; }
+    public DenseSortDirection SortDirection { get; }
+}
+
+public sealed record DenseRowMetadata
+{
+    public DenseRowMetadata(string rowId, DenseRowEmphasis emphasis = DenseRowEmphasis.Normal, bool selected = false, bool explainAffinity = false)
+    {
+        RowId = string.IsNullOrWhiteSpace(rowId) ? throw new ArgumentException("Row id is required.", nameof(rowId)) : rowId.Trim();
+        Emphasis = emphasis;
+        Selected = selected;
+        ExplainAffinity = explainAffinity;
+    }
+
+    public string RowId { get; }
+    public DenseRowEmphasis Emphasis { get; }
+    public bool Selected { get; }
+    public bool ExplainAffinity { get; }
+}
+
+public sealed record ExplainChip
+{
+    public ExplainChip(string label, ExplainChipTone tone = ExplainChipTone.Neutral, bool active = false, string? hint = null)
+    {
+        Label = string.IsNullOrWhiteSpace(label) ? throw new ArgumentException("Label is required.", nameof(label)) : label.Trim();
+        Tone = tone;
+        Active = active;
+        Hint = string.IsNullOrWhiteSpace(hint) ? null : hint.Trim();
+    }
+
+    public string Label { get; }
+    public ExplainChipTone Tone { get; }
+    public bool Active { get; }
+    public string? Hint { get; }
+}
+
+public sealed record SpiderStatusCard
+{
+    public SpiderStatusCard(string title, string status, string summary, bool stale = false)
+    {
+        Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
+        Status = string.IsNullOrWhiteSpace(status) ? throw new ArgumentException("Status is required.", nameof(status)) : status.Trim();
+        Summary = string.IsNullOrWhiteSpace(summary) ? throw new ArgumentException("Summary is required.", nameof(summary)) : summary.Trim();
+        Stale = stale;
+    }
+
+    public string Title { get; }
+    public string Status { get; }
+    public string Summary { get; }
+    public bool Stale { get; }
+}
+
+public sealed record ArtifactStatusCard
+{
+    public ArtifactStatusCard(string title, string artifactType, string status, bool available = true)
+    {
+        Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
+        ArtifactType = string.IsNullOrWhiteSpace(artifactType) ? throw new ArgumentException("Artifact type is required.", nameof(artifactType)) : artifactType.Trim();
+        Status = string.IsNullOrWhiteSpace(status) ? throw new ArgumentException("Status is required.", nameof(status)) : status.Trim();
+        Available = available;
+    }
+
+    public string Title { get; }
+    public string ArtifactType { get; }
+    public string Status { get; }
+    public bool Available { get; }
+}
+
 public sealed class UiAdapterPayload
 {
     public UiAdapterPayload(string rootClass, IReadOnlyDictionary<string, string> attributes)

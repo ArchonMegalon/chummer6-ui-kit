@@ -39,7 +39,10 @@ public sealed class PreviewGalleryManifest
                 ["stale_state_badge"] = "Stale-state badge primitive and adapter mappings.",
                 ["approval_chip"] = "Approval chip primitive and adapter mappings.",
                 ["offline_banner"] = "Offline banner primitive and adapter mappings.",
-                ["accessibility_state"] = "Accessibility state primitive and adapter mappings."
+                ["accessibility_state"] = "Accessibility state primitive and adapter mappings.",
+                ["dense_data"] = "Dense-data headers and row metadata adapter mappings.",
+                ["explain_patterns"] = "Explain-chip pattern payloads for reusable explain affordances.",
+                ["chummer_cards"] = "Spider and artifact status card pattern payload mappings."
             });
     }
 }

@@ -5,6 +5,88 @@ namespace Chummer.Ui.Kit.Avalonia.Adapters;
 
 public static class AvaloniaUiKitAdapter
 {
+    public static UiAdapterPayload AdaptDenseTableHeader(DenseTableHeader header)
+    {
+        var direction = header.SortDirection.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-header",
+            ["classes"] = $"DenseHeader{(header.Sortable ? " DenseHeaderSortable" : string.Empty)} DenseSort{direction}",
+            ["key"] = header.Key,
+            ["label"] = header.Label,
+            ["sortable"] = header.Sortable.ToString().ToLowerInvariant(),
+            ["sort-direction"] = direction
+        };
+
+        return new UiAdapterPayload("DenseHeader", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptDenseRowMetadata(DenseRowMetadata row)
+    {
+        var emphasis = row.Emphasis.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-row",
+            ["classes"] = $"DenseRow DenseRow{emphasis}{(row.Selected ? " DenseRowSelected" : string.Empty)}{(row.ExplainAffinity ? " DenseRowExplain" : string.Empty)}",
+            ["row-id"] = row.RowId,
+            ["emphasis"] = emphasis,
+            ["selected"] = row.Selected.ToString().ToLowerInvariant(),
+            ["explain-affinity"] = row.ExplainAffinity.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("DenseRow", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptExplainChip(ExplainChip chip)
+    {
+        var tone = chip.Tone.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "explain-chip",
+            ["classes"] = $"ExplainChip ExplainChip{tone}{(chip.Active ? " ExplainChipActive" : string.Empty)}",
+            ["label"] = chip.Label,
+            ["tone"] = tone,
+            ["active"] = chip.Active.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(chip.Hint))
+        {
+            attrs["hint"] = chip.Hint;
+        }
+
+        return new UiAdapterPayload("ExplainChip", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptSpiderStatusCard(SpiderStatusCard card)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "spider-card",
+            ["classes"] = $"SpiderStatusCard{(card.Stale ? " SpiderStatusCardStale" : string.Empty)}",
+            ["title"] = card.Title,
+            ["status"] = card.Status,
+            ["summary"] = card.Summary,
+            ["stale"] = card.Stale.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("SpiderStatusCard", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptArtifactStatusCard(ArtifactStatusCard card)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "artifact-card",
+            ["classes"] = $"ArtifactStatusCard{(card.Available ? " ArtifactStatusCardAvailable" : " ArtifactStatusCardUnavailable")}",
+            ["title"] = card.Title,
+            ["artifact-type"] = card.ArtifactType,
+            ["status"] = card.Status,
+            ["available"] = card.Available.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("ArtifactStatusCard", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
     public static UiAdapterPayload AdaptShellChrome(ShellChrome chrome)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
