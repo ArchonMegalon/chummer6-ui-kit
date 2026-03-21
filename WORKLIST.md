@@ -51,6 +51,11 @@ Slice publication evidence (2026-03-13):
 - [x] Milestone mapping and acceptance criteria are present for token, shell chrome, and accessibility boundary scope.
 - [x] Queue prompt requirement for "publish or append runnable backlog" is satisfied without duplicating completed slices.
 
+System re-entry evidence update (2026-03-21):
+- [x] Revalidated queue title `Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..` against this section.
+- [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria for this B1 slice are already present and remain the active closure artifact.
+- [x] No duplicate backlog rows were added for this slice during re-entry.
+
 Implementation evidence update (2026-03-21):
 - [x] Deterministic payload contract tests for both adapters are present in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`AdapterDefaultsStayAlignedWithTokenCanon`, `BlazorAndAvaloniaPayloadsStayDeterministic`) and cover B1 shell/accessibility payload key and role stability.
 
