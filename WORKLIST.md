@@ -3,6 +3,7 @@
 - [done] Publish migration evidence that `chummer6-ui` and `chummer6-mobile` consume `Chummer.Ui.Kit` primitives through package references only for the live shared primitives.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
+- [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
@@ -42,13 +43,16 @@ Milestone mapping:
 
 Acceptance criteria:
 - [x] Token, shell chrome, and accessibility primitives are package-only and consume no domain DTOs, HTTP clients, storage logic, or service orchestration.
-- [ ] Blazor and Avalonia adapters expose deterministic payload keys/roles for B1 primitives.
+- [x] Blazor and Avalonia adapters expose deterministic payload keys/roles for B1 primitives.
 - [x] Presentation and play provide package-adoption proof and guard checks preventing source-copy regressions.
 
 Slice publication evidence (2026-03-13):
 - [x] Runnable B1 backlog is explicitly published in this file under `Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)`.
 - [x] Milestone mapping and acceptance criteria are present for token, shell chrome, and accessibility boundary scope.
 - [x] Queue prompt requirement for "publish or append runnable backlog" is satisfied without duplicating completed slices.
+
+Implementation evidence update (2026-03-21):
+- [x] Deterministic payload contract tests for both adapters are present in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`AdapterDefaultsStayAlignedWithTokenCanon`, `BlazorAndAvaloniaPayloadsStayDeterministic`) and cover B1 shell/accessibility payload key and role stability.
 
 ## Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)
 
