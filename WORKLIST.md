@@ -63,7 +63,7 @@ Implementation evidence update (2026-03-21):
 - [x] Deterministic payload contract tests for both adapters are present in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`AdapterDefaultsStayAlignedWithTokenCanon`, `BlazorAndAvaloniaPayloadsStayDeterministic`) and cover B1 shell/accessibility payload key and role stability.
 - [x] Expanded `docs/b1-package-consumption-checklist.md` to cover token/theme/component duplicate-removal scans and CI guard patterns in addition to B1 primitives.
 - [x] Added `docs/package-only-migration-evidence.md` with required downstream evidence blocks for `chummer6-ui` and `chummer6-mobile`.
-- [ ] Await downstream commit-level evidence from `chummer6-ui` and `chummer6-mobile` to fully close cross-repo migration execution.
+- [x] Added downstream commit-level evidence from `chummer6-ui` and `chummer6-mobile` in `docs/package-only-migration-evidence.md` (package refs, guard wiring, and verify run references) to close cross-repo migration execution.
 
 ## Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)
 
