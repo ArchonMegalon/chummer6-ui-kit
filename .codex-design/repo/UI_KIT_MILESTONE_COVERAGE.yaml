@@ -27,7 +27,7 @@ rollup:
     complete: 1
     in_progress: 6
     open: 3
-  weighted_completion_percent: 46
+  weighted_completion_percent: 47
   eta_coverage_percent: 100
   milestones_missing_eta: []
   completion_truth_partial: false
@@ -114,12 +114,12 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 25
+    percent_complete: 30
     eta: 2026-04-02
     eta_confidence: low
     completion_basis:
-      evidence_count: 4
-      remaining_queue_work_count: 6
+      evidence_count: 5
+      remaining_queue_work_count: 5
     blockers:
       - "Dense-data primitives and adapter payload implementations are not merged yet."
       - "Downstream presentation/play migration evidence is not attached."
@@ -128,12 +128,12 @@ milestones:
       - "Queue slice now maps dense-data extraction into explicit runnable backlog."
       - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
       - "Runnable backlog is published with acceptance criteria."
+      - "2026-03-21 re-entry appended command-level U4/U5 execution backlog and published downstream adoption template `docs/u4-u5-centralization-adoption-evidence.md`."
     remaining_queue_work:
       - "Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense row metadata, and explain-affinity row state without domain DTO dependencies."
       - "Implement adapter payload methods in Blazor and Avalonia adapters for each new dense-data primitive with deterministic attribute keys."
       - "Register dense-data previews in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`."
       - "Add contract-style tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` asserting deterministic adapter output for all dense-data primitives."
-      - "Publish downstream adoption checklist for `chummer-presentation` and `chummer-play` to replace local/source-copied dense table primitives with `Chummer.Ui.Kit` package usage."
       - "Acceptance criteria: no provider SDK/client logic introduced; primitives remain package-only and adapter-only."
 
   - id: U5
@@ -141,12 +141,12 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 30
+    percent_complete: 35
     eta: 2026-04-09
     eta_confidence: low
     completion_basis:
-      evidence_count: 5
-      remaining_queue_work_count: 6
+      evidence_count: 6
+      remaining_queue_work_count: 5
     blockers:
       - "Explain/card primitives and adapter payload mappings are still incomplete."
       - "Downstream migration proof for local pattern deletion remains open."
@@ -156,12 +156,12 @@ milestones:
       - "Queue slice now maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
       - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
       - "Runnable backlog is published with acceptance criteria."
+      - "2026-03-21 re-entry appended command-level U4/U5 execution backlog and published downstream adoption template `docs/u4-u5-centralization-adoption-evidence.md`."
     remaining_queue_work:
       - "Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only fields."
       - "Implement Blazor/Avalonia adapter payload methods for these patterns with stable role/class/attribute mappings."
       - "Expand preview manifest coverage in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for explain and Chummer-specific pattern previews."
       - "Add deterministic tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` that validate explain chip, stale badge, approval chip, and card payload contracts."
-      - "Publish migration checklist for app repos to delete local pattern copies once package primitives land."
       - "Acceptance criteria: reusable patterns are app-agnostic, contain no domain/service logic, and preserve accessibility attributes."
 
   - id: U6

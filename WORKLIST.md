@@ -67,6 +67,17 @@ Runnable backlog:
 - [ ] `presentation` + `play`: Add guard checks that fail CI if local/source-copied dense-data or explain/state pattern components reappear.
 - [ ] `presentation` + `play`: Record adoption evidence (paths + commits) and attach it to this queue slice to close auditor finding `487871/487874`.
 
+### Runnable execution backlog (U4/U5, command-level)
+
+- [ ] `ui-kit`: Add the new U4/U5 primitives to `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` and keep all inputs UI-only (`rg -n "record (Dense|Explain|Spider|Artifact)" src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` must show the new records).
+- [ ] `ui-kit`: Implement deterministic projection methods in both adapters (`rg -n "Adapt(Dense|Explain|Spider|Artifact)" src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs` must return non-empty matches for each new primitive).
+- [ ] `ui-kit`: Register `dense_data`, `explain_patterns`, and `chummer_cards` previews in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` and verify with `dotnet test tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj --filter PreviewGallery`.
+- [ ] `ui-kit`: Add deterministic contract checks for both adapters in `tests/Chummer.Ui.Kit.Tests/Program.cs` and verify with `dotnet test tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj --filter Deterministic`.
+- [ ] `presentation`: Run `rg -n "ExplainChip|StatusCard|Dense(Row|Table)|StaleStateBadge|ApprovalChip" src` and replace local copies/usages with `Chummer.Ui.Kit` package primitives where found.
+- [ ] `play`: Run `rg -n "ExplainChip|StatusCard|Dense(Row|Table)|StaleStateBadge|ApprovalChip" src` and replace local copies/usages with `Chummer.Ui.Kit` package primitives where found.
+- [ ] `presentation` + `play`: Add/keep CI guard checks that fail when repo-local copies of U4/U5 patterns reappear.
+- [ ] `presentation` + `play`: Fill `docs/u4-u5-centralization-adoption-evidence.md` with package version, replacement paths, local-copy deletion commits, and guard-check links.
+
 Acceptance criteria:
 - [ ] No domain DTOs, provider SDKs, HTTP clients, or external-tool business logic are introduced.
 - [ ] New primitives are package-only, adapter-only, deterministic, and reusable across presentation and play.
@@ -76,6 +87,10 @@ Slice publication evidence (2026-03-13):
 - [x] Runnable U4/U5 backlog is explicitly published in this file under `Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)`.
 - [x] Milestone mapping and acceptance criteria are present for dense-data and Chummer-specific reusable pattern scope.
 - [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
+
+Implementation evidence update (2026-03-21):
+- [x] Added explicit command-level U4/U5 runnable execution backlog in this section to make implementation probes and verification commands concrete.
+- [x] Published downstream adoption evidence template in `docs/u4-u5-centralization-adoption-evidence.md` for presentation/play package migration proof and guard-check linkage.
 
 ## Queue Slice: Adapter extraction for shell/state chrome (Blazor + Avalonia)
 
