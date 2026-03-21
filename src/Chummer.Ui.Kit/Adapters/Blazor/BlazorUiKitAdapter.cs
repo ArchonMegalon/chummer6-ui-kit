@@ -8,6 +8,12 @@ public static class BlazorUiKitAdapter
     public static UiAdapterPayload AdaptDenseTableHeader(DenseTableHeader header)
     {
         var direction = header.SortDirection.ToString().ToLowerInvariant();
+        var ariaSort = header.SortDirection switch
+        {
+            DenseSortDirection.Asc => "ascending",
+            DenseSortDirection.Desc => "descending",
+            _ => "none"
+        };
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["role"] = "columnheader",
@@ -15,6 +21,7 @@ public static class BlazorUiKitAdapter
             ["data-label"] = header.Label,
             ["data-sortable"] = header.Sortable.ToString().ToLowerInvariant(),
             ["data-sort-direction"] = direction,
+            ["aria-sort"] = ariaSort,
             ["class"] = $"chummer-dense-header{(header.Sortable ? " chummer-dense-header-sortable" : string.Empty)} chummer-dense-sort-{direction}"
         };
 

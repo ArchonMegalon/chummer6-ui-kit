@@ -187,6 +187,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var offline = new OfflineBanner("Runtime Relay", isOffline: true);
     var accessibility = new AccessibilityState("assertive", busy: true, disabled: false, label: "Loading panel", describedBy: "panel-help");
     var denseHeader = new DenseTableHeader("initiative", "Initiative", sortable: true, sortDirection: DenseSortDirection.Desc);
+    var denseHeaderDefault = new DenseTableHeader("name", "Name");
     var denseRow = new DenseRowMetadata("row-17", DenseRowEmphasis.Highlighted, selected: true, explainAffinity: true);
     var explainChip = new ExplainChip("Explain armor stack", ExplainChipTone.Info, active: true, hint: "Includes temporary modifiers");
     var spiderCard = new SpiderStatusCard("Spider Relay", "Pending Approval", "Awaiting reviewer action", stale: true);
@@ -202,9 +203,24 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["data-label"] = "Initiative",
             ["data-sortable"] = "true",
             ["data-sort-direction"] = "desc",
+            ["aria-sort"] = "descending",
             ["class"] = "chummer-dense-header chummer-dense-header-sortable chummer-dense-sort-desc"
         },
         "blazor dense-header payload");
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeaderDefault),
+        "chummer-dense-header",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "columnheader",
+            ["data-key"] = "name",
+            ["data-label"] = "Name",
+            ["data-sortable"] = "false",
+            ["data-sort-direction"] = "none",
+            ["aria-sort"] = "none",
+            ["class"] = "chummer-dense-header chummer-dense-sort-none"
+        },
+        "blazor dense-header default payload");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptDenseTableHeader(denseHeader),
         "DenseHeader",
