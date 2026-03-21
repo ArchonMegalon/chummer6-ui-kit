@@ -1,0 +1,61 @@
+{
+  "accepted_on_round": "1",
+  "allow_credit_burn": false,
+  "allow_paid_fast_lane": false,
+  "blocking_issue_counts": [
+    1
+  ],
+  "core_rescue_reason": null,
+  "diff_added": 132,
+  "diff_removed": 5,
+  "files_touched": 6,
+  "groundwork_workers_used": [
+    "acct-ea-groundwork"
+  ],
+  "implementation_workers_used": [
+    "acct-chatgpt-archon",
+    "acct-ea-groundwork"
+  ],
+  "issue_fingerprints": [
+    "avalonia-rootclass-contract-break"
+  ],
+  "jury_verdicts": [
+    "accept",
+    "rework",
+    "accept"
+  ],
+  "landed_at": "2026-03-21T21:44:17Z",
+  "landed_sha": "",
+  "landing_commit_ref": "self",
+  "landing_lane": "core",
+  "lane_sequence": [
+    "core",
+    "groundwork",
+    "core"
+  ],
+  "needs_core_rescue": false,
+  "project_id": "ui-kit",
+  "repeat_issue_count": 0,
+  "review_rounds_used": 1,
+  "schema_version": 1,
+  "shadow_phase": [],
+  "shadow_worker_used": false,
+  "slice_id": "title-publish-or-append-runnable-backlog-for-dense-data-state-badges-explain-chips-and-chummer-specific-reusable-patterns-are-still-implicit-in-app-repos-instead-of-centralized-here..-difficulty-auto-risk_level-auto",
+  "timing_ms": {
+    "core_total": 0,
+    "groundwork_total": 0,
+    "jury_total": 322000,
+    "lead_time_total": 1261264,
+    "queue_wait_total": 939264,
+    "shadow_groundwork_total": 0
+  },
+  "title": "title: Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here.. | difficulty: auto | risk_level: auto",
+  "usage_estimates": {
+    "core_runs": 3,
+    "groundwork_runs": 1,
+    "jury_reviews": 0
+  },
+  "verify_passed": true,
+  "worker_topology": {},
+  "workflow_kind": "default"
+}
