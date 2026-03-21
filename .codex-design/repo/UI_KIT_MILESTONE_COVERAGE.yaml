@@ -1,7 +1,7 @@
 repo: chummer-ui-kit
-last_reviewed: 2026-03-13
+last_reviewed: 2026-03-21
 truth_model: explicit_u_spine
-as_of: 2026-03-13
+as_of: 2026-03-21
 notes:
   - "ETA dates are planning targets, not guarantees."
   - "Completion is tracked per milestone as percent_complete with evidence and remaining queue count."
@@ -27,7 +27,7 @@ rollup:
     complete: 1
     in_progress: 6
     open: 3
-  weighted_completion_percent: 44
+  weighted_completion_percent: 46
   eta_coverage_percent: 100
   milestones_missing_eta: []
   completion_truth_partial: false
@@ -189,15 +189,14 @@ milestones:
     title: Visual regression and catalog
     maps_to_program:
       - F0
-    status: open
-    percent_complete: 15
-    eta: 2026-04-18
-    eta_confidence: low
+    status: in_progress
+    percent_complete: 85
+    eta: 2026-03-28
+    eta_confidence: medium
     completion_basis:
-      evidence_count: 5
-      remaining_queue_work_count: 6
+      evidence_count: 9
+      remaining_queue_work_count: 1
     blockers:
-      - "Catalog surface and deterministic regression fixtures are still pending implementation."
       - "Cross-repo catalog adoption evidence remains open."
     evidence:
       - "Requirement is recognized in feedback and queue overlay."
@@ -205,41 +204,39 @@ milestones:
       - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
       - "2026-03-13 re-entry confirmed runnable U7 backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
       - "Milestone closure gates are explicitly listed as runnable backlog items."
+      - "Preview catalog manifest exists in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` and enumerates package-owned shared primitives."
+      - "Deterministic regression fixtures/assertions are implemented in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`)."
+      - "2026-03-21 re-entry marked ui-kit U7 implementation items complete in `WORKLIST.md`; only downstream adoption evidence remains."
+      - "2026-03-21 re-entry added `docs/u7-u8-release-adoption-evidence.md` with downstream catalog-adoption evidence fields for `chummer6-ui` and `chummer6-mobile`."
     remaining_queue_work:
-      - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
-      - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
-      - "Add regression assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` that fail on payload shape/key drift for catalog-covered components."
-      - "Add CI-targetable verify entrypoint wiring in `scripts/ai/verify.sh` scope so catalog + regression checks run in one standard command."
-      - "Publish downstream adoption instructions for presentation/play to consume catalog outputs rather than maintaining local preview copies."
-      - "Acceptance criteria: catalog is package-owned, regression checks are deterministic, and no external-tool/provider logic is introduced."
+      - "Collect downstream adoption evidence from presentation/play proving package-consumed catalog surface and no repo-local preview copy drift."
 
   - id: U8
     title: Release discipline
     maps_to_program:
       - F0
       - F3
-    status: open
-    percent_complete: 15
-    eta: 2026-04-25
-    eta_confidence: low
+    status: in_progress
+    percent_complete: 85
+    eta: 2026-03-31
+    eta_confidence: medium
     completion_basis:
-      evidence_count: 4
-      remaining_queue_work_count: 6
+      evidence_count: 9
+      remaining_queue_work_count: 1
     blockers:
-      - "Release-gate implementation and package validation checks are not complete."
       - "U8 closure requires stable U7 regression baseline and downstream adoption evidence."
     evidence:
       - "Auditor findings 487872/487875 are mapped to U7/U8 executable queue work in WORKLIST.md."
       - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
       - "2026-03-13 re-entry confirmed runnable U8 backlog publication in WORKLIST.md with release gates and closure evidence."
       - "Milestone closure gates are explicitly listed as runnable backlog items."
+      - "README now contains explicit U8 release gates for SemVer, changelog, `dotnet pack`, verify command, and downstream evidence."
+      - "`scripts/ai/verify.sh` already enforces build, pack, and deterministic test execution."
+      - "2026-03-21 re-entry marked U8 release-discipline ui-kit checklist as implemented in `WORKLIST.md`."
+      - "2026-03-21 re-entry added explicit downstream evidence fields in `docs/u7-u8-release-adoption-evidence.md` (package version, local-copy deletions, guard checks, catalog adoption paths)."
+      - "2026-03-21 re-entry linked U8 closure to verified U7 baseline stability in `docs/u7-u8-release-adoption-evidence.md` and `WORKLIST.md`."
     remaining_queue_work:
-      - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
-      - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
-      - "Add release gate tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` for token/primitive contract continuity expectations tied to major/minor bump behavior."
-      - "Document required adoption evidence fields for presentation/play (package version consumed, removed local copies, guard checks added)."
-      - "Add queue closure criteria linking U8 completion to verified U7 regression baseline stability."
-      - "Acceptance criteria: releases are reproducible, contract drift is detectable pre-publish, and package-only boundary evidence is attached per release."
+      - "Collect completed downstream adoption evidence blocks for both `chummer6-ui` and `chummer6-mobile` using `docs/u7-u8-release-adoption-evidence.md`."
 
   - id: U9
     title: Finished design system

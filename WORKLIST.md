@@ -112,21 +112,28 @@ Milestone mapping:
 - [x] `U8 Release discipline` -> explicit release gates for versioning, changelog, packaging, verification, and downstream adoption evidence.
 
 Runnable backlog:
-- [ ] `ui-kit`: Add catalog coverage inventory in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for all package primitives/patterns used as shared boundary surface.
-- [ ] `ui-kit`: Add deterministic visual regression fixture inputs in `tests/Chummer.Ui.Kit.Tests/Program.cs` for Blazor and Avalonia payload projections.
-- [ ] `ui-kit`: Add regression assertions that fail on payload key/shape drift for catalog-covered components.
+- [x] `ui-kit`: Add catalog coverage inventory in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for all package primitives/patterns used as shared boundary surface.
+- [x] `ui-kit`: Add deterministic visual regression fixture inputs in `tests/Chummer.Ui.Kit.Tests/Program.cs` for Blazor and Avalonia payload projections.
+- [x] `ui-kit`: Add regression assertions that fail on payload key/shape drift for catalog-covered components.
 - [x] `ui-kit`: Extend `scripts/ai/verify.sh` invocation path only if needed so catalog + regression checks run in the standard verification command.
 - [x] `ui-kit`: Add a release-discipline section in `README.md` with SemVer bump rules, changelog requirement, `dotnet pack` validation, and required verify command.
-- [x] `ui-kit`: Add release evidence template in docs/worklist notes for package version, contract impact, and downstream adoption proof.
+- [x] `ui-kit`: Add release evidence template in `docs/u7-u8-release-adoption-evidence.md` for package version, contract impact, downstream adoption proof, and U7 baseline stability linkage.
 - [ ] `presentation` + `play`: Consume published package version and record deletion of source-copied UI primitives that the release replaces.
 - [ ] `presentation` + `play`: Add/keep guard checks preventing reintroduction of repo-local copies for catalog-covered primitives.
 
 Acceptance criteria:
-- [ ] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
-- [ ] Visual regression checks are deterministic and run from the repo-standard verification command.
-- [ ] Release checklist is explicit, repeatable, and requires package/adoption evidence before closure.
+- [x] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
+- [x] Visual regression checks are deterministic and run from the repo-standard verification command.
+- [x] Release checklist is explicit, repeatable, and requires package/adoption evidence before closure.
+- [x] Queue closure criteria explicitly ties `U8` completion to a verified `U7` baseline in `docs/u7-u8-release-adoption-evidence.md`.
 
 Slice closure evidence (2026-03-13):
 - [x] Runnable U7/U8 backlog is explicitly published in this file under `Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)`.
 - [x] Milestone mapping and acceptance criteria are present for catalog, visual-regression, and release-discipline scope.
 - [x] Auditor findings `487872/487875` are explicitly mapped to this queue slice for executable follow-through.
+
+Implementation evidence update (2026-03-21):
+- [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
+- [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
+- [x] `scripts/ai/verify.sh` already runs the test project in the standard verification path, so catalog/regression checks execute on every verify run.
+- [x] `docs/u7-u8-release-adoption-evidence.md` now defines required downstream evidence fields (package version consumed, local-copy deletion proof, guard checks, catalog adoption paths) and U8 closure linkage to a verified U7 baseline.
