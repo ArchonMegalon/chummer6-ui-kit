@@ -17,7 +17,7 @@ public static class AvaloniaUiKitAdapter
             ["compact"] = chrome.Compact.ToString().ToLowerInvariant()
         };
 
-        return new UiAdapterPayload("chummer-shell", new ReadOnlyDictionary<string, string>(attrs));
+        return new UiAdapterPayload("ShellRoot", new ReadOnlyDictionary<string, string>(attrs));
     }
 
     public static UiAdapterPayload AdaptBanner(Banner banner)
@@ -105,6 +105,6 @@ public static class AvaloniaUiKitAdapter
             attrs["described-by"] = state.DescribedBy;
         }
 
-        return new UiAdapterPayload("chummer-accessibility", new ReadOnlyDictionary<string, string>(attrs));
+        return new UiAdapterPayload("AccessibilityState", new ReadOnlyDictionary<string, string>(attrs));
     }
 }
