@@ -4,6 +4,7 @@
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
 - [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
+- [done] Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives that were not yet modeled as a package-only boundary consumed by presentation and play.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
@@ -55,6 +56,7 @@ System re-entry evidence update (2026-03-21):
 - [x] Revalidated queue title `Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..` against this section.
 - [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria for this B1 slice are already present and remain the active closure artifact.
 - [x] No duplicate backlog rows were added for this slice during re-entry.
+- [x] Revalidated queue title `Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..` against this section and confirmed closure evidence is already captured by the B1 milestone mapping and runnable execution backlog.
 
 Implementation evidence update (2026-03-21):
 - [x] Deterministic payload contract tests for both adapters are present in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`AdapterDefaultsStayAlignedWithTokenCanon`, `BlazorAndAvaloniaPayloadsStayDeterministic`) and cover B1 shell/accessibility payload key and role stability.
