@@ -1,28 +1,29 @@
-# B1 Package Consumption Checklist
+# Package-Only Consumption Checklist (Presentation + Play)
 
-This checklist closes the `ui-kit` side of the B1 queue item and provides executable proof requirements for `chummer6-ui` (presentation) and `chummer6-mobile` (play).
+This checklist closes the `ui-kit` side of the package-only migration slice and provides executable proof requirements for `chummer6-ui` (presentation) and `chummer6-mobile` (play).
 
 ## Goal
 
-Confirm presentation and play consume `Chummer.Ui.Kit` as a package-only dependency for B1 primitives and have removed local source copies.
+Confirm presentation and play consume `Chummer.Ui.Kit` as a package-only dependency for shared tokens, themes, and components, and have removed local source copies.
 
-## Required primitives (must come from package)
+## Required shared surfaces (must come from package)
 
-- `ShellChrome`
-- `AccessibilityState`
-- `BlazorUiKitAdapter.AdaptShellChrome`
-- `BlazorUiKitAdapter.AdaptAccessibilityState`
-- `AvaloniaUiKitAdapter.AdaptShellChrome`
-- `AvaloniaUiKitAdapter.AdaptAccessibilityState`
+- Token canon via `TokenCanon` (no repo-local duplicated token classes/files).
+- Theme compilation via `ThemeDefinition` + `ThemeCompiler` (no repo-local duplicated theme compiler/definition classes/files).
+- Shared components/primitives exposed by ui-kit adapters and records (for example `ShellChrome`, `Banner`, `StaleStateBadge`, `ApprovalChip`, `OfflineBanner`, `AccessibilityState`, dense-data and explain/card primitives).
 
 ## Repo execution checklist
 
 1. Update project/package references to consume published `Chummer.Ui.Kit` package version.
-2. Remove local/shared source copies of shell/accessibility primitives and adapter equivalents.
-3. Run duplicate scan:
-   - `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src`
-4. Add CI guard to fail on reintroduced local copies:
-   - `rg -n "class .*Shell|class .*Accessibility|AdaptShellChrome|AdaptAccessibilityState" src && exit 1 || exit 0`
+2. Remove local/shared source copies of token/theme/component equivalents.
+3. Run duplicate scans:
+   - Token/theme duplicates:
+     - `rg -n "class .*Token|class .*Theme|TokenCanon|ThemeCompiler|ThemeDefinition" src`
+   - Component/adapter duplicates:
+     - `rg -n "class .*Shell|class .*Accessibility|class .*Banner|class .*Badge|class .*Chip|class .*Dense|class .*Card|AdaptShellChrome|AdaptAccessibilityState|AdaptBanner|AdaptStaleStateBadge|AdaptApprovalChip|AdaptOfflineBanner|AdaptDense|AdaptExplain|AdaptSpider|AdaptArtifact" src`
+4. Add CI guards to fail on reintroduced local copies:
+   - `rg -n "class .*Token|class .*Theme|TokenCanon|ThemeCompiler|ThemeDefinition" src && exit 1 || exit 0`
+   - `rg -n "class .*Shell|class .*Accessibility|class .*Banner|class .*Badge|class .*Chip|class .*Dense|class .*Card|AdaptShellChrome|AdaptAccessibilityState|AdaptBanner|AdaptStaleStateBadge|AdaptApprovalChip|AdaptOfflineBanner|AdaptDense|AdaptExplain|AdaptSpider|AdaptArtifact" src && exit 1 || exit 0`
 5. Record migration evidence:
    - repo name
    - commit SHA
@@ -32,13 +33,15 @@ Confirm presentation and play consume `Chummer.Ui.Kit` as a package-only depende
 
 ## Acceptance evidence
 
-Current consuming-repo proof is executable instead of narrative-only:
+Current consuming-repo proof for the B1 subset is executable instead of narrative-only:
 
 | Repo | Package Version | Removed/Guarded Paths | Guard Location | Status |
 | --- | --- | --- | --- | --- |
 | `chummer6-ui` | `0.1.0-preview` | `Chummer.Presentation`, `Chummer.Blazor`, `Chummer.Avalonia`, `Chummer.Tests` are scanned for repo-local shared primitive drift | `chummer6-ui/scripts/ai/verify.sh` | `done` |
 | `chummer6-mobile` | `0.1.0-preview` | `src/` is scanned for repo-local shared primitive drift while package references stay mandatory | `chummer6-mobile/scripts/ai/verify.sh` | `done` |
 
+Token/theme/component-wide migration evidence for the broader slice should be added in `docs/package-only-migration-evidence.md`.
+
 ## Scope note
 
-`chummer6-ui-kit` still does not own the downstream repos, but B1 closure now rests on their executable verify paths rather than a future manual evidence pass.
+`chummer6-ui-kit` still does not own the downstream repos, but package-only migration closure now rests on executable verify paths and explicit evidence blocks rather than narrative-only claims.

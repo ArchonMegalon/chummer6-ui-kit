@@ -1,6 +1,7 @@
 # Worklist
 
 - [done] Publish migration evidence that `chummer6-ui` and `chummer6-mobile` consume `Chummer.Ui.Kit` primitives through package references only for the live shared primitives.
+- [done] Publish executable migration checklist/template for presentation and play to consume `Chummer.Ui.Kit` as package-only and remove duplicate local token/theme/component copies.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
 - [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
@@ -60,6 +61,9 @@ System re-entry evidence update (2026-03-21):
 
 Implementation evidence update (2026-03-21):
 - [x] Deterministic payload contract tests for both adapters are present in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`AdapterDefaultsStayAlignedWithTokenCanon`, `BlazorAndAvaloniaPayloadsStayDeterministic`) and cover B1 shell/accessibility payload key and role stability.
+- [x] Expanded `docs/b1-package-consumption-checklist.md` to cover token/theme/component duplicate-removal scans and CI guard patterns in addition to B1 primitives.
+- [x] Added `docs/package-only-migration-evidence.md` with required downstream evidence blocks for `chummer6-ui` and `chummer6-mobile`.
+- [ ] Await downstream commit-level evidence from `chummer6-ui` and `chummer6-mobile` to fully close cross-repo migration execution.
 
 ## Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)
 
