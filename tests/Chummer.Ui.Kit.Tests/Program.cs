@@ -188,6 +188,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var accessibility = new AccessibilityState("assertive", busy: true, disabled: false, label: "Loading panel", describedBy: "panel-help");
     var denseHeader = new DenseTableHeader("initiative", "Initiative", sortable: true, sortDirection: DenseSortDirection.Desc);
     var denseHeaderDefault = new DenseTableHeader("name", "Name");
+    var denseHeaderInvalidUnsortable = new DenseTableHeader("edge", "Edge", sortable: false, sortDirection: DenseSortDirection.Desc);
     var denseRow = new DenseRowMetadata("row-17", DenseRowEmphasis.Highlighted, selected: true, explainAffinity: true);
     var explainChip = new ExplainChip("Explain armor stack", ExplainChipTone.Info, active: true, hint: "Includes temporary modifiers");
     var spiderCard = new SpiderStatusCard("Spider Relay", "Pending Approval", "Awaiting reviewer action", stale: true);
@@ -222,6 +223,20 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-header default payload");
     ExpectPayload(
+        BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeaderInvalidUnsortable),
+        "chummer-dense-header",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "columnheader",
+            ["data-key"] = "edge",
+            ["data-label"] = "Edge",
+            ["data-sortable"] = "false",
+            ["data-sort-direction"] = "none",
+            ["aria-sort"] = "none",
+            ["class"] = "chummer-dense-header chummer-dense-sort-none"
+        },
+        "blazor dense-header unsortable-normalized payload");
+    ExpectPayload(
         AvaloniaUiKitAdapter.AdaptDenseTableHeader(denseHeader),
         "DenseHeader",
         new Dictionary<string, string>(StringComparer.Ordinal)
@@ -234,6 +249,19 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["sort-direction"] = "Desc"
         },
         "avalonia dense-header payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptDenseTableHeader(denseHeaderInvalidUnsortable),
+        "DenseHeader",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-header",
+            ["classes"] = "DenseHeader DenseSortNone",
+            ["key"] = "edge",
+            ["label"] = "Edge",
+            ["sortable"] = "false",
+            ["sort-direction"] = "None"
+        },
+        "avalonia dense-header unsortable-normalized payload");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptDenseRowMetadata(denseRow),

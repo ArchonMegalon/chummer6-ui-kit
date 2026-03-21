@@ -7,8 +7,9 @@ public static class BlazorUiKitAdapter
 {
     public static UiAdapterPayload AdaptDenseTableHeader(DenseTableHeader header)
     {
-        var direction = header.SortDirection.ToString().ToLowerInvariant();
-        var ariaSort = header.SortDirection switch
+        var effectiveDirection = header.Sortable ? header.SortDirection : DenseSortDirection.None;
+        var direction = effectiveDirection.ToString().ToLowerInvariant();
+        var ariaSort = effectiveDirection switch
         {
             DenseSortDirection.Asc => "ascending",
             DenseSortDirection.Desc => "descending",

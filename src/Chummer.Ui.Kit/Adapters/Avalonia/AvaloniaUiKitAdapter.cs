@@ -7,7 +7,8 @@ public static class AvaloniaUiKitAdapter
 {
     public static UiAdapterPayload AdaptDenseTableHeader(DenseTableHeader header)
     {
-        var direction = header.SortDirection.ToString();
+        var effectiveDirection = header.Sortable ? header.SortDirection : DenseSortDirection.None;
+        var direction = effectiveDirection.ToString();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "dense-header",
