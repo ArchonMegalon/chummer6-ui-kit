@@ -2,6 +2,7 @@
 
 - [done] Publish migration evidence that `chummer6-ui` and `chummer6-mobile` consume `Chummer.Ui.Kit` primitives through package references only for the live shared primitives.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
+- [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
@@ -87,6 +88,7 @@ Slice publication evidence (2026-03-13):
 - [x] Runnable U4/U5 backlog is explicitly published in this file under `Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)`.
 - [x] Milestone mapping and acceptance criteria are present for dense-data and Chummer-specific reusable pattern scope.
 - [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
+- [x] Queue prompt requirement for "add milestone mapping or executable queue work" is satisfied without duplicating already-completed U4/U5 implementation rows.
 
 Implementation evidence update (2026-03-21):
 - [x] Added explicit command-level U4/U5 runnable execution backlog in this section to make implementation probes and verification commands concrete.
