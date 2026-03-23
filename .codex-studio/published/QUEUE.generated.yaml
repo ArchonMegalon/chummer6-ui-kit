@@ -1,0 +1,10 @@
+mode: prepend
+items:
+- Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
+- Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
+- Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..
+- Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..
+- Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.
+- Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
+- Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
+- Sync the approved Chummer design bundle into `ui-kit` under `.codex-design/` and refresh repo-local review context.
