@@ -41,3 +41,40 @@ Copy and fill this block per downstream repo:
 
 1. Both downstream repos submit complete evidence blocks.
 2. The submitted package version maps to a verified `U7` baseline (green verify run, no drift).
+
+## Submitted evidence
+
+### U7/U8 downstream adoption evidence
+- Repo: `chummer6-ui`
+- Date (UTC): `2026-03-28`
+- Ui-kit package version consumed: `0.1.0-preview`
+- Package update commit: `84c56492`
+- Source-copy deletion commit: `306f5bf3`
+- Guard check proof: `cd /docker/chummercomplete/chummer6-ui && bash scripts/ai/verify.sh` enforces `rg -n '\b(class|record)\s+(TokenCanon|ThemeCompiler|ShellChrome|AccessibilityState|Banner|StaleStateBadge|ApprovalChip|OfflineBanner|DenseTableHeader|DenseRowMetadata|ExplainChip|SpiderStatusCard|ArtifactStatusCard)\b|\b(static\s+)?UiAdapterPayload\s+Adapt(ShellChrome|AccessibilityState|Banner|StaleStateBadge|ApprovalChip|OfflineBanner|DenseTableHeader|DenseRowMetadata|ExplainChip|SpiderStatusCard|ArtifactStatusCard)\s*\(' Chummer.Presentation Chummer.Blazor Chummer.Avalonia Chummer.Tests -g '*.cs'` as a fail-on-match boundary guard.
+- Catalog adoption paths:
+  - `Chummer.Presentation/UiKit/ChummerPatternBoundary.cs`
+  - `Chummer.Blazor/Components/Shared/BuildLabHandoffPanel.razor`
+  - `Chummer.Blazor/Components/Shared/RulesNavigatorPanel.razor`
+  - `Chummer.Blazor/Components/Shared/CreatorPublicationPanel.razor`
+  - `Chummer.Blazor/Components/Shared/RuntimeInspectorPanel.razor`
+  - `Chummer.Blazor/Components/Shared/GmBoardFeed.razor`
+  - `Chummer.Blazor/Components/Shared/NpcPersonaStudioPanel.razor`
+- U7 baseline stability proof:
+  - verify run: `cd /docker/chummercomplete/chummer-ui-kit && bash scripts/ai/verify.sh` rerun locally on `2026-03-28`; downstream verification also rerun with `cd /docker/chummercomplete/chummer6-ui && bash scripts/ai/verify.sh`.
+  - drift status: `none`
+
+### U7/U8 downstream adoption evidence
+- Repo: `chummer6-mobile`
+- Date (UTC): `2026-03-28`
+- Ui-kit package version consumed: `0.1.0-preview`
+- Package update commit: `f134092`
+- Source-copy deletion commit: `6b57e12`
+- Guard check proof: `cd /docker/chummercomplete/chummer6-mobile && bash scripts/ai/verify.sh` enforces `rg -n '\b(class|record)\s+(TokenCanon|ThemeCompiler|ShellChrome|AccessibilityState|Banner|StaleStateBadge|ApprovalChip|OfflineBanner|DenseTableHeader|DenseRowMetadata|ExplainChip|SpiderStatusCard|ArtifactStatusCard)\b|\b(static\s+)?UiAdapterPayload\s+Adapt(ShellChrome|AccessibilityState|Banner|StaleStateBadge|ApprovalChip|OfflineBanner|DenseTableHeader|DenseRowMetadata|ExplainChip|SpiderStatusCard|ArtifactStatusCard)\s*\(' src -g '*.cs'` as a fail-on-match boundary guard.
+- Catalog adoption paths:
+  - `Directory.Packages.props`
+  - `src/Chummer.Play.Components/Chummer.Play.Components.csproj`
+  - `scripts/ai/verify.sh`
+  - `docs/PLAY_RELEASE_SIGNOFF.md`
+- U7 baseline stability proof:
+  - verify run: `cd /docker/chummercomplete/chummer-ui-kit && bash scripts/ai/verify.sh` rerun locally on `2026-03-28`; downstream verification also rerun with `cd /docker/chummercomplete/chummer6-mobile && bash scripts/ai/verify.sh`.
+  - drift status: `none`

@@ -151,8 +151,8 @@ Runnable backlog:
 - [x] `ui-kit`: Extend `scripts/ai/verify.sh` invocation path only if needed so catalog + regression checks run in the standard verification command.
 - [x] `ui-kit`: Add a release-discipline section in `README.md` with SemVer bump rules, changelog requirement, `dotnet pack` validation, and required verify command.
 - [x] `ui-kit`: Add release evidence template in `docs/u7-u8-release-adoption-evidence.md` for package version, contract impact, downstream adoption proof, and U7 baseline stability linkage.
-- [ ] `presentation` + `play`: Consume published package version and record deletion of source-copied UI primitives that the release replaces.
-- [ ] `presentation` + `play`: Add/keep guard checks preventing reintroduction of repo-local copies for catalog-covered primitives.
+- [x] `presentation` + `play`: Consume published package version and record deletion of source-copied UI primitives that the release replaces.
+- [x] `presentation` + `play`: Add/keep guard checks preventing reintroduction of repo-local copies for catalog-covered primitives.
 
 Acceptance criteria:
 - [x] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
@@ -170,3 +170,4 @@ Implementation evidence update (2026-03-21):
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
 - [x] `scripts/ai/verify.sh` already runs the test project in the standard verification path, so catalog/regression checks execute on every verify run.
 - [x] `docs/u7-u8-release-adoption-evidence.md` now defines required downstream evidence fields (package version consumed, local-copy deletion proof, guard checks, catalog adoption paths) and U8 closure linkage to a verified U7 baseline.
+- [x] `docs/u7-u8-release-adoption-evidence.md` now contains populated downstream evidence for `chummer6-ui` (`84c56492`, `306f5bf3`) and `chummer6-mobile` (`f134092`, `6b57e12`), including package version `0.1.0-preview`, fail-on-match guard commands, and current 2026-03-28 verify references.
