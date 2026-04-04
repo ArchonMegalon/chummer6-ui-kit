@@ -25,3 +25,6 @@ dotnet build "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" --nologo
 dotnet build "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj" --nologo
 dotnet pack "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" -c Release --nologo
 dotnet run --project "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj" --no-build --nologo
+python3 "$repo_root/scripts/ai/materialize_ui_kit_release_proof.py" \
+  --repo-root "$repo_root" \
+  --out "$repo_root/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json"
