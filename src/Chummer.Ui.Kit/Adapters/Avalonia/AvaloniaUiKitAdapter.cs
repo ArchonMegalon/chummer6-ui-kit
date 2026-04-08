@@ -190,4 +190,63 @@ public static class AvaloniaUiKitAdapter
 
         return new UiAdapterPayload("AccessibilityState", new ReadOnlyDictionary<string, string>(attrs));
     }
+
+    public static UiAdapterPayload AdaptRoleTransition(RoleTransition transition)
+    {
+        var phase = transition.Phase.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "role-transition",
+            ["classes"] = $"RoleTransition RoleTransition{phase}",
+            ["from-role"] = transition.FromRole,
+            ["to-role"] = transition.ToRole,
+            ["phase"] = phase,
+            ["requires-ack"] = transition.RequiresAcknowledgement.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(transition.Detail))
+        {
+            attrs["detail"] = transition.Detail;
+        }
+
+        return new UiAdapterPayload("RoleTransition", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptProgressToast(ProgressToast toast)
+    {
+        var tone = toast.Tone.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "progress-toast",
+            ["classes"] = $"ProgressToast ProgressToast{tone}",
+            ["title"] = toast.Title,
+            ["progress-label"] = toast.ProgressLabel,
+            ["progress-percent"] = toast.ProgressPercent.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["tone"] = tone,
+            ["allow-cancel"] = toast.AllowCancel.ToString().ToLowerInvariant(),
+            ["allow-resume"] = toast.AllowResume.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("ProgressToast", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptResumeAffordance(ResumeAffordance affordance)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "resume-affordance",
+            ["classes"] = $"ResumeAffordance{(affordance.RequiresRecovery ? " ResumeAffordanceRecovery" : string.Empty)}",
+            ["title"] = affordance.Title,
+            ["checkpoint"] = affordance.CheckpointLabel,
+            ["resume-action"] = affordance.ResumeActionLabel,
+            ["requires-recovery"] = affordance.RequiresRecovery.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(affordance.Detail))
+        {
+            attrs["detail"] = affordance.Detail;
+        }
+
+        return new UiAdapterPayload("ResumeAffordance", new ReadOnlyDictionary<string, string>(attrs));
+    }
 }

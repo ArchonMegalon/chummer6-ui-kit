@@ -42,7 +42,8 @@ public sealed class PreviewGalleryManifest
                 ["accessibility_state"] = "Accessibility state primitive and adapter mappings.",
                 ["dense_data"] = "Dense-data headers and row metadata adapter mappings.",
                 ["explain_patterns"] = "Explain-chip pattern payloads for reusable explain affordances.",
-                ["chummer_cards"] = "Spider and artifact status card pattern payload mappings."
+                ["chummer_cards"] = "Spider and artifact status card pattern payload mappings.",
+                ["transition_patterns"] = "Role-transition, progress-toast, and resume-affordance payload mappings."
             });
     }
 }

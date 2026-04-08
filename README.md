@@ -9,6 +9,7 @@ Current seed includes:
 - token canon for UI-only design values
 - theme compilation to CSS custom properties
 - shell chrome, badges, banners, and accessibility primitives
+- role-transition, progress-toast, and resume-affordance patterns for accessibility-first long-running flows
 - preview/gallery metadata kept inside `Chummer.Ui.Kit`
 
 Excluded by design:
@@ -47,11 +48,16 @@ Shared primitives are defined in `Adapters/UiKitAdapterPrimitives.cs` and projec
 - `ApprovalChip`
 - `OfflineBanner`
 - `AccessibilityState`
+- `RoleTransition`
+- `ProgressToast`
+- `ResumeAffordance`
 
 Adapter entry points:
 
 - Blazor: `AdaptShellChrome`, `AdaptBanner`, `AdaptStaleStateBadge`, `AdaptApprovalChip`, `AdaptOfflineBanner`, `AdaptAccessibilityState`
 - Avalonia: `AdaptShellChrome`, `AdaptBanner`, `AdaptStaleStateBadge`, `AdaptApprovalChip`, `AdaptOfflineBanner`, `AdaptAccessibilityState`
+- Blazor long-running/accessibility patterns: `AdaptRoleTransition`, `AdaptProgressToast`, `AdaptResumeAffordance`
+- Avalonia long-running/accessibility patterns: `AdaptRoleTransition`, `AdaptProgressToast`, `AdaptResumeAffordance`
 
 Deterministic contract checks for all listed adapter methods run in `tests/Chummer.Ui.Kit.Tests/Program.cs` via `scripts/ai/verify.sh`.
 

@@ -196,4 +196,69 @@ public static class BlazorUiKitAdapter
 
         return new UiAdapterPayload("chummer-accessibility", new ReadOnlyDictionary<string, string>(attrs));
     }
+
+    public static UiAdapterPayload AdaptRoleTransition(RoleTransition transition)
+    {
+        var phase = transition.Phase.ToString().ToLowerInvariant();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-live"] = "polite",
+            ["data-from-role"] = transition.FromRole,
+            ["data-to-role"] = transition.ToRole,
+            ["data-phase"] = phase,
+            ["data-requires-ack"] = transition.RequiresAcknowledgement.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-role-transition chummer-role-transition-{phase}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(transition.Detail))
+        {
+            attrs["data-detail"] = transition.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-role-transition", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptProgressToast(ProgressToast toast)
+    {
+        var tone = toast.Tone.ToString().ToLowerInvariant();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-live"] = "polite",
+            ["aria-valuemin"] = "0",
+            ["aria-valuemax"] = "100",
+            ["aria-valuenow"] = toast.ProgressPercent.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-title"] = toast.Title,
+            ["data-progress-label"] = toast.ProgressLabel,
+            ["data-progress-percent"] = toast.ProgressPercent.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-tone"] = tone,
+            ["data-allow-cancel"] = toast.AllowCancel.ToString().ToLowerInvariant(),
+            ["data-allow-resume"] = toast.AllowResume.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-progress-toast chummer-progress-toast-{tone}"
+        };
+
+        return new UiAdapterPayload("chummer-progress-toast", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptResumeAffordance(ResumeAffordance affordance)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "polite",
+            ["data-title"] = affordance.Title,
+            ["data-checkpoint"] = affordance.CheckpointLabel,
+            ["data-resume-action"] = affordance.ResumeActionLabel,
+            ["data-requires-recovery"] = affordance.RequiresRecovery.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-resume-affordance{(affordance.RequiresRecovery ? " chummer-resume-affordance-recovery" : string.Empty)}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(affordance.Detail))
+        {
+            attrs["data-detail"] = affordance.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-resume-affordance", new ReadOnlyDictionary<string, string>(attrs));
+    }
 }

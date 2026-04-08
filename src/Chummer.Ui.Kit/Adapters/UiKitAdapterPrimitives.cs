@@ -115,6 +115,95 @@ public sealed class AccessibilityState
     public string? DescribedBy { get; }
 }
 
+public enum RoleTransitionPhase
+{
+    Announced,
+    InProgress,
+    Completed,
+    Blocked
+}
+
+public sealed class RoleTransition
+{
+    public RoleTransition(
+        string fromRole,
+        string toRole,
+        RoleTransitionPhase phase = RoleTransitionPhase.Announced,
+        bool requiresAcknowledgement = false,
+        string? detail = null)
+    {
+        FromRole = string.IsNullOrWhiteSpace(fromRole) ? throw new ArgumentException("From role is required.", nameof(fromRole)) : fromRole.Trim();
+        ToRole = string.IsNullOrWhiteSpace(toRole) ? throw new ArgumentException("To role is required.", nameof(toRole)) : toRole.Trim();
+        Phase = phase;
+        RequiresAcknowledgement = requiresAcknowledgement;
+        Detail = string.IsNullOrWhiteSpace(detail) ? null : detail.Trim();
+    }
+
+    public string FromRole { get; }
+    public string ToRole { get; }
+    public RoleTransitionPhase Phase { get; }
+    public bool RequiresAcknowledgement { get; }
+    public string? Detail { get; }
+}
+
+public enum ProgressToastTone
+{
+    Neutral,
+    Info,
+    Success,
+    Warning,
+    Error
+}
+
+public sealed class ProgressToast
+{
+    public ProgressToast(
+        string title,
+        string progressLabel,
+        int progressPercent,
+        ProgressToastTone tone = ProgressToastTone.Info,
+        bool allowCancel = false,
+        bool allowResume = false)
+    {
+        Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
+        ProgressLabel = string.IsNullOrWhiteSpace(progressLabel) ? throw new ArgumentException("Progress label is required.", nameof(progressLabel)) : progressLabel.Trim();
+        ProgressPercent = progressPercent is < 0 or > 100 ? throw new ArgumentOutOfRangeException(nameof(progressPercent), "Progress percent must be between 0 and 100.") : progressPercent;
+        Tone = tone;
+        AllowCancel = allowCancel;
+        AllowResume = allowResume;
+    }
+
+    public string Title { get; }
+    public string ProgressLabel { get; }
+    public int ProgressPercent { get; }
+    public ProgressToastTone Tone { get; }
+    public bool AllowCancel { get; }
+    public bool AllowResume { get; }
+}
+
+public sealed class ResumeAffordance
+{
+    public ResumeAffordance(
+        string title,
+        string checkpointLabel,
+        string resumeActionLabel,
+        bool requiresRecovery = false,
+        string? detail = null)
+    {
+        Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
+        CheckpointLabel = string.IsNullOrWhiteSpace(checkpointLabel) ? throw new ArgumentException("Checkpoint label is required.", nameof(checkpointLabel)) : checkpointLabel.Trim();
+        ResumeActionLabel = string.IsNullOrWhiteSpace(resumeActionLabel) ? throw new ArgumentException("Resume action label is required.", nameof(resumeActionLabel)) : resumeActionLabel.Trim();
+        RequiresRecovery = requiresRecovery;
+        Detail = string.IsNullOrWhiteSpace(detail) ? null : detail.Trim();
+    }
+
+    public string Title { get; }
+    public string CheckpointLabel { get; }
+    public string ResumeActionLabel { get; }
+    public bool RequiresRecovery { get; }
+    public string? Detail { get; }
+}
+
 public enum DenseSortDirection
 {
     None,

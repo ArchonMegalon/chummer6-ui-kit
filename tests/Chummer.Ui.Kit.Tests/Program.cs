@@ -9,6 +9,7 @@ var checks = new Action[]
 {
     DefaultCanonContainsExpectedTokens,
     DefaultCanonContainsB1ShellAndAccessibilityTokens,
+    DefaultCanonContainsRoleTransitionAndResumeTokens,
     AdapterDefaultsStayAlignedWithTokenCanon,
     AvaloniaCompatibilityAliasesRemainAvailable,
     CompilerProducesCssVariablesFromCanonAndOverrides,
@@ -64,6 +65,32 @@ static void DefaultCanonContainsB1ShellAndAccessibilityTokens()
     ExpectEqual("polite", canon["accessibility.state.live.default"], "accessibility live token");
     ExpectEqual("false", canon["accessibility.state.busy.default"], "accessibility busy default token");
     ExpectEqual("false", canon["accessibility.state.disabled.default"], "accessibility disabled default token");
+}
+
+static void DefaultCanonContainsRoleTransitionAndResumeTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "role.transition.root.class",
+        "role.transition.phase.default",
+        "progress.toast.root.class",
+        "progress.toast.tone.default",
+        "resume.affordance.root.class",
+        "resume.affordance.recovery.default"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"default canon contains {key}");
+    }
+
+    ExpectEqual("chummer-role-transition", canon["role.transition.root.class"], "role transition root class token");
+    ExpectEqual("announced", canon["role.transition.phase.default"], "role transition phase token");
+    ExpectEqual("chummer-progress-toast", canon["progress.toast.root.class"], "progress toast root class token");
+    ExpectEqual("info", canon["progress.toast.tone.default"], "progress toast tone token");
+    ExpectEqual("chummer-resume-affordance", canon["resume.affordance.root.class"], "resume affordance root class token");
+    ExpectEqual("false", canon["resume.affordance.recovery.default"], "resume affordance recovery token");
 }
 
 static void AdapterDefaultsStayAlignedWithTokenCanon()
@@ -164,7 +191,8 @@ static void PreviewGalleryDefaultManifestCoversPackageCatalog()
         "accessibility_state",
         "dense_data",
         "explain_patterns",
-        "chummer_cards"
+        "chummer_cards",
+        "transition_patterns"
     };
 
     ExpectEqual("Chummer.Ui.Kit", manifest.Ownership.Owner, "manifest owner");
@@ -193,6 +221,9 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var explainChip = new ExplainChip("Explain armor stack", ExplainChipTone.Info, active: true, hint: "Includes temporary modifiers");
     var spiderCard = new SpiderStatusCard("Spider Relay", "Pending Approval", "Awaiting reviewer action", stale: true);
     var artifactCard = new ArtifactStatusCard("Run Log 13", "Dossier", "Published", available: false);
+    var roleTransition = new RoleTransition("Observer", "GM", RoleTransitionPhase.InProgress, requiresAcknowledgement: true, detail: "Awaiting owner handoff.");
+    var progressToast = new ProgressToast("Syncing campaign", "Applying replay packets", 72, ProgressToastTone.Info, allowCancel: true, allowResume: true);
+    var resumeAffordance = new ResumeAffordance("Resume run", "Checkpoint: Scene 4", "Resume from checkpoint", requiresRecovery: true, detail: "One conflict needs review.");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeader),
@@ -538,6 +569,101 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["described-by"] = "panel-help"
         },
         "avalonia accessibility payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptRoleTransition(roleTransition),
+        "chummer-role-transition",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-live"] = "polite",
+            ["data-from-role"] = "Observer",
+            ["data-to-role"] = "GM",
+            ["data-phase"] = "inprogress",
+            ["data-requires-ack"] = "true",
+            ["class"] = "chummer-role-transition chummer-role-transition-inprogress",
+            ["data-detail"] = "Awaiting owner handoff."
+        },
+        "blazor role-transition payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptRoleTransition(roleTransition),
+        "RoleTransition",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "role-transition",
+            ["classes"] = "RoleTransition RoleTransitionInProgress",
+            ["from-role"] = "Observer",
+            ["to-role"] = "GM",
+            ["phase"] = "InProgress",
+            ["requires-ack"] = "true",
+            ["detail"] = "Awaiting owner handoff."
+        },
+        "avalonia role-transition payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptProgressToast(progressToast),
+        "chummer-progress-toast",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-live"] = "polite",
+            ["aria-valuemin"] = "0",
+            ["aria-valuemax"] = "100",
+            ["aria-valuenow"] = "72",
+            ["data-title"] = "Syncing campaign",
+            ["data-progress-label"] = "Applying replay packets",
+            ["data-progress-percent"] = "72",
+            ["data-tone"] = "info",
+            ["data-allow-cancel"] = "true",
+            ["data-allow-resume"] = "true",
+            ["class"] = "chummer-progress-toast chummer-progress-toast-info"
+        },
+        "blazor progress-toast payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptProgressToast(progressToast),
+        "ProgressToast",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "progress-toast",
+            ["classes"] = "ProgressToast ProgressToastInfo",
+            ["title"] = "Syncing campaign",
+            ["progress-label"] = "Applying replay packets",
+            ["progress-percent"] = "72",
+            ["tone"] = "Info",
+            ["allow-cancel"] = "true",
+            ["allow-resume"] = "true"
+        },
+        "avalonia progress-toast payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
+        "chummer-resume-affordance",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "polite",
+            ["data-title"] = "Resume run",
+            ["data-checkpoint"] = "Checkpoint: Scene 4",
+            ["data-resume-action"] = "Resume from checkpoint",
+            ["data-requires-recovery"] = "true",
+            ["class"] = "chummer-resume-affordance chummer-resume-affordance-recovery",
+            ["data-detail"] = "One conflict needs review."
+        },
+        "blazor resume-affordance payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
+        "ResumeAffordance",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "resume-affordance",
+            ["classes"] = "ResumeAffordance ResumeAffordanceRecovery",
+            ["title"] = "Resume run",
+            ["checkpoint"] = "Checkpoint: Scene 4",
+            ["resume-action"] = "Resume from checkpoint",
+            ["requires-recovery"] = "true",
+            ["detail"] = "One conflict needs review."
+        },
+        "avalonia resume-affordance payload");
 }
 
 static void ExpectPayload(

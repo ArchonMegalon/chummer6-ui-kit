@@ -12,6 +12,12 @@
 
 ## Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)
 
+## Fleet execution sequence (cross-shard)
+
+- P0 foundation: complete `core/WL-200` first, then run `DR-120` and launch trust/recovery surface parity slices in parallel (`ui/WL-240`, `hub/WL-240`, `mobile/WL-027`, `hub-registry/WL-260`, `media/MF-014`).
+- P1 hardening: after `WL-200` is stable, execute `core/WL-201` then the follow-on clarity/visibility slices (`ui/WL-241`, `hub/WL-241`, `hub-registry/WL-261`, `hub-registry/WL-262`, `mobile/WL-028`, `media/MF-015`).
+- P2 quality finish: gate on `design/DR-121` and `design/DR-122` before closure on `design/DR-123`; complete ui-kit flagship reliability slice in the same cycle after cross-shard copy/state parity settles.
+
 Milestone mapping:
 - [x] `U1 Token canon` -> package-owned token keys and documented token contract consumed by presentation and play.
 - [x] `U3 Shell chrome` -> package-owned shell primitives/adapters with deterministic payload contracts.
@@ -171,3 +177,31 @@ Implementation evidence update (2026-03-21):
 - [x] `scripts/ai/verify.sh` already runs the test project in the standard verification path, so catalog/regression checks execute on every verify run.
 - [x] `docs/u7-u8-release-adoption-evidence.md` now defines required downstream evidence fields (package version consumed, local-copy deletion proof, guard checks, catalog adoption paths) and U8 closure linkage to a verified U7 baseline.
 - [x] `docs/u7-u8-release-adoption-evidence.md` now contains populated downstream evidence for `chummer6-ui` (`84c56492`, `306f5bf3`) and `chummer6-mobile` (`f134092`, `6b57e12`), including package version `0.1.0-preview`, fail-on-match guard commands, and current 2026-03-28 verify references.
+
+## Queue Slice: Flagship UX parity and reliability primitives
+
+- [queued] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
+- [done] `ui-kit`: Publish a reusable accessibility-first pattern package for role transitions, progress-toasts, and resume affordances used by shell and mobile consumers.
+- [queued] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
+- [queued] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
+
+## Queue Slice: Onboarding and long-running state primitives
+
+- [queued] `ui-kit`: Add shared pattern tokens for onboarding, empty-state, recovery, and first-run states so desktop, mobile, and hosted surfaces can use one canonical UX contract.
+  - Owner: `ui-kit`
+  - Implemented-by: `chummer6-ui`, `chummer6-mobile`
+  - Acceptance checks: (1) deterministic token/state snapshots for onboarding/empty-state/recovery payloads are present; (2) no divergence across desktop/mobile consumer labels for the same action; (3) payload keys are stable under contract tests.
+- [queued] `ui-kit`: Add shared long-running action control patterns for retry, cancel, rollback, and safe continuation, plus tests that enforce locale-safe labels and a single no-loss path.
+  - Owner: `ui-kit`
+  - Implemented-by: `chummer6-ui`, `chummer6-mobile`
+  - Acceptance checks: (1) payload snapshots cover retry/cancel/rollback/continue-per-run actions in both Blazor and Avalonia adapters; (2) accessibility-focused states preserve readable contrast and focus order; (3) design/DR-129 action-class dictionary is referenced by dependent shards before merge.
+- [queued] `ui-kit`: Add adoption and CI guard checks for new onboarding/action primitives in `chummer6-ui` and `chummer6-mobile` to prevent source-copy reintroduction.
+  - Owner: `ui-kit` + hosts
+  - Implemented-by: `chummer6-ui`, `chummer6-mobile`
+  - Acceptance checks: (1) guard commands confirm no local source copy of onboarding/action primitives; (2) downstream queues in presentation/mobile still point to implemented `ui-kit` primitives; (3) all guard failures are localized to actionable paths.
+
+Implementation evidence update (2026-04-08):
+- [x] Added package-owned `RoleTransition`, `ProgressToast`, and `ResumeAffordance` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs`.
+- [x] Added deterministic Blazor and Avalonia adapter projections for all three patterns with accessibility-focused roles/live-region/progress attributes.
+- [x] Added canonical token keys for transition, toast, and resume defaults in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`.
+- [x] Added preview manifest coverage key `transition_patterns` and deterministic test assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs`.
