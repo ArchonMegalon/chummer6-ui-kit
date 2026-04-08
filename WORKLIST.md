@@ -182,7 +182,7 @@ Implementation evidence update (2026-03-21):
 
 - [queued] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
 - [done] `ui-kit`: Publish a reusable accessibility-first pattern package for role transitions, progress-toasts, and resume affordances used by shell and mobile consumers.
-- [queued] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
+- [done] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
 - [queued] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
 
 ## Queue Slice: Onboarding and long-running state primitives
@@ -205,3 +205,5 @@ Implementation evidence update (2026-04-08):
 - [x] Added deterministic Blazor and Avalonia adapter projections for all three patterns with accessibility-focused roles/live-region/progress attributes.
 - [x] Added canonical token keys for transition, toast, and resume defaults in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`.
 - [x] Added preview manifest coverage key `transition_patterns` and deterministic test assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs`.
+- [x] Added file-backed deterministic payload snapshots for `RoleTransition`, `ProgressToast`, and `ResumeAffordance` in `tests/Chummer.Ui.Kit.Tests/Snapshots/*.snapshot`.
+- [x] Updated shared adapter tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` to require those snapshots so adapter payload drift fails verification.

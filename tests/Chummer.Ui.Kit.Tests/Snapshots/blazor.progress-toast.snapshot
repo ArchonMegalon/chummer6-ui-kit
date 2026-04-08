@@ -1,0 +1,13 @@
+root=chummer-progress-toast
+aria-live=polite
+aria-valuemax=100
+aria-valuemin=0
+aria-valuenow=72
+class=chummer-progress-toast chummer-progress-toast-info
+data-allow-cancel=true
+data-allow-resume=true
+data-progress-label=Applying replay packets
+data-progress-percent=72
+data-title=Syncing campaign
+data-tone=info
+role=status

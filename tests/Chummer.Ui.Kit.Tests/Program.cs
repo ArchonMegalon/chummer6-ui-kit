@@ -4,6 +4,7 @@ using Chummer.Ui.Kit.Tokens;
 using Chummer.Ui.Kit.Adapters;
 using Chummer.Ui.Kit.Blazor.Adapters;
 using Chummer.Ui.Kit.Avalonia.Adapters;
+using System.Text;
 
 var checks = new Action[]
 {
@@ -585,6 +586,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["data-detail"] = "Awaiting owner handoff."
         },
         "blazor role-transition payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptRoleTransition(roleTransition),
+        "blazor.role-transition.snapshot",
+        "blazor role-transition snapshot");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptRoleTransition(roleTransition),
         "RoleTransition",
@@ -599,6 +604,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["detail"] = "Awaiting owner handoff."
         },
         "avalonia role-transition payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptRoleTransition(roleTransition),
+        "avalonia.role-transition.snapshot",
+        "avalonia role-transition snapshot");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptProgressToast(progressToast),
@@ -619,6 +628,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["class"] = "chummer-progress-toast chummer-progress-toast-info"
         },
         "blazor progress-toast payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptProgressToast(progressToast),
+        "blazor.progress-toast.snapshot",
+        "blazor progress-toast snapshot");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptProgressToast(progressToast),
         "ProgressToast",
@@ -634,6 +647,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["allow-resume"] = "true"
         },
         "avalonia progress-toast payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptProgressToast(progressToast),
+        "avalonia.progress-toast.snapshot",
+        "avalonia progress-toast snapshot");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
@@ -650,6 +667,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["data-detail"] = "One conflict needs review."
         },
         "blazor resume-affordance payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
+        "blazor.resume-affordance.snapshot",
+        "blazor resume-affordance snapshot");
     ExpectPayload(
         AvaloniaUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
         "ResumeAffordance",
@@ -664,6 +685,41 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["detail"] = "One conflict needs review."
         },
         "avalonia resume-affordance payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
+        "avalonia.resume-affordance.snapshot",
+        "avalonia resume-affordance snapshot");
+}
+
+static void ExpectPayloadSnapshot(UiAdapterPayload payload, string snapshotFileName, string scenario)
+{
+    var snapshotPath = Path.Combine(AppContext.BaseDirectory, "Snapshots", snapshotFileName);
+    if (!File.Exists(snapshotPath))
+    {
+        throw new InvalidOperationException($"Expected snapshot file for {scenario} at '{snapshotPath}'.");
+    }
+
+    var actual = SerializePayload(payload);
+    var expected = File.ReadAllText(snapshotPath, Encoding.UTF8)
+        .Replace("\r\n", "\n", StringComparison.Ordinal)
+        .TrimEnd('\n');
+
+    ExpectEqual(expected, actual, $"{scenario} payload snapshot");
+}
+
+static string SerializePayload(UiAdapterPayload payload)
+{
+    var lines = new List<string>
+    {
+        $"root={payload.RootClass}"
+    };
+
+    foreach (var pair in payload.Attributes.OrderBy(static pair => pair.Key, StringComparer.Ordinal))
+    {
+        lines.Add($"{pair.Key}={pair.Value}");
+    }
+
+    return string.Join('\n', lines);
 }
 
 static void ExpectPayload(

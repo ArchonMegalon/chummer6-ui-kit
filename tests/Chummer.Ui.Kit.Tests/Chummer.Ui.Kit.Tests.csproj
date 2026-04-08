@@ -6,4 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots/*.snapshot" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

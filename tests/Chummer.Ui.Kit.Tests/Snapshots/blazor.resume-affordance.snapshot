@@ -1,0 +1,9 @@
+root=chummer-resume-affordance
+aria-live=polite
+class=chummer-resume-affordance chummer-resume-affordance-recovery
+data-checkpoint=Checkpoint: Scene 4
+data-detail=One conflict needs review.
+data-requires-recovery=true
+data-resume-action=Resume from checkpoint
+data-title=Resume run
+role=region

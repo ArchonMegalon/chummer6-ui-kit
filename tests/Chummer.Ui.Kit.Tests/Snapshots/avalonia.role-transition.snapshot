@@ -1,0 +1,8 @@
+root=RoleTransition
+classes=RoleTransition RoleTransitionInProgress
+detail=Awaiting owner handoff.
+from-role=Observer
+part=role-transition
+phase=InProgress
+requires-ack=true
+to-role=GM

@@ -1,0 +1,9 @@
+root=chummer-role-transition
+aria-live=polite
+class=chummer-role-transition chummer-role-transition-inprogress
+data-detail=Awaiting owner handoff.
+data-from-role=Observer
+data-phase=inprogress
+data-requires-ack=true
+data-to-role=GM
+role=status

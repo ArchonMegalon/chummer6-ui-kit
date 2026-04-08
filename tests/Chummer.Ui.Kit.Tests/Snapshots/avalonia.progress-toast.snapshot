@@ -1,0 +1,9 @@
+root=ProgressToast
+allow-cancel=true
+allow-resume=true
+classes=ProgressToast ProgressToastInfo
+part=progress-toast
+progress-label=Applying replay packets
+progress-percent=72
+title=Syncing campaign
+tone=Info

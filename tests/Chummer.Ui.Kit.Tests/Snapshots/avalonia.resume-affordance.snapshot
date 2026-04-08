@@ -1,0 +1,8 @@
+root=ResumeAffordance
+checkpoint=Checkpoint: Scene 4
+classes=ResumeAffordance ResumeAffordanceRecovery
+detail=One conflict needs review.
+part=resume-affordance
+requires-recovery=true
+resume-action=Resume from checkpoint
+title=Resume run
