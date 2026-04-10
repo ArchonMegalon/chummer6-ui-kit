@@ -278,7 +278,7 @@ public static class AvaloniaUiKitAdapter
 
     public static UiAdapterPayload AdaptLongRunningActionControls(LongRunningActionControls controls)
     {
-        var noLossPath = controls.NoLossPath.ToString();
+        var noLossPath = ToContractCase(controls.NoLossPath);
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["part"] = "action-controls",
@@ -305,5 +305,17 @@ public static class AvaloniaUiKitAdapter
         }
 
         return new UiAdapterPayload("LongRunningActionControls", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    private static string ToContractCase(LongRunningControlId controlId)
+    {
+        return controlId switch
+        {
+            LongRunningControlId.Retry => "retry",
+            LongRunningControlId.Cancel => "cancel",
+            LongRunningControlId.Rollback => "rollback",
+            LongRunningControlId.SafeContinuation => "safe-continuation",
+            _ => controlId.ToString()
+        };
     }
 }

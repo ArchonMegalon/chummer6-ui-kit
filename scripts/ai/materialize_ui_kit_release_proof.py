@@ -20,6 +20,11 @@ def parse_args() -> argparse.Namespace:
         "--out",
         default="/docker/chummercomplete/chummer-ui-kit/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json",
     )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Validate the tracked artifact is up to date without writing it.",
+    )
     return parser.parse_args()
 
 
@@ -48,7 +53,7 @@ def main() -> int:
     payload = {
         "contract_name": "chummer6-ui-kit.local_release_proof",
         "schema_version": 1,
-        "generated_at": _iso_now(),
+        "generated_at": _iso_now() if not args.check else "CHECK_MODE_STABLE_TIMESTAMP",
         "status": status,
         "repo_root": str(repo_root),
         "evidence": {
@@ -59,8 +64,28 @@ def main() -> int:
         "reasons": reasons,
     }
 
+    serialized = json.dumps(payload, indent=2, sort_keys=True) + "\n"
+
+    if args.check:
+        if not out_path.is_file():
+            print(f"ui-kit local release proof missing: {out_path}")
+            return 1
+        existing = out_path.read_text(encoding="utf-8")
+        # Ignore generated_at when verifying deterministic content.
+        current_payload = json.loads(existing)
+        expected_payload = json.loads(serialized)
+        current_payload["generated_at"] = "<ignored>"
+        expected_payload["generated_at"] = "<ignored>"
+        current = json.dumps(current_payload, indent=2, sort_keys=True) + "\n"
+        expected = json.dumps(expected_payload, indent=2, sort_keys=True) + "\n"
+        if current != expected:
+            print(f"ui-kit local release proof out of date: {out_path}")
+            return 1
+        print(f"ui-kit local release proof is up to date: {out_path}")
+        return 0 if status == "passed" else 1
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    out_path.write_text(serialized, encoding="utf-8")
     print(f"wrote ui-kit local release proof: {out_path}")
     return 0 if status == "passed" else 1
 

@@ -924,7 +924,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["part"] = "action-controls",
             ["classes"] = "LongRunningActionControls",
             ["action-dictionary"] = "design/DR-129",
-            ["no-loss-path"] = "SafeContinuation",
+            ["no-loss-path"] = "safe-continuation",
             ["retry-label"] = "Retry sync",
             ["retry-enabled"] = "true",
             ["retry-lossless"] = "false",
@@ -949,7 +949,9 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectEqual(blazorLongRunning.Attributes["data-cancel-label"], avaloniaLongRunning.Attributes["cancel-label"], "cancel label parity across adapters");
     ExpectEqual(blazorLongRunning.Attributes["data-rollback-label"], avaloniaLongRunning.Attributes["rollback-label"], "rollback label parity across adapters");
     ExpectEqual(blazorLongRunning.Attributes["data-safe-continuation-label"], avaloniaLongRunning.Attributes["safe-continuation-label"], "safe-continuation label parity across adapters");
+    ExpectEqual(blazorLongRunning.Attributes["data-no-loss-path"], avaloniaLongRunning.Attributes["no-loss-path"], "no-loss path parity across adapters");
     ExpectEqual(TokenCanon.CreateDefault()["long.running.actions.no.loss.default"], blazorLongRunning.Attributes["data-no-loss-path"], "blazor no-loss path aligns with canon token");
+    ExpectEqual(TokenCanon.CreateDefault()["long.running.actions.no.loss.default"], avaloniaLongRunning.Attributes["no-loss-path"], "avalonia no-loss path aligns with canon token");
     ExpectSingleNoLossPath(blazorLongRunning.Attributes, "data-", "blazor long-running controls");
     ExpectSingleNoLossPath(avaloniaLongRunning.Attributes, string.Empty, "avalonia long-running controls");
 }
