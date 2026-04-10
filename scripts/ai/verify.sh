@@ -16,9 +16,14 @@ rg -n 'scripts/ai/verify\.sh|Blazor|Avalonia|accessibility|localization|performa
   "$repo_root/docs/SHARED_SURFACE_SIGNOFF.md" >/dev/null
 rg -n '84c56492|306f5bf3|f134092|6b57e12|0\.1\.0-preview|chummer6-ui|chummer6-mobile|drift status: `none`' \
   "$repo_root/docs/u7-u8-release-adoption-evidence.md" >/dev/null
+test -f "$repo_root/docs/onboarding-action-adoption-evidence.md"
+rg -n 'chummer6-ui|chummer6-mobile|GuidanceState|LongRunningActionControls|AdaptGuidanceState|AdaptLongRunningActionControls' \
+  "$repo_root/docs/onboarding-action-adoption-evidence.md" >/dev/null
 rg -n '\[x\] `presentation` \+ `play`: Consume published package version and record deletion of source-copied UI primitives that the release replaces\.' \
   "$repo_root/WORKLIST.md" >/dev/null
 rg -n '\[x\] `presentation` \+ `play`: Add/keep guard checks preventing reintroduction of repo-local copies for catalog-covered primitives\.' \
+  "$repo_root/WORKLIST.md" >/dev/null
+rg -n '\[x\] `ui-kit`: Add adoption and CI guard checks for new onboarding/action primitives in `chummer6-ui` and `chummer6-mobile` to prevent source-copy reintroduction\.' \
   "$repo_root/WORKLIST.md" >/dev/null
 
 dotnet build "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" --nologo

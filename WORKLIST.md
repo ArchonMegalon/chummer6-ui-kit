@@ -195,7 +195,7 @@ Implementation evidence update (2026-03-21):
   - Owner: `ui-kit`
   - Implemented-by: `chummer6-ui`, `chummer6-mobile`
   - Acceptance checks: (1) payload snapshots cover retry/cancel/rollback/continue-per-run actions in both Blazor and Avalonia adapters; (2) accessibility-focused states preserve readable contrast and focus order; (3) design/DR-129 action-class dictionary is referenced by dependent shards before merge.
-- [queued] `ui-kit`: Add adoption and CI guard checks for new onboarding/action primitives in `chummer6-ui` and `chummer6-mobile` to prevent source-copy reintroduction.
+- [x] `ui-kit`: Add adoption and CI guard checks for new onboarding/action primitives in `chummer6-ui` and `chummer6-mobile` to prevent source-copy reintroduction.
   - Owner: `ui-kit` + hosts
   - Implemented-by: `chummer6-ui`, `chummer6-mobile`
   - Acceptance checks: (1) guard commands confirm no local source copy of onboarding/action primitives; (2) downstream queues in presentation/mobile still point to implemented `ui-kit` primitives; (3) all guard failures are localized to actionable paths.
@@ -217,3 +217,9 @@ Implementation evidence update (2026-04-10, onboarding/action controls closure):
 - [x] Added package-owned `GuidanceState` and `LongRunningActionControls` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with locale-safe label guards and enforced single no-loss-path semantics.
 - [x] Added deterministic Blazor/Avalonia adapter projections and payload snapshots for onboarding, empty-state, recovery, first-run, and retry/cancel/rollback/safe-continuation action controls.
 - [x] Extended preview manifest and shared deterministic tests to require `guidance_states` and `long_running_actions` contract coverage.
+
+Implementation evidence update (2026-04-10, onboarding/action adoption + CI guard closure):
+- [x] Updated `chummer6-ui/scripts/ai/verify.sh` guard scan to fail on local source-copy reintroduction of `GuidanceState`, `LongRunningActionControls`, `AdaptGuidanceState(...)`, and `AdaptLongRunningActionControls(...)`.
+- [x] Updated `chummer6-mobile/scripts/ai/verify.sh` guard scan with the same onboarding/action primitive fail-on-match coverage.
+- [x] Added downstream adoption evidence and localized guard-scope proof in `docs/onboarding-action-adoption-evidence.md`.
+- [x] Extended `scripts/ai/verify.sh` in this repo to require onboarding/action adoption evidence and queued-slice closure status before passing.
