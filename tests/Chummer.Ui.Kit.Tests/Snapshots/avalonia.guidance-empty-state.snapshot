@@ -1,0 +1,7 @@
+root=GuidanceState
+body=Create a run to begin tracking outcomes.
+classes=GuidanceState GuidanceStateEmptyState
+part=guidance-state
+primary-action=Create run
+state-kind=EmptyState
+title=No runs yet

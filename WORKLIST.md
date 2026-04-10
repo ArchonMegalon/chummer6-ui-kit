@@ -183,15 +183,15 @@ Implementation evidence update (2026-03-21):
 - [queued] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
 - [done] `ui-kit`: Publish a reusable accessibility-first pattern package for role transitions, progress-toasts, and resume affordances used by shell and mobile consumers.
 - [done] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
-- [queued] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
+- [x] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
 
 ## Queue Slice: Onboarding and long-running state primitives
 
-- [queued] `ui-kit`: Add shared pattern tokens for onboarding, empty-state, recovery, and first-run states so desktop, mobile, and hosted surfaces can use one canonical UX contract.
+- [x] `ui-kit`: Add shared pattern tokens for onboarding, empty-state, recovery, and first-run states so desktop, mobile, and hosted surfaces can use one canonical UX contract.
   - Owner: `ui-kit`
   - Implemented-by: `chummer6-ui`, `chummer6-mobile`
   - Acceptance checks: (1) deterministic token/state snapshots for onboarding/empty-state/recovery payloads are present; (2) no divergence across desktop/mobile consumer labels for the same action; (3) payload keys are stable under contract tests.
-- [queued] `ui-kit`: Add shared long-running action control patterns for retry, cancel, rollback, and safe continuation, plus tests that enforce locale-safe labels and a single no-loss path.
+- [x] `ui-kit`: Add shared long-running action control patterns for retry, cancel, rollback, and safe continuation, plus tests that enforce locale-safe labels and a single no-loss path.
   - Owner: `ui-kit`
   - Implemented-by: `chummer6-ui`, `chummer6-mobile`
   - Acceptance checks: (1) payload snapshots cover retry/cancel/rollback/continue-per-run actions in both Blazor and Avalonia adapters; (2) accessibility-focused states preserve readable contrast and focus order; (3) design/DR-129 action-class dictionary is referenced by dependent shards before merge.
@@ -207,3 +207,13 @@ Implementation evidence update (2026-04-08):
 - [x] Added preview manifest coverage key `transition_patterns` and deterministic test assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs`.
 - [x] Added file-backed deterministic payload snapshots for `RoleTransition`, `ProgressToast`, and `ResumeAffordance` in `tests/Chummer.Ui.Kit.Tests/Snapshots/*.snapshot`.
 - [x] Updated shared adapter tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` to require those snapshots so adapter payload drift fails verification.
+
+Implementation evidence update (2026-04-10):
+- [x] Added `DefaultFallbackContrastRemainsReadable` in `tests/Chummer.Ui.Kit.Tests/Program.cs` to assert WCAG-style fallback contrast floors for canonical text/background token pairs (`color.text.primary`/`color.text.muted` against `color.background.panel`/`color.background.canvas`).
+- [x] Kept deterministic snapshot assertions for `RoleTransition`, `ProgressToast`, and `ResumeAffordance` as the regression guard against source-copy drift while downstream presentation/play continue package-only consumption checks.
+
+Implementation evidence update (2026-04-10, onboarding/action controls closure):
+- [x] Added canonical token keys in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` for onboarding, empty-state, recovery, first-run, and long-running action-control defaults, including the `design/DR-129` action dictionary reference token.
+- [x] Added package-owned `GuidanceState` and `LongRunningActionControls` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with locale-safe label guards and enforced single no-loss-path semantics.
+- [x] Added deterministic Blazor/Avalonia adapter projections and payload snapshots for onboarding, empty-state, recovery, first-run, and retry/cancel/rollback/safe-continuation action controls.
+- [x] Extended preview manifest and shared deterministic tests to require `guidance_states` and `long_running_actions` contract coverage.

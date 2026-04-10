@@ -1,0 +1,10 @@
+root=chummer-guidance-state
+aria-live=assertive
+class=chummer-guidance-state chummer-guidance-state-recovery
+data-body=A sync conflict needs review before publish.
+data-detail=Last sync stopped at packet 381.
+data-primary-action=Review recovery
+data-secondary-action=Dismiss later
+data-state-kind=recovery
+data-title=Recovery required
+role=region

@@ -11,6 +11,8 @@ var checks = new Action[]
     DefaultCanonContainsExpectedTokens,
     DefaultCanonContainsB1ShellAndAccessibilityTokens,
     DefaultCanonContainsRoleTransitionAndResumeTokens,
+    DefaultCanonContainsGuidanceAndLongRunningTokens,
+    DefaultFallbackContrastRemainsReadable,
     AdapterDefaultsStayAlignedWithTokenCanon,
     AvaloniaCompatibilityAliasesRemainAvailable,
     CompilerProducesCssVariablesFromCanonAndOverrides,
@@ -92,6 +94,52 @@ static void DefaultCanonContainsRoleTransitionAndResumeTokens()
     ExpectEqual("info", canon["progress.toast.tone.default"], "progress toast tone token");
     ExpectEqual("chummer-resume-affordance", canon["resume.affordance.root.class"], "resume affordance root class token");
     ExpectEqual("false", canon["resume.affordance.recovery.default"], "resume affordance recovery token");
+}
+
+static void DefaultCanonContainsGuidanceAndLongRunningTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "onboarding.state.root.class",
+        "onboarding.state.primary.action.default",
+        "empty.state.root.class",
+        "empty.state.primary.action.default",
+        "recovery.state.root.class",
+        "recovery.state.primary.action.default",
+        "first.run.state.root.class",
+        "first.run.state.primary.action.default",
+        "long.running.actions.root.class",
+        "long.running.actions.no.loss.default",
+        "long.running.actions.dictionary"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"default canon contains {key}");
+    }
+
+    ExpectEqual("chummer-guidance-state", canon["onboarding.state.root.class"], "onboarding root class token");
+    ExpectEqual("Create first item", canon["empty.state.primary.action.default"], "empty-state primary action token");
+    ExpectEqual("Review recovery", canon["recovery.state.primary.action.default"], "recovery primary action token");
+    ExpectEqual("Start walkthrough", canon["first.run.state.primary.action.default"], "first-run primary action token");
+    ExpectEqual("chummer-action-controls", canon["long.running.actions.root.class"], "long-running actions root class token");
+    ExpectEqual("safecontinuation", canon["long.running.actions.no.loss.default"], "long-running no-loss token");
+    ExpectEqual("design/DR-129", canon["long.running.actions.dictionary"], "long-running dictionary token");
+}
+
+static void DefaultFallbackContrastRemainsReadable()
+{
+    var canon = TokenCanon.CreateDefault();
+    var panelBackground = canon["color.background.panel"];
+    var canvasBackground = canon["color.background.canvas"];
+    var primaryText = canon["color.text.primary"];
+    var mutedText = canon["color.text.muted"];
+
+    ExpectContrastAtLeast(primaryText, panelBackground, 7.0, "primary text on panel fallback contrast");
+    ExpectContrastAtLeast(primaryText, canvasBackground, 7.0, "primary text on canvas fallback contrast");
+    ExpectContrastAtLeast(mutedText, panelBackground, 4.5, "muted text on panel fallback contrast");
+    ExpectContrastAtLeast(mutedText, canvasBackground, 4.5, "muted text on canvas fallback contrast");
 }
 
 static void AdapterDefaultsStayAlignedWithTokenCanon()
@@ -193,7 +241,9 @@ static void PreviewGalleryDefaultManifestCoversPackageCatalog()
         "dense_data",
         "explain_patterns",
         "chummer_cards",
-        "transition_patterns"
+        "transition_patterns",
+        "guidance_states",
+        "long_running_actions"
     };
 
     ExpectEqual("Chummer.Ui.Kit", manifest.Ownership.Owner, "manifest owner");
@@ -225,6 +275,22 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var roleTransition = new RoleTransition("Observer", "GM", RoleTransitionPhase.InProgress, requiresAcknowledgement: true, detail: "Awaiting owner handoff.");
     var progressToast = new ProgressToast("Syncing campaign", "Applying replay packets", 72, ProgressToastTone.Info, allowCancel: true, allowResume: true);
     var resumeAffordance = new ResumeAffordance("Resume run", "Checkpoint: Scene 4", "Resume from checkpoint", requiresRecovery: true, detail: "One conflict needs review.");
+    var onboardingState = new GuidanceState(GuidanceStateKind.Onboarding, "Welcome to Chummer", "Connect your first campaign workspace.", "Start onboarding", "Skip for now");
+    var emptyState = new GuidanceState(GuidanceStateKind.EmptyState, "No runs yet", "Create a run to begin tracking outcomes.", "Create run");
+    var recoveryState = new GuidanceState(GuidanceStateKind.Recovery, "Recovery required", "A sync conflict needs review before publish.", "Review recovery", "Dismiss later", "Last sync stopped at packet 381.");
+    var firstRunState = new GuidanceState(GuidanceStateKind.FirstRun, "First run checklist", "Confirm your profile, locale, and device role.", "Open checklist");
+    var longRunningActions = new LongRunningActionControls(
+        retryLabel: "Retry sync",
+        cancelLabel: "Cancel run",
+        rollbackLabel: "Rollback to checkpoint",
+        safeContinuationLabel: "Continue safely",
+        noLossPath: LongRunningControlId.SafeContinuation,
+        retryEnabled: true,
+        cancelEnabled: true,
+        rollbackEnabled: true,
+        safeContinuationEnabled: true,
+        actionDictionaryReference: "design/DR-129",
+        detail: "Prefer safe continuation when replay integrity is uncertain.");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeader),
@@ -689,6 +755,197 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         AvaloniaUiKitAdapter.AdaptResumeAffordance(resumeAffordance),
         "avalonia.resume-affordance.snapshot",
         "avalonia resume-affordance snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptGuidanceState(onboardingState),
+        "chummer-guidance-state",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "polite",
+            ["data-state-kind"] = "onboarding",
+            ["data-title"] = "Welcome to Chummer",
+            ["data-body"] = "Connect your first campaign workspace.",
+            ["data-primary-action"] = "Start onboarding",
+            ["data-secondary-action"] = "Skip for now",
+            ["class"] = "chummer-guidance-state chummer-guidance-state-onboarding"
+        },
+        "blazor onboarding guidance payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptGuidanceState(onboardingState),
+        "blazor.guidance-onboarding.snapshot",
+        "blazor onboarding guidance snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(onboardingState),
+        "GuidanceState",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "guidance-state",
+            ["classes"] = "GuidanceState GuidanceStateOnboarding",
+            ["state-kind"] = "Onboarding",
+            ["title"] = "Welcome to Chummer",
+            ["body"] = "Connect your first campaign workspace.",
+            ["primary-action"] = "Start onboarding",
+            ["secondary-action"] = "Skip for now"
+        },
+        "avalonia onboarding guidance payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(onboardingState),
+        "avalonia.guidance-onboarding.snapshot",
+        "avalonia onboarding guidance snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptGuidanceState(emptyState),
+        "chummer-guidance-state",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "polite",
+            ["data-state-kind"] = "empty-state",
+            ["data-title"] = "No runs yet",
+            ["data-body"] = "Create a run to begin tracking outcomes.",
+            ["data-primary-action"] = "Create run",
+            ["class"] = "chummer-guidance-state chummer-guidance-state-empty-state"
+        },
+        "blazor empty-state guidance payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptGuidanceState(emptyState),
+        "blazor.guidance-empty-state.snapshot",
+        "blazor empty-state guidance snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(emptyState),
+        "GuidanceState",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "guidance-state",
+            ["classes"] = "GuidanceState GuidanceStateEmptyState",
+            ["state-kind"] = "EmptyState",
+            ["title"] = "No runs yet",
+            ["body"] = "Create a run to begin tracking outcomes.",
+            ["primary-action"] = "Create run"
+        },
+        "avalonia empty-state guidance payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(emptyState),
+        "avalonia.guidance-empty-state.snapshot",
+        "avalonia empty-state guidance snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptGuidanceState(recoveryState),
+        "chummer-guidance-state",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "assertive",
+            ["data-state-kind"] = "recovery",
+            ["data-title"] = "Recovery required",
+            ["data-body"] = "A sync conflict needs review before publish.",
+            ["data-primary-action"] = "Review recovery",
+            ["data-secondary-action"] = "Dismiss later",
+            ["data-detail"] = "Last sync stopped at packet 381.",
+            ["class"] = "chummer-guidance-state chummer-guidance-state-recovery"
+        },
+        "blazor recovery guidance payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptGuidanceState(recoveryState),
+        "blazor.guidance-recovery.snapshot",
+        "blazor recovery guidance snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(recoveryState),
+        "GuidanceState",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "guidance-state",
+            ["classes"] = "GuidanceState GuidanceStateRecovery",
+            ["state-kind"] = "Recovery",
+            ["title"] = "Recovery required",
+            ["body"] = "A sync conflict needs review before publish.",
+            ["primary-action"] = "Review recovery",
+            ["secondary-action"] = "Dismiss later",
+            ["detail"] = "Last sync stopped at packet 381."
+        },
+        "avalonia recovery guidance payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(recoveryState),
+        "avalonia.guidance-recovery.snapshot",
+        "avalonia recovery guidance snapshot");
+
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptGuidanceState(firstRunState),
+        "blazor.guidance-first-run.snapshot",
+        "blazor first-run guidance snapshot");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(firstRunState),
+        "avalonia.guidance-first-run.snapshot",
+        "avalonia first-run guidance snapshot");
+
+    var blazorLongRunning = BlazorUiKitAdapter.AdaptLongRunningActionControls(longRunningActions);
+    var avaloniaLongRunning = AvaloniaUiKitAdapter.AdaptLongRunningActionControls(longRunningActions);
+
+    ExpectPayload(
+        blazorLongRunning,
+        "chummer-action-controls",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "group",
+            ["aria-live"] = "polite",
+            ["data-action-dictionary"] = "design/DR-129",
+            ["data-no-loss-path"] = "safe-continuation",
+            ["data-retry-label"] = "Retry sync",
+            ["data-retry-enabled"] = "true",
+            ["data-retry-lossless"] = "false",
+            ["data-cancel-label"] = "Cancel run",
+            ["data-cancel-enabled"] = "true",
+            ["data-cancel-lossless"] = "false",
+            ["data-rollback-label"] = "Rollback to checkpoint",
+            ["data-rollback-enabled"] = "true",
+            ["data-rollback-lossless"] = "false",
+            ["data-safe-continuation-label"] = "Continue safely",
+            ["data-safe-continuation-enabled"] = "true",
+            ["data-safe-continuation-lossless"] = "true",
+            ["data-detail"] = "Prefer safe continuation when replay integrity is uncertain.",
+            ["class"] = "chummer-action-controls"
+        },
+        "blazor long-running controls payload");
+    ExpectPayloadSnapshot(
+        blazorLongRunning,
+        "blazor.long-running-actions.snapshot",
+        "blazor long-running actions snapshot");
+    ExpectPayload(
+        avaloniaLongRunning,
+        "LongRunningActionControls",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "action-controls",
+            ["classes"] = "LongRunningActionControls",
+            ["action-dictionary"] = "design/DR-129",
+            ["no-loss-path"] = "SafeContinuation",
+            ["retry-label"] = "Retry sync",
+            ["retry-enabled"] = "true",
+            ["retry-lossless"] = "false",
+            ["cancel-label"] = "Cancel run",
+            ["cancel-enabled"] = "true",
+            ["cancel-lossless"] = "false",
+            ["rollback-label"] = "Rollback to checkpoint",
+            ["rollback-enabled"] = "true",
+            ["rollback-lossless"] = "false",
+            ["safe-continuation-label"] = "Continue safely",
+            ["safe-continuation-enabled"] = "true",
+            ["safe-continuation-lossless"] = "true",
+            ["detail"] = "Prefer safe continuation when replay integrity is uncertain."
+        },
+        "avalonia long-running controls payload");
+    ExpectPayloadSnapshot(
+        avaloniaLongRunning,
+        "avalonia.long-running-actions.snapshot",
+        "avalonia long-running actions snapshot");
+
+    ExpectEqual(blazorLongRunning.Attributes["data-retry-label"], avaloniaLongRunning.Attributes["retry-label"], "retry label parity across adapters");
+    ExpectEqual(blazorLongRunning.Attributes["data-cancel-label"], avaloniaLongRunning.Attributes["cancel-label"], "cancel label parity across adapters");
+    ExpectEqual(blazorLongRunning.Attributes["data-rollback-label"], avaloniaLongRunning.Attributes["rollback-label"], "rollback label parity across adapters");
+    ExpectEqual(blazorLongRunning.Attributes["data-safe-continuation-label"], avaloniaLongRunning.Attributes["safe-continuation-label"], "safe-continuation label parity across adapters");
+    ExpectSingleNoLossPath(blazorLongRunning.Attributes, "data-", "blazor long-running controls");
+    ExpectSingleNoLossPath(avaloniaLongRunning.Attributes, string.Empty, "avalonia long-running controls");
 }
 
 static void ExpectPayloadSnapshot(UiAdapterPayload payload, string snapshotFileName, string scenario)
@@ -768,4 +1025,84 @@ static void ExpectTrue(bool condition, string scenario)
     {
         throw new InvalidOperationException($"Expected {scenario}.");
     }
+}
+
+static void ExpectSingleNoLossPath(IReadOnlyDictionary<string, string> attributes, string prefix, string scenario)
+{
+    var keys = new[]
+    {
+        $"{prefix}retry-lossless",
+        $"{prefix}cancel-lossless",
+        $"{prefix}rollback-lossless",
+        $"{prefix}safe-continuation-lossless"
+    };
+
+    var trueCount = 0;
+    foreach (var key in keys)
+    {
+        ExpectTrue(attributes.ContainsKey(key), $"{scenario} contains {key}");
+        if (string.Equals(attributes[key], "true", StringComparison.Ordinal))
+        {
+            trueCount++;
+        }
+    }
+
+    if (trueCount != 1)
+    {
+        throw new InvalidOperationException($"Expected {scenario} to expose exactly one no-loss path but found {trueCount}.");
+    }
+}
+
+static void ExpectContrastAtLeast(string foregroundHex, string backgroundHex, double minimumRatio, string scenario)
+{
+    var ratio = ContrastRatio(foregroundHex, backgroundHex);
+    if (ratio < minimumRatio)
+    {
+        throw new InvalidOperationException(
+            $"Expected {scenario} to be >= {minimumRatio.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)} but was {ratio.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)}.");
+    }
+}
+
+static double ContrastRatio(string firstHex, string secondHex)
+{
+    var first = RelativeLuminance(ParseHexColor(firstHex));
+    var second = RelativeLuminance(ParseHexColor(secondHex));
+    var lighter = Math.Max(first, second);
+    var darker = Math.Min(first, second);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+static (double Red, double Green, double Blue) ParseHexColor(string hex)
+{
+    if (string.IsNullOrWhiteSpace(hex))
+    {
+        throw new InvalidOperationException("Expected non-empty hex color value.");
+    }
+
+    var value = hex.Trim();
+    if (value.Length != 7 || value[0] != '#')
+    {
+        throw new InvalidOperationException($"Expected color '{hex}' in #RRGGBB format.");
+    }
+
+    static double ParseChannel(string source, int offset)
+    {
+        var byteValue = Convert.ToByte(source.Substring(offset, 2), 16);
+        return byteValue / 255d;
+    }
+
+    return (ParseChannel(value, 1), ParseChannel(value, 3), ParseChannel(value, 5));
+}
+
+static double RelativeLuminance((double Red, double Green, double Blue) color)
+{
+    static double Expand(double channel) =>
+        channel <= 0.03928
+            ? channel / 12.92
+            : Math.Pow((channel + 0.055) / 1.055, 2.4);
+
+    var red = Expand(color.Red);
+    var green = Expand(color.Green);
+    var blue = Expand(color.Blue);
+    return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
 }

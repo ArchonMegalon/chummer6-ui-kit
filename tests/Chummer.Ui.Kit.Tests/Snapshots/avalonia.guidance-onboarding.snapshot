@@ -1,0 +1,8 @@
+root=GuidanceState
+body=Connect your first campaign workspace.
+classes=GuidanceState GuidanceStateOnboarding
+part=guidance-state
+primary-action=Start onboarding
+secondary-action=Skip for now
+state-kind=Onboarding
+title=Welcome to Chummer

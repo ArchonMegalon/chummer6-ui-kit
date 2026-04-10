@@ -1,0 +1,8 @@
+root=chummer-guidance-state
+aria-live=polite
+class=chummer-guidance-state chummer-guidance-state-first-run
+data-body=Confirm your profile, locale, and device role.
+data-primary-action=Open checklist
+data-state-kind=first-run
+data-title=First run checklist
+role=region

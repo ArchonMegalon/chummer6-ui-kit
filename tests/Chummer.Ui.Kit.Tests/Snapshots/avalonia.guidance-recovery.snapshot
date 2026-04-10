@@ -1,0 +1,9 @@
+root=GuidanceState
+body=A sync conflict needs review before publish.
+classes=GuidanceState GuidanceStateRecovery
+detail=Last sync stopped at packet 381.
+part=guidance-state
+primary-action=Review recovery
+secondary-action=Dismiss later
+state-kind=Recovery
+title=Recovery required

@@ -261,4 +261,81 @@ public static class BlazorUiKitAdapter
 
         return new UiAdapterPayload("chummer-resume-affordance", new ReadOnlyDictionary<string, string>(attrs));
     }
+
+    public static UiAdapterPayload AdaptGuidanceState(GuidanceState state)
+    {
+        var kind = ToContractCase(state.Kind);
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = state.Kind == GuidanceStateKind.Recovery ? "assertive" : "polite",
+            ["data-state-kind"] = kind,
+            ["data-title"] = state.Title,
+            ["data-body"] = state.Body,
+            ["data-primary-action"] = state.PrimaryActionLabel,
+            ["class"] = $"chummer-guidance-state chummer-guidance-state-{kind}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(state.SecondaryActionLabel))
+        {
+            attrs["data-secondary-action"] = state.SecondaryActionLabel;
+        }
+
+        if (!string.IsNullOrWhiteSpace(state.Detail))
+        {
+            attrs["data-detail"] = state.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-guidance-state", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptLongRunningActionControls(LongRunningActionControls controls)
+    {
+        var noLossPath = ToContractCase(controls.NoLossPath);
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "group",
+            ["aria-live"] = "polite",
+            ["data-action-dictionary"] = controls.ActionDictionaryReference,
+            ["data-no-loss-path"] = noLossPath,
+            ["data-retry-label"] = controls.RetryLabel,
+            ["data-retry-enabled"] = controls.RetryEnabled.ToString().ToLowerInvariant(),
+            ["data-retry-lossless"] = (controls.NoLossPath == LongRunningControlId.Retry).ToString().ToLowerInvariant(),
+            ["data-cancel-label"] = controls.CancelLabel,
+            ["data-cancel-enabled"] = controls.CancelEnabled.ToString().ToLowerInvariant(),
+            ["data-cancel-lossless"] = (controls.NoLossPath == LongRunningControlId.Cancel).ToString().ToLowerInvariant(),
+            ["data-rollback-label"] = controls.RollbackLabel,
+            ["data-rollback-enabled"] = controls.RollbackEnabled.ToString().ToLowerInvariant(),
+            ["data-rollback-lossless"] = (controls.NoLossPath == LongRunningControlId.Rollback).ToString().ToLowerInvariant(),
+            ["data-safe-continuation-label"] = controls.SafeContinuationLabel,
+            ["data-safe-continuation-enabled"] = controls.SafeContinuationEnabled.ToString().ToLowerInvariant(),
+            ["data-safe-continuation-lossless"] = (controls.NoLossPath == LongRunningControlId.SafeContinuation).ToString().ToLowerInvariant(),
+            ["class"] = "chummer-action-controls"
+        };
+
+        if (!string.IsNullOrWhiteSpace(controls.Detail))
+        {
+            attrs["data-detail"] = controls.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-action-controls", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    private static string ToContractCase(GuidanceStateKind kind) => kind switch
+    {
+        GuidanceStateKind.EmptyState => "empty-state",
+        GuidanceStateKind.FirstRun => "first-run",
+        GuidanceStateKind.Onboarding => "onboarding",
+        GuidanceStateKind.Recovery => "recovery",
+        _ => kind.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(LongRunningControlId id) => id switch
+    {
+        LongRunningControlId.SafeContinuation => "safe-continuation",
+        LongRunningControlId.Retry => "retry",
+        LongRunningControlId.Cancel => "cancel",
+        LongRunningControlId.Rollback => "rollback",
+        _ => id.ToString().ToLowerInvariant()
+    };
 }

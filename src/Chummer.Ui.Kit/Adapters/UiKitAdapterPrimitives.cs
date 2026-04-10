@@ -204,6 +204,105 @@ public sealed class ResumeAffordance
     public string? Detail { get; }
 }
 
+public enum GuidanceStateKind
+{
+    Onboarding,
+    EmptyState,
+    Recovery,
+    FirstRun
+}
+
+public sealed class GuidanceState
+{
+    public GuidanceState(
+        GuidanceStateKind kind,
+        string title,
+        string body,
+        string primaryActionLabel,
+        string? secondaryActionLabel = null,
+        string? detail = null)
+    {
+        Kind = kind;
+        Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
+        Body = string.IsNullOrWhiteSpace(body) ? throw new ArgumentException("Body is required.", nameof(body)) : body.Trim();
+        PrimaryActionLabel = PrimitiveGuards.NormalizeLocaleSafeLabel(primaryActionLabel, nameof(primaryActionLabel));
+        SecondaryActionLabel = string.IsNullOrWhiteSpace(secondaryActionLabel) ? null : PrimitiveGuards.NormalizeLocaleSafeLabel(secondaryActionLabel, nameof(secondaryActionLabel));
+        Detail = string.IsNullOrWhiteSpace(detail) ? null : detail.Trim();
+    }
+
+    public GuidanceStateKind Kind { get; }
+    public string Title { get; }
+    public string Body { get; }
+    public string PrimaryActionLabel { get; }
+    public string? SecondaryActionLabel { get; }
+    public string? Detail { get; }
+}
+
+public enum LongRunningControlId
+{
+    Retry,
+    Cancel,
+    Rollback,
+    SafeContinuation
+}
+
+public sealed class LongRunningActionControls
+{
+    public LongRunningActionControls(
+        string retryLabel,
+        string cancelLabel,
+        string rollbackLabel,
+        string safeContinuationLabel,
+        LongRunningControlId noLossPath = LongRunningControlId.SafeContinuation,
+        bool retryEnabled = true,
+        bool cancelEnabled = true,
+        bool rollbackEnabled = true,
+        bool safeContinuationEnabled = true,
+        string actionDictionaryReference = "design/DR-129",
+        string? detail = null)
+    {
+        RetryLabel = PrimitiveGuards.NormalizeLocaleSafeLabel(retryLabel, nameof(retryLabel));
+        CancelLabel = PrimitiveGuards.NormalizeLocaleSafeLabel(cancelLabel, nameof(cancelLabel));
+        RollbackLabel = PrimitiveGuards.NormalizeLocaleSafeLabel(rollbackLabel, nameof(rollbackLabel));
+        SafeContinuationLabel = PrimitiveGuards.NormalizeLocaleSafeLabel(safeContinuationLabel, nameof(safeContinuationLabel));
+        RetryEnabled = retryEnabled;
+        CancelEnabled = cancelEnabled;
+        RollbackEnabled = rollbackEnabled;
+        SafeContinuationEnabled = safeContinuationEnabled;
+        NoLossPath = noLossPath;
+        ActionDictionaryReference = string.IsNullOrWhiteSpace(actionDictionaryReference)
+            ? throw new ArgumentException("Action dictionary reference is required.", nameof(actionDictionaryReference))
+            : actionDictionaryReference.Trim();
+        Detail = string.IsNullOrWhiteSpace(detail) ? null : detail.Trim();
+
+        if (!IsEnabled(noLossPath))
+        {
+            throw new ArgumentException("No-loss path must point to an enabled action.", nameof(noLossPath));
+        }
+    }
+
+    public string RetryLabel { get; }
+    public string CancelLabel { get; }
+    public string RollbackLabel { get; }
+    public string SafeContinuationLabel { get; }
+    public bool RetryEnabled { get; }
+    public bool CancelEnabled { get; }
+    public bool RollbackEnabled { get; }
+    public bool SafeContinuationEnabled { get; }
+    public LongRunningControlId NoLossPath { get; }
+    public string ActionDictionaryReference { get; }
+    public string? Detail { get; }
+
+    public bool IsEnabled(LongRunningControlId id) => id switch
+    {
+        LongRunningControlId.Retry => RetryEnabled,
+        LongRunningControlId.Cancel => CancelEnabled,
+        LongRunningControlId.Rollback => RollbackEnabled,
+        LongRunningControlId.SafeContinuation => SafeContinuationEnabled,
+        _ => false
+    };
+}
+
 public enum DenseSortDirection
 {
     None,
@@ -258,6 +357,25 @@ public sealed record DenseRowMetadata
     public DenseRowEmphasis Emphasis { get; }
     public bool Selected { get; }
     public bool ExplainAffinity { get; }
+}
+
+internal static class PrimitiveGuards
+{
+    internal static string NormalizeLocaleSafeLabel(string value, string argumentName)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ArgumentException("Label is required.", argumentName);
+        }
+
+        var normalized = value.Trim();
+        if (normalized.Any(char.IsControl))
+        {
+            throw new ArgumentException("Label cannot include control characters.", argumentName);
+        }
+
+        return normalized;
+    }
 }
 
 public sealed record ExplainChip

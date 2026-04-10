@@ -1,0 +1,7 @@
+root=GuidanceState
+body=Confirm your profile, locale, and device role.
+classes=GuidanceState GuidanceStateFirstRun
+part=guidance-state
+primary-action=Open checklist
+state-kind=FirstRun
+title=First run checklist

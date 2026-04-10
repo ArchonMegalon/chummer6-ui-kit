@@ -249,4 +249,61 @@ public static class AvaloniaUiKitAdapter
 
         return new UiAdapterPayload("ResumeAffordance", new ReadOnlyDictionary<string, string>(attrs));
     }
+
+    public static UiAdapterPayload AdaptGuidanceState(GuidanceState state)
+    {
+        var kind = state.Kind.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "guidance-state",
+            ["classes"] = $"GuidanceState GuidanceState{kind}",
+            ["state-kind"] = kind,
+            ["title"] = state.Title,
+            ["body"] = state.Body,
+            ["primary-action"] = state.PrimaryActionLabel
+        };
+
+        if (!string.IsNullOrWhiteSpace(state.SecondaryActionLabel))
+        {
+            attrs["secondary-action"] = state.SecondaryActionLabel;
+        }
+
+        if (!string.IsNullOrWhiteSpace(state.Detail))
+        {
+            attrs["detail"] = state.Detail;
+        }
+
+        return new UiAdapterPayload("GuidanceState", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptLongRunningActionControls(LongRunningActionControls controls)
+    {
+        var noLossPath = controls.NoLossPath.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "action-controls",
+            ["classes"] = "LongRunningActionControls",
+            ["action-dictionary"] = controls.ActionDictionaryReference,
+            ["no-loss-path"] = noLossPath,
+            ["retry-label"] = controls.RetryLabel,
+            ["retry-enabled"] = controls.RetryEnabled.ToString().ToLowerInvariant(),
+            ["retry-lossless"] = (controls.NoLossPath == LongRunningControlId.Retry).ToString().ToLowerInvariant(),
+            ["cancel-label"] = controls.CancelLabel,
+            ["cancel-enabled"] = controls.CancelEnabled.ToString().ToLowerInvariant(),
+            ["cancel-lossless"] = (controls.NoLossPath == LongRunningControlId.Cancel).ToString().ToLowerInvariant(),
+            ["rollback-label"] = controls.RollbackLabel,
+            ["rollback-enabled"] = controls.RollbackEnabled.ToString().ToLowerInvariant(),
+            ["rollback-lossless"] = (controls.NoLossPath == LongRunningControlId.Rollback).ToString().ToLowerInvariant(),
+            ["safe-continuation-label"] = controls.SafeContinuationLabel,
+            ["safe-continuation-enabled"] = controls.SafeContinuationEnabled.ToString().ToLowerInvariant(),
+            ["safe-continuation-lossless"] = (controls.NoLossPath == LongRunningControlId.SafeContinuation).ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(controls.Detail))
+        {
+            attrs["detail"] = controls.Detail;
+        }
+
+        return new UiAdapterPayload("LongRunningActionControls", new ReadOnlyDictionary<string, string>(attrs));
+    }
 }

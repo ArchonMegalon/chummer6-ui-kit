@@ -43,7 +43,9 @@ public sealed class PreviewGalleryManifest
                 ["dense_data"] = "Dense-data headers and row metadata adapter mappings.",
                 ["explain_patterns"] = "Explain-chip pattern payloads for reusable explain affordances.",
                 ["chummer_cards"] = "Spider and artifact status card pattern payload mappings.",
-                ["transition_patterns"] = "Role-transition, progress-toast, and resume-affordance payload mappings."
+                ["transition_patterns"] = "Role-transition, progress-toast, and resume-affordance payload mappings.",
+                ["guidance_states"] = "Onboarding, empty-state, recovery, and first-run guidance payload mappings.",
+                ["long_running_actions"] = "Retry/cancel/rollback/safe-continuation control payload mappings."
             });
     }
 }

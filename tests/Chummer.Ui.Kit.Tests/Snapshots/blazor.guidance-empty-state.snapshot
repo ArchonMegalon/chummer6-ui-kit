@@ -1,0 +1,8 @@
+root=chummer-guidance-state
+aria-live=polite
+class=chummer-guidance-state chummer-guidance-state-empty-state
+data-body=Create a run to begin tracking outcomes.
+data-primary-action=Create run
+data-state-kind=empty-state
+data-title=No runs yet
+role=region

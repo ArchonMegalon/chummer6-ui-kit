@@ -1,0 +1,9 @@
+root=chummer-guidance-state
+aria-live=polite
+class=chummer-guidance-state chummer-guidance-state-onboarding
+data-body=Connect your first campaign workspace.
+data-primary-action=Start onboarding
+data-secondary-action=Skip for now
+data-state-kind=onboarding
+data-title=Welcome to Chummer
+role=region
