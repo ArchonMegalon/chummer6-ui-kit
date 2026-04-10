@@ -224,8 +224,9 @@ public static class BlazorUiKitAdapter
         var tone = toast.Tone.ToString().ToLowerInvariant();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
-            ["role"] = "status",
+            ["role"] = "progressbar",
             ["aria-live"] = "polite",
+            ["aria-label"] = toast.Title,
             ["aria-valuemin"] = "0",
             ["aria-valuemax"] = "100",
             ["aria-valuenow"] = toast.ProgressPercent.ToString(System.Globalization.CultureInfo.InvariantCulture),
@@ -247,6 +248,7 @@ public static class BlazorUiKitAdapter
         {
             ["role"] = "region",
             ["aria-live"] = "polite",
+            ["aria-label"] = affordance.Title,
             ["data-title"] = affordance.Title,
             ["data-checkpoint"] = affordance.CheckpointLabel,
             ["data-resume-action"] = affordance.ResumeActionLabel,
@@ -269,6 +271,7 @@ public static class BlazorUiKitAdapter
         {
             ["role"] = "region",
             ["aria-live"] = state.Kind == GuidanceStateKind.Recovery ? "assertive" : "polite",
+            ["aria-label"] = state.Title,
             ["data-state-kind"] = kind,
             ["data-title"] = state.Title,
             ["data-body"] = state.Body,

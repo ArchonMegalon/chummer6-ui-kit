@@ -1,4 +1,5 @@
 root=chummer-guidance-state
+aria-label=Welcome to Chummer
 aria-live=polite
 class=chummer-guidance-state chummer-guidance-state-onboarding
 data-body=Connect your first campaign workspace.

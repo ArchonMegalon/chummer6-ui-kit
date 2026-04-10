@@ -1,4 +1,5 @@
 root=chummer-guidance-state
+aria-label=Recovery required
 aria-live=assertive
 class=chummer-guidance-state chummer-guidance-state-recovery
 data-body=A sync conflict needs review before publish.

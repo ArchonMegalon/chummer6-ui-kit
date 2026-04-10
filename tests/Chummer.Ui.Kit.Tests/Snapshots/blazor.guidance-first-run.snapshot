@@ -1,4 +1,5 @@
 root=chummer-guidance-state
+aria-label=First run checklist
 aria-live=polite
 class=chummer-guidance-state chummer-guidance-state-first-run
 data-body=Confirm your profile, locale, and device role.

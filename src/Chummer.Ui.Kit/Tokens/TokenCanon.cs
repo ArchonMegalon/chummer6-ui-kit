@@ -64,7 +64,7 @@ public sealed class TokenCanon
             ["first.run.state.root.class"] = "chummer-guidance-state",
             ["first.run.state.primary.action.default"] = "Start walkthrough",
             ["long.running.actions.root.class"] = "chummer-action-controls",
-            ["long.running.actions.no.loss.default"] = "safecontinuation",
+            ["long.running.actions.no.loss.default"] = "safe-continuation",
             ["long.running.actions.dictionary"] = "design/DR-129",
             ["space.100"] = "0.25rem",
             ["space.200"] = "0.5rem",

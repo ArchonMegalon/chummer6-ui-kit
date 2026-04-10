@@ -124,7 +124,7 @@ static void DefaultCanonContainsGuidanceAndLongRunningTokens()
     ExpectEqual("Review recovery", canon["recovery.state.primary.action.default"], "recovery primary action token");
     ExpectEqual("Start walkthrough", canon["first.run.state.primary.action.default"], "first-run primary action token");
     ExpectEqual("chummer-action-controls", canon["long.running.actions.root.class"], "long-running actions root class token");
-    ExpectEqual("safecontinuation", canon["long.running.actions.no.loss.default"], "long-running no-loss token");
+    ExpectEqual("safe-continuation", canon["long.running.actions.no.loss.default"], "long-running no-loss token");
     ExpectEqual("design/DR-129", canon["long.running.actions.dictionary"], "long-running dictionary token");
 }
 
@@ -680,8 +680,9 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "chummer-progress-toast",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
-            ["role"] = "status",
+            ["role"] = "progressbar",
             ["aria-live"] = "polite",
+            ["aria-label"] = "Syncing campaign",
             ["aria-valuemin"] = "0",
             ["aria-valuemax"] = "100",
             ["aria-valuenow"] = "72",
@@ -725,6 +726,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         {
             ["role"] = "region",
             ["aria-live"] = "polite",
+            ["aria-label"] = "Resume run",
             ["data-title"] = "Resume run",
             ["data-checkpoint"] = "Checkpoint: Scene 4",
             ["data-resume-action"] = "Resume from checkpoint",
@@ -763,6 +765,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         {
             ["role"] = "region",
             ["aria-live"] = "polite",
+            ["aria-label"] = "Welcome to Chummer",
             ["data-state-kind"] = "onboarding",
             ["data-title"] = "Welcome to Chummer",
             ["data-body"] = "Connect your first campaign workspace.",
@@ -801,6 +804,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         {
             ["role"] = "region",
             ["aria-live"] = "polite",
+            ["aria-label"] = "No runs yet",
             ["data-state-kind"] = "empty-state",
             ["data-title"] = "No runs yet",
             ["data-body"] = "Create a run to begin tracking outcomes.",
@@ -837,6 +841,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         {
             ["role"] = "region",
             ["aria-live"] = "assertive",
+            ["aria-label"] = "Recovery required",
             ["data-state-kind"] = "recovery",
             ["data-title"] = "Recovery required",
             ["data-body"] = "A sync conflict needs review before publish.",
@@ -944,6 +949,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectEqual(blazorLongRunning.Attributes["data-cancel-label"], avaloniaLongRunning.Attributes["cancel-label"], "cancel label parity across adapters");
     ExpectEqual(blazorLongRunning.Attributes["data-rollback-label"], avaloniaLongRunning.Attributes["rollback-label"], "rollback label parity across adapters");
     ExpectEqual(blazorLongRunning.Attributes["data-safe-continuation-label"], avaloniaLongRunning.Attributes["safe-continuation-label"], "safe-continuation label parity across adapters");
+    ExpectEqual(TokenCanon.CreateDefault()["long.running.actions.no.loss.default"], blazorLongRunning.Attributes["data-no-loss-path"], "blazor no-loss path aligns with canon token");
     ExpectSingleNoLossPath(blazorLongRunning.Attributes, "data-", "blazor long-running controls");
     ExpectSingleNoLossPath(avaloniaLongRunning.Attributes, string.Empty, "avalonia long-running controls");
 }

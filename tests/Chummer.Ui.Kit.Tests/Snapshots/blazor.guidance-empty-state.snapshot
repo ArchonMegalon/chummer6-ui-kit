@@ -1,4 +1,5 @@
 root=chummer-guidance-state
+aria-label=No runs yet
 aria-live=polite
 class=chummer-guidance-state chummer-guidance-state-empty-state
 data-body=Create a run to begin tracking outcomes.

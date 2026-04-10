@@ -1,4 +1,5 @@
 root=chummer-resume-affordance
+aria-label=Resume run
 aria-live=polite
 class=chummer-resume-affordance chummer-resume-affordance-recovery
 data-checkpoint=Checkpoint: Scene 4
