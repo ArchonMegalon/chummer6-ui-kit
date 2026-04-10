@@ -1,4 +1,4 @@
-mode: prepend
+mode: append
 items:
 - Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
 - Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
@@ -8,3 +8,14 @@ items:
 - Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
 - Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
 - Sync the approved Chummer design bundle into `ui-kit` under `.codex-design/` and refresh repo-local review context.
+- title: Sync the approved Chummer design bundle into `ui-kit` under `.codex-design/` and refresh repo-local review context.
+  task: Sync the approved Chummer design bundle into `ui-kit` under `.codex-design/` and refresh repo-local review context.
+  package_id: audit-task-11711
+  source_ref: audit_task_candidates[11711]
+  audit_finding_key: project.design_mirror_missing_or_stale
+  audit_scope_id: ui-kit
+  allowed_paths:
+  - .codex-design
+  owned_surfaces:
+  - design_mirror:ui-kit
+source_queue_fingerprint: 40044798e54e6c203ee553c406030386ff10e3aa
