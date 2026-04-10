@@ -171,6 +171,11 @@ Slice closure evidence (2026-03-13):
 - [x] Milestone mapping and acceptance criteria are present for catalog, visual-regression, and release-discipline scope.
 - [x] Auditor findings `487872/487875` are explicitly mapped to this queue slice for executable follow-through.
 
+System re-entry evidence update (2026-04-10):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section.
+- [x] Revalidated queue title `Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section.
+- [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
+
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
