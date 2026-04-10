@@ -38,13 +38,12 @@ Cleared 2026-03-19.
 Cleared 2026-03-19.
 Semantic session meaning is now single-owned in `chummer6-core`, the mobile/play wrapper surface is explicit, and run-services verifies that no second play/run relay family shadows the canonical session owner.
 
-## RED blockers
-
 ### BLK-008 — no-step-back legacy and adjacent client parity is not yet closed
 
-Active since 2026-04-04.
-Chummer6 still has release-material gaps against legacy and adjacent client feature families such as sourcebook/reference posture, dice and initiative utilities, sheet/export/viewer parity, import-oracle closure, and SR6 designer or house-rule successor lanes.
-This is tracked canonically in `LEGACY_CLIENT_AND_ADJACENT_PARITY.md`, `LEGACY_CLIENT_AND_ADJACENT_PARITY_REGISTRY.yaml`, and milestones `13` through `18` in `NEXT_12_BIGGEST_WINS_REGISTRY.yaml`.
+Cleared 2026-04-04.
+The parity registry now closes every in-scope non-plugin family through proof-backed successor routes, and milestones `13` through `18` in `NEXT_12_BIGGEST_WINS_REGISTRY.yaml` are complete.
+
+## RED blockers
 
 ### BLK-009 — flagship localization proof is below release bar
 
@@ -56,7 +55,7 @@ This stays blocking until the shipping locale set passes executable localization
 
 Active since 2026-04-04.
 The product architecture is coherent, but flagship release truth can still outrun the lived system across install, claim, restore, campaign continuity, publication, closure, and public/support trust surfaces.
-This remains blocking until journey proof, platform proof, localization proof, and no-step-back parity all line up as one release posture.
+This remains blocking until journey proof, platform proof, and localization proof line up as one release posture.
 
 ## GREEN candidates once current blockers clear
 
