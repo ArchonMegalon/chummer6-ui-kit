@@ -228,3 +228,31 @@ Implementation evidence update (2026-04-10, onboarding/action adoption + CI guar
 - [x] Updated `chummer6-mobile/scripts/ai/verify.sh` guard scan with the same onboarding/action primitive fail-on-match coverage.
 - [x] Added downstream adoption evidence and localized guard-scope proof in `docs/onboarding-action-adoption-evidence.md`.
 - [x] Extended `scripts/ai/verify.sh` in this repo to require onboarding/action adoption evidence and queued-slice closure status before passing.
+
+## Queue Slice: Classic dense workbench preset (flagship Avalonia default)
+
+Milestone mapping:
+- [ ] `U1 Token canon` -> add compact/noise-budget token keys for dense flagship desktop posture.
+- [ ] `U3 Shell chrome` -> encode top menu, toolstrip, dense tab strip, and permanent status strip posture in package-owned preset payload.
+- [ ] `U4 Dense-data controls` -> encode compact list/detail panes, compact inspector forms, and compact data grid posture as preset defaults.
+- [ ] `U7 Visual regression and catalog` -> add dense-workbench layout regression fixtures/proofs beyond generic shell polish.
+
+Runnable backlog:
+- [ ] `ui-kit`: Add a `classic_dense_workbench` preset contract in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` for compact spacing, compact header scale, banner-height ceiling, badge-density ceiling, compact field height, and compact button height tokens.
+- [ ] `ui-kit`: Add preset payload primitive(s) in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for menu bar, toolstrip, tab strip, list/detail pane density, inspector compactness, and permanent status strip posture.
+- [ ] `ui-kit`: Add Blazor/Avalonia adapter projection methods for the dense-workbench preset in `src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs` and `src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs` with deterministic payload keys.
+- [ ] `ui-kit`: Wire Avalonia defaults to `classic_dense_workbench` so flagship desktop consumers receive the dense preset unless explicitly overridden.
+- [ ] `ui-kit`: Register a dedicated preview/catalog key in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for dense workbench posture proof.
+- [ ] `ui-kit`: Add deterministic tests and snapshot fixtures in `tests/Chummer.Ui.Kit.Tests/Program.cs` and `tests/Chummer.Ui.Kit.Tests/Snapshots/` that assert compact/noise-budget token presence and stable dense-workbench payload projections.
+- [ ] `ui-kit`: Extend visual-regression checks to include dense workbench layout measurements (menu/toolstrip/tab/list-detail/inspector/status strip density assertions), not only shell/badge primitives.
+- [ ] `ui-kit`: Add release evidence capture in `docs/u7-u8-release-adoption-evidence.md` tying U8 closure to verified dense-workbench U7 baseline for Avalonia flagship defaults.
+
+Acceptance criteria:
+- [ ] A package-owned classic dense-workbench preset exists and is the default flagship theme pack for Avalonia surfaces.
+- [ ] Noise-budget token set explicitly covers compact spacing/header scale/banner ceiling/badge ceiling/field height/button height with deterministic names.
+- [ ] Visual regression evidence includes dense-workbench layout measurements and fails on density regressions.
+- [ ] Accessibility posture remains explicit and does not rely on blanket spaciousness or loud chrome.
+
+Feedback incorporation evidence (2026-04-11):
+- [x] Processed unread feedback in order: `feedback/2026-04-11-201723-dense-workbench-preset.md`, then `feedback/2026-04-11-204118-classic-dense-workbench-preset.md`.
+- [x] Added this runnable queue slice to materialize dense-workbench preset, noise-budget tokens, flagship Avalonia default posture, and dense visual-regression proof requirements.
