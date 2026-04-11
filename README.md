@@ -58,8 +58,23 @@ Adapter entry points:
 - Avalonia: `AdaptShellChrome`, `AdaptBanner`, `AdaptStaleStateBadge`, `AdaptApprovalChip`, `AdaptOfflineBanner`, `AdaptAccessibilityState`
 - Blazor long-running/accessibility patterns: `AdaptRoleTransition`, `AdaptProgressToast`, `AdaptResumeAffordance`
 - Avalonia long-running/accessibility patterns: `AdaptRoleTransition`, `AdaptProgressToast`, `AdaptResumeAffordance`
+- Blazor classic dense workbench preset: `AdaptClassicDenseWorkbenchPreset`
+- Avalonia classic dense workbench preset: `AdaptClassicDenseWorkbenchPreset` (default flagship desktop posture marker)
 
 Deterministic contract checks for all listed adapter methods run in `tests/Chummer.Ui.Kit.Tests/Program.cs` via `scripts/ai/verify.sh`.
+
+## Classic Dense Workbench Preset
+
+`TokenCanon.CreateDefault()` now includes the package-owned `classic_dense_workbench` preset and dense noise-budget tokens for:
+
+- compact spacing scale
+- compact header scale
+- banner-height ceiling
+- badge-density ceiling
+- compact field height
+- compact button height
+
+The preset contract captures top menu bar, toolstrip, dense tab strip, compact list/detail panes, compact inspector forms, and permanent status-strip posture. Avalonia projections include a `FlagshipDesktopDefault` class marker so flagship desktop consumers can treat this preset as the default posture unless explicitly overridden.
 
 ## Release Discipline Gates (U8)
 

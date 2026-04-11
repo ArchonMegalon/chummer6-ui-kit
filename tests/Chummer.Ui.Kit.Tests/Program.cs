@@ -12,6 +12,7 @@ var checks = new Action[]
     DefaultCanonContainsB1ShellAndAccessibilityTokens,
     DefaultCanonContainsRoleTransitionAndResumeTokens,
     DefaultCanonContainsGuidanceAndLongRunningTokens,
+    DefaultCanonContainsClassicDenseWorkbenchTokens,
     DefaultFallbackContrastRemainsReadable,
     AdapterDefaultsStayAlignedWithTokenCanon,
     AvaloniaCompatibilityAliasesRemainAvailable,
@@ -126,6 +127,38 @@ static void DefaultCanonContainsGuidanceAndLongRunningTokens()
     ExpectEqual("chummer-action-controls", canon["long.running.actions.root.class"], "long-running actions root class token");
     ExpectEqual("safe-continuation", canon["long.running.actions.no.loss.default"], "long-running no-loss token");
     ExpectEqual("design/DR-129", canon["long.running.actions.dictionary"], "long-running dictionary token");
+}
+
+static void DefaultCanonContainsClassicDenseWorkbenchTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "classic.dense.workbench.preset.id",
+        "classic.dense.workbench.flagship.avalonia.default",
+        "noise.budget.compact.spacing.scale",
+        "noise.budget.compact.header.scale",
+        "noise.budget.banner.height.max",
+        "noise.budget.badge.density.max",
+        "noise.budget.field.height.compact",
+        "noise.budget.button.height.compact",
+        "workbench.layout.top.menu.enabled",
+        "workbench.layout.toolstrip.enabled",
+        "workbench.layout.tab.strip.density",
+        "workbench.layout.list.detail.compact",
+        "workbench.layout.inspector.forms.compact",
+        "workbench.layout.status.strip.posture"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"default canon contains {key}");
+    }
+
+    ExpectEqual("classic_dense_workbench", canon["classic.dense.workbench.preset.id"], "dense preset id token");
+    ExpectEqual("true", canon["classic.dense.workbench.flagship.avalonia.default"], "avalonia flagship default token");
+    ExpectEqual("compact", canon["workbench.layout.tab.strip.density"], "tab strip density token");
+    ExpectEqual("permanent", canon["workbench.layout.status.strip.posture"], "status strip posture token");
 }
 
 static void DefaultFallbackContrastRemainsReadable()
@@ -243,7 +276,8 @@ static void PreviewGalleryDefaultManifestCoversPackageCatalog()
         "chummer_cards",
         "transition_patterns",
         "guidance_states",
-        "long_running_actions"
+        "long_running_actions",
+        "classic_dense_workbench"
     };
 
     ExpectEqual("Chummer.Ui.Kit", manifest.Ownership.Owner, "manifest owner");
@@ -291,6 +325,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         safeContinuationEnabled: true,
         actionDictionaryReference: "design/DR-129",
         detail: "Prefer safe continuation when replay integrity is uncertain.");
+    var classicDenseWorkbench = new ClassicDenseWorkbenchPreset();
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeader),
@@ -954,6 +989,75 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectEqual(TokenCanon.CreateDefault()["long.running.actions.no.loss.default"], avaloniaLongRunning.Attributes["no-loss-path"], "avalonia no-loss path aligns with canon token");
     ExpectSingleNoLossPath(blazorLongRunning.Attributes, "data-", "blazor long-running controls");
     ExpectSingleNoLossPath(avaloniaLongRunning.Attributes, string.Empty, "avalonia long-running controls");
+
+    var blazorDenseWorkbench = BlazorUiKitAdapter.AdaptClassicDenseWorkbenchPreset(classicDenseWorkbench);
+    var avaloniaDenseWorkbench = AvaloniaUiKitAdapter.AdaptClassicDenseWorkbenchPreset(classicDenseWorkbench);
+
+    ExpectPayload(
+        blazorDenseWorkbench,
+        "chummer-classic-dense-workbench",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-label"] = "Classic dense workbench preset",
+            ["data-preset-id"] = "classic_dense_workbench",
+            ["data-top-menu-bar-enabled"] = "true",
+            ["data-toolstrip-enabled"] = "true",
+            ["data-tab-strip-density"] = "compact",
+            ["data-compact-list-detail-panes"] = "true",
+            ["data-compact-inspector-forms"] = "true",
+            ["data-status-strip-posture"] = "permanent",
+            ["data-compact-spacing-scale"] = "0.85",
+            ["data-compact-header-scale"] = "0.90",
+            ["data-banner-height-ceiling"] = "2.50rem",
+            ["data-badge-density-ceiling"] = "3",
+            ["data-compact-field-height"] = "1.875rem",
+            ["data-compact-button-height"] = "1.875rem",
+            ["data-flagship-default-avalonia"] = "true",
+            ["class"] = "chummer-classic-dense-workbench"
+        },
+        "blazor classic dense-workbench payload");
+    ExpectPayloadSnapshot(
+        blazorDenseWorkbench,
+        "blazor.classic-dense-workbench.snapshot",
+        "blazor classic dense-workbench snapshot");
+
+    ExpectPayload(
+        avaloniaDenseWorkbench,
+        "ClassicDenseWorkbench",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "classic-dense-workbench",
+            ["classes"] = "ClassicDenseWorkbench FlagshipDesktopDefault",
+            ["preset-id"] = "classic_dense_workbench",
+            ["top-menu-bar-enabled"] = "true",
+            ["toolstrip-enabled"] = "true",
+            ["tab-strip-density"] = "compact",
+            ["compact-list-detail-panes"] = "true",
+            ["compact-inspector-forms"] = "true",
+            ["status-strip-posture"] = "permanent",
+            ["compact-spacing-scale"] = "0.85",
+            ["compact-header-scale"] = "0.90",
+            ["banner-height-ceiling"] = "2.50rem",
+            ["badge-density-ceiling"] = "3",
+            ["compact-field-height"] = "1.875rem",
+            ["compact-button-height"] = "1.875rem",
+            ["flagship-default-avalonia"] = "true"
+        },
+        "avalonia classic dense-workbench payload");
+    ExpectPayloadSnapshot(
+        avaloniaDenseWorkbench,
+        "avalonia.classic-dense-workbench.snapshot",
+        "avalonia classic dense-workbench snapshot");
+
+    ExpectEqual("true", avaloniaDenseWorkbench.Attributes["flagship-default-avalonia"], "avalonia classic dense-workbench default posture");
+    ExpectContains(avaloniaDenseWorkbench.Attributes["classes"], "FlagshipDesktopDefault", "avalonia classic dense-workbench flagship class");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-spacing-scale"]) <= 0.85d, "blazor compact spacing scale stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-header-scale"]) <= 0.90d, "blazor compact header scale stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-badge-density-ceiling"]) <= 3d, "blazor badge density ceiling stays within dense noise budget");
+    ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-banner-height-ceiling"]) <= 2.50d, "blazor banner height ceiling stays within dense noise budget");
+    ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-compact-field-height"]) <= 1.875d, "blazor compact field height stays within dense noise budget");
+    ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-compact-button-height"]) <= 1.875d, "blazor compact button height stays within dense noise budget");
 }
 
 static void ExpectPayloadSnapshot(UiAdapterPayload payload, string snapshotFileName, string scenario)
@@ -1069,6 +1173,26 @@ static void ExpectContrastAtLeast(string foregroundHex, string backgroundHex, do
         throw new InvalidOperationException(
             $"Expected {scenario} to be >= {minimumRatio.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)} but was {ratio.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)}.");
     }
+}
+
+static double ParseInvariantDouble(string value)
+{
+    if (!double.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+    {
+        throw new InvalidOperationException($"Expected numeric value but received '{value}'.");
+    }
+
+    return parsed;
+}
+
+static double ParseRemValue(string value)
+{
+    if (!value.EndsWith("rem", StringComparison.Ordinal))
+    {
+        throw new InvalidOperationException($"Expected rem value but received '{value}'.");
+    }
+
+    return ParseInvariantDouble(value[..^3]);
 }
 
 static double ContrastRatio(string firstHex, string secondHex)

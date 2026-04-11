@@ -42,6 +42,20 @@ Copy and fill this block per downstream repo:
 1. Both downstream repos submit complete evidence blocks.
 2. The submitted package version maps to a verified `U7` baseline (green verify run, no drift).
 
+## Dense workbench baseline linkage (2026-04-11)
+
+- Added package-owned classic dense-workbench preset and noise-budget tokens in UI Kit (`classic_dense_workbench`).
+- Added deterministic Blazor/Avalonia payload snapshots:
+  - `tests/Chummer.Ui.Kit.Tests/Snapshots/blazor.classic-dense-workbench.snapshot`
+  - `tests/Chummer.Ui.Kit.Tests/Snapshots/avalonia.classic-dense-workbench.snapshot`
+- Added deterministic density-budget assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` for:
+  - compact spacing scale
+  - compact header scale
+  - banner height ceiling
+  - badge density ceiling
+  - compact field/button heights
+- Added Avalonia default posture marker (`FlagshipDesktopDefault`) in preset payload projection.
+
 ## Submitted evidence
 
 ### U7/U8 downstream adoption evidence

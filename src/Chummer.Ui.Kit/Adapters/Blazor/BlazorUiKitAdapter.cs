@@ -197,6 +197,32 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-accessibility", new ReadOnlyDictionary<string, string>(attrs));
     }
 
+    public static UiAdapterPayload AdaptClassicDenseWorkbenchPreset(ClassicDenseWorkbenchPreset preset)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-label"] = "Classic dense workbench preset",
+            ["data-preset-id"] = preset.PresetId,
+            ["data-top-menu-bar-enabled"] = preset.TopMenuBarEnabled.ToString().ToLowerInvariant(),
+            ["data-toolstrip-enabled"] = preset.ToolstripEnabled.ToString().ToLowerInvariant(),
+            ["data-tab-strip-density"] = preset.TabStripDensity,
+            ["data-compact-list-detail-panes"] = preset.CompactListDetailPanes.ToString().ToLowerInvariant(),
+            ["data-compact-inspector-forms"] = preset.CompactInspectorForms.ToString().ToLowerInvariant(),
+            ["data-status-strip-posture"] = preset.StatusStripPosture,
+            ["data-compact-spacing-scale"] = preset.CompactSpacingScale,
+            ["data-compact-header-scale"] = preset.CompactHeaderScale,
+            ["data-banner-height-ceiling"] = preset.BannerHeightCeiling,
+            ["data-badge-density-ceiling"] = preset.BadgeDensityCeiling,
+            ["data-compact-field-height"] = preset.CompactFieldHeight,
+            ["data-compact-button-height"] = preset.CompactButtonHeight,
+            ["data-flagship-default-avalonia"] = preset.FlagshipDefaultForAvalonia.ToString().ToLowerInvariant(),
+            ["class"] = "chummer-classic-dense-workbench"
+        };
+
+        return new UiAdapterPayload("chummer-classic-dense-workbench", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
     public static UiAdapterPayload AdaptRoleTransition(RoleTransition transition)
     {
         var phase = transition.Phase.ToString().ToLowerInvariant();

@@ -303,6 +303,56 @@ public sealed class LongRunningActionControls
     };
 }
 
+public sealed class ClassicDenseWorkbenchPreset
+{
+    public ClassicDenseWorkbenchPreset(
+        string presetId = "classic_dense_workbench",
+        bool topMenuBarEnabled = true,
+        bool toolstripEnabled = true,
+        string tabStripDensity = "compact",
+        bool compactListDetailPanes = true,
+        bool compactInspectorForms = true,
+        string statusStripPosture = "permanent",
+        string compactSpacingScale = "0.85",
+        string compactHeaderScale = "0.90",
+        string bannerHeightCeiling = "2.50rem",
+        string badgeDensityCeiling = "3",
+        string compactFieldHeight = "1.875rem",
+        string compactButtonHeight = "1.875rem",
+        bool flagshipDefaultForAvalonia = true)
+    {
+        PresetId = string.IsNullOrWhiteSpace(presetId) ? throw new ArgumentException("Preset id is required.", nameof(presetId)) : presetId.Trim();
+        TopMenuBarEnabled = topMenuBarEnabled;
+        ToolstripEnabled = toolstripEnabled;
+        TabStripDensity = string.IsNullOrWhiteSpace(tabStripDensity) ? throw new ArgumentException("Tab strip density is required.", nameof(tabStripDensity)) : tabStripDensity.Trim();
+        CompactListDetailPanes = compactListDetailPanes;
+        CompactInspectorForms = compactInspectorForms;
+        StatusStripPosture = string.IsNullOrWhiteSpace(statusStripPosture) ? throw new ArgumentException("Status strip posture is required.", nameof(statusStripPosture)) : statusStripPosture.Trim();
+        CompactSpacingScale = string.IsNullOrWhiteSpace(compactSpacingScale) ? throw new ArgumentException("Compact spacing scale is required.", nameof(compactSpacingScale)) : compactSpacingScale.Trim();
+        CompactHeaderScale = string.IsNullOrWhiteSpace(compactHeaderScale) ? throw new ArgumentException("Compact header scale is required.", nameof(compactHeaderScale)) : compactHeaderScale.Trim();
+        BannerHeightCeiling = string.IsNullOrWhiteSpace(bannerHeightCeiling) ? throw new ArgumentException("Banner height ceiling is required.", nameof(bannerHeightCeiling)) : bannerHeightCeiling.Trim();
+        BadgeDensityCeiling = string.IsNullOrWhiteSpace(badgeDensityCeiling) ? throw new ArgumentException("Badge density ceiling is required.", nameof(badgeDensityCeiling)) : badgeDensityCeiling.Trim();
+        CompactFieldHeight = string.IsNullOrWhiteSpace(compactFieldHeight) ? throw new ArgumentException("Compact field height is required.", nameof(compactFieldHeight)) : compactFieldHeight.Trim();
+        CompactButtonHeight = string.IsNullOrWhiteSpace(compactButtonHeight) ? throw new ArgumentException("Compact button height is required.", nameof(compactButtonHeight)) : compactButtonHeight.Trim();
+        FlagshipDefaultForAvalonia = flagshipDefaultForAvalonia;
+    }
+
+    public string PresetId { get; }
+    public bool TopMenuBarEnabled { get; }
+    public bool ToolstripEnabled { get; }
+    public string TabStripDensity { get; }
+    public bool CompactListDetailPanes { get; }
+    public bool CompactInspectorForms { get; }
+    public string StatusStripPosture { get; }
+    public string CompactSpacingScale { get; }
+    public string CompactHeaderScale { get; }
+    public string BannerHeightCeiling { get; }
+    public string BadgeDensityCeiling { get; }
+    public string CompactFieldHeight { get; }
+    public string CompactButtonHeight { get; }
+    public bool FlagshipDefaultForAvalonia { get; }
+}
+
 public enum DenseSortDirection
 {
     None,

@@ -1,0 +1,17 @@
+root=ClassicDenseWorkbench
+badge-density-ceiling=3
+banner-height-ceiling=2.50rem
+classes=ClassicDenseWorkbench FlagshipDesktopDefault
+compact-button-height=1.875rem
+compact-field-height=1.875rem
+compact-header-scale=0.90
+compact-inspector-forms=true
+compact-list-detail-panes=true
+compact-spacing-scale=0.85
+flagship-default-avalonia=true
+part=classic-dense-workbench
+preset-id=classic_dense_workbench
+status-strip-posture=permanent
+tab-strip-density=compact
+toolstrip-enabled=true
+top-menu-bar-enabled=true

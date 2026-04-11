@@ -191,6 +191,31 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("AccessibilityState", new ReadOnlyDictionary<string, string>(attrs));
     }
 
+    public static UiAdapterPayload AdaptClassicDenseWorkbenchPreset(ClassicDenseWorkbenchPreset preset)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "classic-dense-workbench",
+            ["classes"] = $"ClassicDenseWorkbench{(preset.FlagshipDefaultForAvalonia ? " FlagshipDesktopDefault" : string.Empty)}",
+            ["preset-id"] = preset.PresetId,
+            ["top-menu-bar-enabled"] = preset.TopMenuBarEnabled.ToString().ToLowerInvariant(),
+            ["toolstrip-enabled"] = preset.ToolstripEnabled.ToString().ToLowerInvariant(),
+            ["tab-strip-density"] = preset.TabStripDensity,
+            ["compact-list-detail-panes"] = preset.CompactListDetailPanes.ToString().ToLowerInvariant(),
+            ["compact-inspector-forms"] = preset.CompactInspectorForms.ToString().ToLowerInvariant(),
+            ["status-strip-posture"] = preset.StatusStripPosture,
+            ["compact-spacing-scale"] = preset.CompactSpacingScale,
+            ["compact-header-scale"] = preset.CompactHeaderScale,
+            ["banner-height-ceiling"] = preset.BannerHeightCeiling,
+            ["badge-density-ceiling"] = preset.BadgeDensityCeiling,
+            ["compact-field-height"] = preset.CompactFieldHeight,
+            ["compact-button-height"] = preset.CompactButtonHeight,
+            ["flagship-default-avalonia"] = preset.FlagshipDefaultForAvalonia.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("ClassicDenseWorkbench", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
     public static UiAdapterPayload AdaptRoleTransition(RoleTransition transition)
     {
         var phase = transition.Phase.ToString();
