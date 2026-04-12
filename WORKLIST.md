@@ -112,6 +112,11 @@ Slice publication evidence (2026-03-13):
 - [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
 - [x] Queue prompt requirement for "add milestone mapping or executable queue work" is satisfied without duplicating already-completed U4/U5 implementation rows.
 
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Revalidated queue title `Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
+
 Implementation evidence update (2026-03-21):
 - [x] Added explicit command-level U4/U5 runnable execution backlog in this section to make implementation probes and verification commands concrete.
 - [x] Published downstream adoption evidence template in `docs/u4-u5-centralization-adoption-evidence.md` for presentation/play package migration proof and guard-check linkage.
