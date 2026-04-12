@@ -150,6 +150,11 @@ Acceptance criteria:
 - [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
 - [x] U8 release discipline: publish queue items for package release gates and verification checklist.
 
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.` against this section and `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
+- [x] Reconciled stale in-progress U1-U8 entries in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml` to complete where implemented evidence and verify gates are already present.
+- [x] Updated coverage rollup/status counts so completion truth remains explicit and non-partial with full ETA coverage.
+
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
 Milestone mapping:
