@@ -4,11 +4,21 @@
 - [done] Publish executable migration checklist/template for presentation and play to consume `Chummer.Ui.Kit` as package-only and remove duplicate local token/theme/component copies.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
+- [done] Sync the approved Chummer design bundle into `.codex-design/` and refresh repo-local implementation/review context.
 - [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
 - [done] Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives that were not yet modeled as a package-only boundary consumed by presentation and play.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
+
+## Queue Slice: Design mirror sync and review context refresh
+
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Sync the approved Chummer design bundle into \`ui-kit\` under \`.codex-design/\` and refresh repo-local review context.` against `.codex-studio/published/QUEUE.generated.yaml`.
+- [x] Re-synced `.codex-design/product` to the approved `chummer6-ui-kit` manifest subset from `products/chummer/sync/sync-manifest.yaml` (`publish_subset_only: true`, `prune_stale_product_files: true`) and pruned stale mirror files.
+- [x] Revalidated mirror parity post-sync: expected subset files present with no missing/stale/extra drift for this repo.
+- [x] Revalidated `.codex-design/repo/IMPLEMENTATION_SCOPE.md` matches `products/chummer/projects/ui-kit.md`.
+- [x] Revalidated `.codex-design/review/REVIEW_CONTEXT.md` matches `products/chummer/review/ui-kit.AGENTS.template.md`.
 
 ## Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)
 
@@ -111,6 +121,11 @@ Slice publication evidence (2026-03-13):
 - [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
 - [x] Queue prompt requirement for "add milestone mapping or executable queue work" is satisfied without duplicating already-completed U4/U5 implementation rows.
 
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Revalidated queue title `Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
+
 Implementation evidence update (2026-03-21):
 - [x] Added explicit command-level U4/U5 runnable execution backlog in this section to make implementation probes and verification commands concrete.
 - [x] Published downstream adoption evidence template in `docs/u4-u5-centralization-adoption-evidence.md` for presentation/play package migration proof and guard-check linkage.
@@ -143,6 +158,11 @@ Acceptance criteria:
 - [x] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
 - [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
 - [x] U8 release discipline: publish queue items for package release gates and verification checklist.
+
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.` against this section and `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
+- [x] Reconciled stale in-progress U1-U8 entries in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml` to complete where implemented evidence and verify gates are already present.
+- [x] Updated coverage rollup/status counts so completion truth remains explicit and non-partial with full ETA coverage.
 
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
