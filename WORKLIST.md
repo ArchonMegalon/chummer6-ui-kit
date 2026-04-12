@@ -4,6 +4,7 @@
 - [done] Publish executable migration checklist/template for presentation and play to consume `Chummer.Ui.Kit` as package-only and remove duplicate local token/theme/component copies.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
+- [done] Sync the approved Chummer design bundle into `.codex-design/` and refresh repo-local implementation/review context.
 - [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
 - [done] Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives that were not yet modeled as a package-only boundary consumed by presentation and play.
 - [done] Bootstrap repo structure and package boundaries
