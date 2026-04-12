@@ -11,6 +11,15 @@
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
 
+## Queue Slice: Design mirror sync and review context refresh
+
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Sync the approved Chummer design bundle into \`ui-kit\` under \`.codex-design/\` and refresh repo-local review context.` against `.codex-studio/published/QUEUE.generated.yaml`.
+- [x] Re-synced `.codex-design/product` to the approved `chummer6-ui-kit` manifest subset from `products/chummer/sync/sync-manifest.yaml` (`publish_subset_only: true`, `prune_stale_product_files: true`) and pruned stale mirror files.
+- [x] Revalidated mirror parity post-sync: expected subset files present with no missing/stale/extra drift for this repo.
+- [x] Revalidated `.codex-design/repo/IMPLEMENTATION_SCOPE.md` matches `products/chummer/projects/ui-kit.md`.
+- [x] Revalidated `.codex-design/review/REVIEW_CONTEXT.md` matches `products/chummer/review/ui-kit.AGENTS.template.md`.
+
 ## Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)
 
 ## Fleet execution sequence (cross-shard)
