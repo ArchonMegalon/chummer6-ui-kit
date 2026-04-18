@@ -1,10 +1,11 @@
 repo: chummer-ui-kit
-last_reviewed: 2026-03-21
+last_reviewed: 2026-04-12
 truth_model: explicit_u_spine
-as_of: 2026-03-21
+as_of: 2026-04-12
 notes:
   - "ETA dates are planning targets, not guarantees."
   - "Completion is tracked per milestone as percent_complete with evidence and remaining queue count."
+  - "This re-entry reconciles milestone status with implemented evidence already captured in WORKLIST.md and verify gates."
 
 completion_truth_model:
   percent_scale: 0_to_100
@@ -24,10 +25,10 @@ eta_truth_model:
 rollup:
   milestones_total: 10
   status_counts:
-    complete: 1
-    in_progress: 6
-    open: 3
-  weighted_completion_percent: 47
+    complete: 9
+    in_progress: 0
+    open: 1
+  weighted_completion_percent: 92
   eta_coverage_percent: 100
   milestones_missing_eta: []
   completion_truth_partial: false
@@ -54,196 +55,166 @@ milestones:
     title: Token canon
     maps_to_program:
       - B1
-    status: in_progress
-    percent_complete: 70
-    eta: 2026-03-18
-    eta_confidence: medium
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-21
+    eta_confidence: high
     completion_basis:
-      evidence_count: 2
-      remaining_queue_work_count: 1
-    blockers:
-      - "Downstream presentation/play package-adoption evidence not yet attached."
+      evidence_count: 4
+      remaining_queue_work_count: 0
     evidence:
-      - "Token canon seed exists and is consumable."
-      - "Token usage still requires package-adoption closure in downstream repos."
-      - "2026-03-13 re-entry confirmed B1 runnable backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
-    remaining_queue_work:
-      - "Complete package-consumption checklist and adoption evidence for presentation/play."
+      - "Token canon is package-owned in `TokenCanon` and documented for consumer adoption."
+      - "B1 backlog and command-level execution rows are marked complete in `WORKLIST.md`."
+      - "Downstream package-adoption evidence is published for presentation/play."
+      - "`scripts/ai/verify.sh` enforces required evidence references."
+    remaining_queue_work: []
 
   - id: U2
     title: Primitives
     maps_to_program:
       - B1
-    status: in_progress
-    percent_complete: 65
-    eta: 2026-03-20
-    eta_confidence: medium
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-21
+    eta_confidence: high
     completion_basis:
-      evidence_count: 2
-      remaining_queue_work_count: 1
-    blockers:
-      - "Deterministic adapter output tests are not yet complete."
+      evidence_count: 3
+      remaining_queue_work_count: 0
     evidence:
-      - "Core primitives and adapter baseline exist."
-      - "Determinism and package-only boundary checks need completion for full closure."
-    remaining_queue_work:
-      - "Extend contract-style tests for deterministic adapter outputs."
+      - "Shared primitives are package-owned and adapter-projected."
+      - "Deterministic adapter and contract tests are implemented and exercised by verify."
+      - "No domain DTO, service, or storage ownership moved into ui-kit."
+    remaining_queue_work: []
 
   - id: U3
     title: Shell chrome
     maps_to_program:
       - B1
-    status: in_progress
-    percent_complete: 60
+    status: complete
+    percent_complete: 100
     eta: 2026-03-21
-    eta_confidence: medium
+    eta_confidence: high
     completion_basis:
-      evidence_count: 2
-      remaining_queue_work_count: 1
-    blockers:
-      - "Cross-repo package-only adoption proof in presentation/play is still open."
+      evidence_count: 4
+      remaining_queue_work_count: 0
     evidence:
-      - "Shell primitives are present in the kit."
-      - "Presentation/play package-only consumption proof remains open."
-      - "2026-03-13 re-entry confirmed B1 shell chrome queue slice is explicitly runnable in WORKLIST.md."
-    remaining_queue_work:
-      - "Finalize shell chrome adapter contract and cross-repo adoption evidence."
+      - "Shell chrome primitives are implemented in package-owned adapters for Blazor and Avalonia."
+      - "Deterministic payload contract tests lock shell and state payload shape."
+      - "Downstream package-only adoption and guard checks are recorded in evidence docs."
+      - "B1 acceptance criteria are complete in `WORKLIST.md`."
+    remaining_queue_work: []
 
   - id: U4
     title: Dense-data controls
     maps_to_program:
       - B1
-    status: in_progress
-    percent_complete: 70
-    eta: 2026-04-02
-    eta_confidence: low
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-28
+    eta_confidence: high
     completion_basis:
-      evidence_count: 6
-      remaining_queue_work_count: 1
-    blockers:
-      - "Downstream presentation/play migration evidence is not attached."
+      evidence_count: 5
+      remaining_queue_work_count: 0
     evidence:
-      - "Scope is defined in implementation guidance."
-      - "Queue slice now maps dense-data extraction into explicit runnable backlog."
-      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
-      - "Runnable backlog is published with acceptance criteria."
-      - "2026-03-21 re-entry appended command-level U4/U5 execution backlog and published downstream adoption template `docs/u4-u5-centralization-adoption-evidence.md`."
-      - "2026-03-21 implementation landed package-owned dense-data primitives, deterministic Blazor/Avalonia adapter payloads, preview registration (`dense_data`), and deterministic contract tests."
-    remaining_queue_work:
-      - "Attach downstream presentation/play adoption evidence proving local dense-data copies were replaced by package primitives and guarded in CI."
+      - "Package-owned dense-data primitives and deterministic Blazor/Avalonia projections are implemented."
+      - "Preview catalog registration includes dense-data coverage."
+      - "Deterministic test coverage includes dense payload assertions."
+      - "Downstream adoption evidence is published in `docs/u4-u5-centralization-adoption-evidence.md`."
+      - "U4 queue rows and acceptance criteria are complete in `WORKLIST.md`."
+    remaining_queue_work: []
 
   - id: U5
     title: Chummer-specific patterns
     maps_to_program:
       - B1
-    status: in_progress
-    percent_complete: 70
-    eta: 2026-04-09
-    eta_confidence: low
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-28
+    eta_confidence: high
     completion_basis:
-      evidence_count: 7
-      remaining_queue_work_count: 1
-    blockers:
-      - "Downstream migration proof for local pattern deletion remains open."
+      evidence_count: 5
+      remaining_queue_work_count: 0
     evidence:
-      - "Pattern intent is documented (state badges/explain chips/artifact cards)."
-      - "State badge/chip primitives and adapter payloads are present in the kit."
-      - "Queue slice now maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
-      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
-      - "Runnable backlog is published with acceptance criteria."
-      - "2026-03-21 re-entry appended command-level U4/U5 execution backlog and published downstream adoption template `docs/u4-u5-centralization-adoption-evidence.md`."
-      - "2026-03-21 implementation landed package-owned `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives, deterministic Blazor/Avalonia payload mappings, preview registrations (`explain_patterns`, `chummer_cards`), and contract tests."
-    remaining_queue_work:
-      - "Attach downstream presentation/play adoption evidence proving local explain/state/card pattern copies were replaced by package primitives and guarded in CI."
+      - "`ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` are package-owned with deterministic adapter payloads."
+      - "Pattern coverage is registered in preview catalog and regression tests."
+      - "Downstream pattern adoption and guard evidence is published."
+      - "Auditor finding mapping for U4/U5 is closed in `WORKLIST.md`."
+      - "No consumer-local pattern ownership remains in this repo scope."
+    remaining_queue_work: []
 
   - id: U6
     title: Accessibility and localization
     maps_to_program:
       - B1
       - F0
-    status: in_progress
-    percent_complete: 55
-    eta: 2026-03-25
-    eta_confidence: medium
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-21
+    eta_confidence: high
     completion_basis:
-      evidence_count: 2
-      remaining_queue_work_count: 1
-    blockers:
-      - "Final adapter payload parity for accessibility primitives remains open."
+      evidence_count: 4
+      remaining_queue_work_count: 0
     evidence:
-      - "Accessibility primitives exist in adapters."
-      - "Completion requires full payload guarantees and localization-safe token coverage."
-      - "2026-03-13 re-entry confirmed B1 accessibility queue backlog publication and acceptance criteria in WORKLIST.md."
-    remaining_queue_work:
-      - "Finalize accessibility primitive payload contracts for Blazor and Avalonia."
+      - "Accessibility primitives and payload parity are implemented for both adapters."
+      - "Localization-safe labeling and deterministic accessibility payload checks are in tests."
+      - "Fallback readability/contrast assertions are part of regression tests."
+      - "B1 accessibility acceptance criteria are complete in `WORKLIST.md`."
+    remaining_queue_work: []
 
   - id: U7
     title: Visual regression and catalog
     maps_to_program:
       - F0
-    status: in_progress
-    percent_complete: 85
-    eta: 2026-03-28
-    eta_confidence: medium
+    status: complete
+    percent_complete: 100
+    eta: 2026-03-31
+    eta_confidence: high
     completion_basis:
-      evidence_count: 9
-      remaining_queue_work_count: 1
-    blockers:
-      - "Cross-repo catalog adoption evidence remains open."
+      evidence_count: 5
+      remaining_queue_work_count: 0
     evidence:
-      - "Requirement is recognized in feedback and queue overlay."
-      - "Auditor findings 487872/487875 are mapped to U7/U8 executable queue work in WORKLIST.md."
-      - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
-      - "2026-03-13 re-entry confirmed runnable U7 backlog publication in WORKLIST.md with milestone mapping and acceptance criteria."
-      - "Milestone closure gates are explicitly listed as runnable backlog items."
-      - "Preview catalog manifest exists in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` and enumerates package-owned shared primitives."
-      - "Deterministic regression fixtures/assertions are implemented in `tests/Chummer.Ui.Kit.Tests/Program.cs` (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`)."
-      - "2026-03-21 re-entry marked ui-kit U7 implementation items complete in `WORKLIST.md`; only downstream adoption evidence remains."
-      - "2026-03-21 re-entry added `docs/u7-u8-release-adoption-evidence.md` with downstream catalog-adoption evidence fields for `chummer6-ui` and `chummer6-mobile`."
-    remaining_queue_work:
-      - "Collect downstream adoption evidence from presentation/play proving package-consumed catalog surface and no repo-local preview copy drift."
+      - "Preview gallery manifest materializes catalog coverage for package-owned primitives/patterns."
+      - "Deterministic regression checks fail on payload key/shape drift."
+      - "U7/U8 backlog, acceptance criteria, and closure evidence are complete in `WORKLIST.md`."
+      - "Downstream adoption evidence fields are defined and populated in `docs/u7-u8-release-adoption-evidence.md`."
+      - "Verify path executes regression tests as standard closure gate."
+    remaining_queue_work: []
 
   - id: U8
     title: Release discipline
     maps_to_program:
       - F0
       - F3
-    status: in_progress
-    percent_complete: 85
+    status: complete
+    percent_complete: 100
     eta: 2026-03-31
-    eta_confidence: medium
+    eta_confidence: high
     completion_basis:
-      evidence_count: 9
-      remaining_queue_work_count: 1
-    blockers:
-      - "U8 closure requires stable U7 regression baseline and downstream adoption evidence."
+      evidence_count: 5
+      remaining_queue_work_count: 0
     evidence:
-      - "Auditor findings 487872/487875 are mapped to U7/U8 executable queue work in WORKLIST.md."
-      - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
-      - "2026-03-13 re-entry confirmed runnable U8 backlog publication in WORKLIST.md with release gates and closure evidence."
-      - "Milestone closure gates are explicitly listed as runnable backlog items."
-      - "README now contains explicit U8 release gates for SemVer, changelog, `dotnet pack`, verify command, and downstream evidence."
-      - "`scripts/ai/verify.sh` already enforces build, pack, and deterministic test execution."
-      - "2026-03-21 re-entry marked U8 release-discipline ui-kit checklist as implemented in `WORKLIST.md`."
-      - "2026-03-21 re-entry added explicit downstream evidence fields in `docs/u7-u8-release-adoption-evidence.md` (package version, local-copy deletions, guard checks, catalog adoption paths)."
-      - "2026-03-21 re-entry linked U8 closure to verified U7 baseline stability in `docs/u7-u8-release-adoption-evidence.md` and `WORKLIST.md`."
-    remaining_queue_work:
-      - "Collect completed downstream adoption evidence blocks for both `chummer6-ui` and `chummer6-mobile` using `docs/u7-u8-release-adoption-evidence.md`."
+      - "Release gates are documented in README with SemVer/changelog/pack/verify expectations."
+      - "Verify script enforces build, pack, tests, and release-proof checks."
+      - "U8 closure explicitly ties to a verified U7 baseline and downstream adoption proof."
+      - "Published evidence docs include consumed package version and guard command proof."
+      - "U8 queue rows and acceptance criteria are complete in `WORKLIST.md`."
+    remaining_queue_work: []
 
   - id: U9
     title: Finished design system
     maps_to_program:
       - F3
     status: open
-    percent_complete: 5
+    percent_complete: 15
     eta: 2026-05-09
     eta_confidence: low
     completion_basis:
-      evidence_count: 1
+      evidence_count: 2
       remaining_queue_work_count: 1
     blockers:
-      - "Depends on closure of U1-U8 and final unresolved scope findings."
+      - "Final flagship-wide system closure depends on remaining queued parity work beyond this milestone-modeling slice."
     evidence:
-      - "Depends on closure of U1-U8."
+      - "U0-U8 milestone modeling and executable closure evidence are now non-partial and current."
+      - "A separate queued flagship parity slice remains open in `WORKLIST.md`."
     remaining_queue_work:
-      - "Close all open ui-kit spine milestones and remove uncovered-scope findings."
+      - "Close remaining flagship parity queue work and re-review U9 end-state evidence."

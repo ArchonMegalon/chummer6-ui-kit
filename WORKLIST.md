@@ -4,11 +4,21 @@
 - [done] Publish executable migration checklist/template for presentation and play to consume `Chummer.Ui.Kit` as package-only and remove duplicate local token/theme/component copies.
 - [done] Add package-ownership CI guards that fail if B1/U4/U5 primitive classes reappear as local source copies in presentation/play root projects.
 - [done] Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns that were implicit in app repos.
+- [done] Sync the approved Chummer design bundle into `.codex-design/` and refresh repo-local implementation/review context.
 - [done] Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives as a package-only boundary consumed by presentation and play.
 - [done] Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives that were not yet modeled as a package-only boundary consumed by presentation and play.
 - [done] Bootstrap repo structure and package boundaries
 - [done] Seed token canon, theme compilation, and preview/gallery ownership
 - [done] Establish full `U0-U9` milestone coverage truth with explicit status, completion percent, and ETA in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
+
+## Queue Slice: Design mirror sync and review context refresh
+
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Sync the approved Chummer design bundle into \`ui-kit\` under \`.codex-design/\` and refresh repo-local review context.` against `.codex-studio/published/QUEUE.generated.yaml`.
+- [x] Re-synced `.codex-design/product` to the approved `chummer6-ui-kit` manifest subset from `products/chummer/sync/sync-manifest.yaml` (`publish_subset_only: true`, `prune_stale_product_files: true`) and pruned stale mirror files.
+- [x] Revalidated mirror parity post-sync: expected subset files present with no missing/stale/extra drift for this repo.
+- [x] Revalidated `.codex-design/repo/IMPLEMENTATION_SCOPE.md` matches `products/chummer/projects/ui-kit.md`.
+- [x] Revalidated `.codex-design/review/REVIEW_CONTEXT.md` matches `products/chummer/review/ui-kit.AGENTS.template.md`.
 
 ## Queue Slice: B1 package-only shared boundary (tokens + shell chrome + accessibility)
 
@@ -111,6 +121,11 @@ Slice publication evidence (2026-03-13):
 - [x] Auditor findings `487871/487874` are explicitly mapped to this queue slice for executable follow-through.
 - [x] Queue prompt requirement for "add milestone mapping or executable queue work" is satisfied without duplicating already-completed U4/U5 implementation rows.
 
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Revalidated queue title `Add milestone mapping or executable queue work for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..` against this section.
+- [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
+
 Implementation evidence update (2026-03-21):
 - [x] Added explicit command-level U4/U5 runnable execution backlog in this section to make implementation probes and verification commands concrete.
 - [x] Published downstream adoption evidence template in `docs/u4-u5-centralization-adoption-evidence.md` for presentation/play package migration proof and guard-check linkage.
@@ -144,6 +159,11 @@ Acceptance criteria:
 - [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
 - [x] U8 release discipline: publish queue items for package release gates and verification checklist.
 
+System re-entry evidence update (2026-04-12):
+- [x] Revalidated queue title `Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.` against this section and `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml`.
+- [x] Reconciled stale in-progress U1-U8 entries in `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml` to complete where implemented evidence and verify gates are already present.
+- [x] Updated coverage rollup/status counts so completion truth remains explicit and non-partial with full ETA coverage.
+
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
 Milestone mapping:
@@ -176,6 +196,20 @@ System re-entry evidence update (2026-04-10):
 - [x] Revalidated queue title `Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section.
 - [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
 
+System re-entry evidence update (2026-04-15):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section and `.codex-studio/published/QUEUE.generated.yaml`.
+- [x] Confirmed U7/U8 catalog, visual-regression, and release-discipline backlog remains materialized with complete milestone mapping, acceptance criteria, downstream evidence template, and implementation evidence.
+- [x] Processed feedback `feedback/2026-04-12-114601-audit-task-11711.md`, `feedback/2026-04-13-210205-audit-task-11711.md`, `feedback/2026-04-13-222212-audit-task-11711.md`, and `feedback/2026-04-14-104610-audit-task-11711.md` in order; all four publish the separate design-mirror refresh queue item, which is already represented in `.codex-studio/published/QUEUE.generated.yaml` and separately closed in the design mirror sync section.
+- [x] Processed feedback `feedback/2026-04-14-110921-audit-task-11711.md` and `feedback/2026-04-14-124320-audit-task-11711.md` in order; both are duplicate publications of the same separate design-mirror refresh queue item and do not change the U7/U8 backlog/materialization slice.
+- [x] Processed feedback `feedback/2026-04-14-162939-audit-task-11711.md`, `feedback/2026-04-14-171134-audit-task-11711.md`, `feedback/2026-04-15-021121-audit-task-11711.md`, `feedback/2026-04-15-025948-audit-task-11711.md`, and `feedback/2026-04-15-033529-audit-task-11711.md` in order; all five republish the separate design-mirror refresh queue item and do not change the U7/U8 backlog/materialization slice.
+- [x] No duplicate U7/U8 backlog rows were added during re-entry.
+
+System re-entry evidence update (2026-04-18):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section, `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Confirmed the slice remains already complete in repo state: catalog keys are materialized in `PreviewGalleryManifest.CreateDefault()`, deterministic regression coverage exists in `tests/Chummer.Ui.Kit.Tests/Program.cs`, and release-discipline/adoption evidence remains published in `README.md` and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Processed unread feedback `feedback/2026-04-15-061327-audit-task-11711.md`; it republishes the separate design-mirror refresh queue item and does not reopen or change this U7/U8 backlog/materialization slice.
+- [x] No duplicate backlog rows were added for this slice during the 2026-04-18 re-entry pass.
+
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
@@ -185,7 +219,7 @@ Implementation evidence update (2026-03-21):
 
 ## Queue Slice: Flagship UX parity and reliability primitives
 
-- [queued] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
+- [x] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
 - [done] `ui-kit`: Publish a reusable accessibility-first pattern package for role transitions, progress-toasts, and resume affordances used by shell and mobile consumers.
 - [done] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
 - [x] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
@@ -229,6 +263,11 @@ Implementation evidence update (2026-04-10, onboarding/action adoption + CI guar
 - [x] Added downstream adoption evidence and localized guard-scope proof in `docs/onboarding-action-adoption-evidence.md`.
 - [x] Extended `scripts/ai/verify.sh` in this repo to require onboarding/action adoption evidence and queued-slice closure status before passing.
 
+Implementation evidence update (2026-04-15, completion recovery closure):
+- [x] Added the missing canonical `error.state.*` token pair in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` so the guidance-state contract now fully covers onboarding, error, empty-state, recovery, and first-run.
+- [x] Extended `GuidanceStateKind`, Blazor contract-case mapping, and assertive live-region routing so `error` guidance payloads are deterministic alongside recovery-state payloads.
+- [x] Added token checks, adapter payload assertions, and new Blazor/Avalonia snapshots for the error-state guidance variant in `tests/Chummer.Ui.Kit.Tests/Program.cs` and `tests/Chummer.Ui.Kit.Tests/Snapshots/`.
+
 ## Queue Slice: Classic dense workbench preset (flagship Avalonia default)
 
 Milestone mapping:
@@ -256,6 +295,10 @@ Acceptance criteria:
 Feedback incorporation evidence (2026-04-11):
 - [x] Processed unread feedback in order: `feedback/2026-04-11-201723-dense-workbench-preset.md`, then `feedback/2026-04-11-204118-classic-dense-workbench-preset.md`.
 - [x] Added this runnable queue slice to materialize dense-workbench preset, noise-budget tokens, flagship Avalonia default posture, and dense visual-regression proof requirements.
+
+Feedback incorporation evidence (2026-04-12):
+- [x] Processed `feedback/2026-04-12-github-review-pr.md`; confirmed the current slice is the U7/U8 catalog, visual-regression, and release-discipline backlog/materialization slice rather than the `.codex-design`-only mirror-sync queue item.
+- [x] Processed `feedback/2026-04-12-dense-preset-default-and-noise-budget.md`; confirmed the classic dense-workbench preset is the flagship Avalonia default, covers menu/toolstrip/status/tab/list-detail/grid/inspector posture, keeps explicit compact/noise-budget tokens testable, and has dense layout regression snapshots/assertions.
 
 Implementation evidence update (2026-04-11, classic dense workbench closure):
 - [x] Added package-owned `classic_dense_workbench` and dense noise-budget tokens in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`.
