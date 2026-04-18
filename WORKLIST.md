@@ -196,6 +196,20 @@ System re-entry evidence update (2026-04-10):
 - [x] Revalidated queue title `Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section.
 - [x] Confirmed runnable backlog, milestone mapping, and acceptance criteria are already published here; no duplicate backlog rows were added during re-entry.
 
+System re-entry evidence update (2026-04-15):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section and `.codex-studio/published/QUEUE.generated.yaml`.
+- [x] Confirmed U7/U8 catalog, visual-regression, and release-discipline backlog remains materialized with complete milestone mapping, acceptance criteria, downstream evidence template, and implementation evidence.
+- [x] Processed feedback `feedback/2026-04-12-114601-audit-task-11711.md`, `feedback/2026-04-13-210205-audit-task-11711.md`, `feedback/2026-04-13-222212-audit-task-11711.md`, and `feedback/2026-04-14-104610-audit-task-11711.md` in order; all four publish the separate design-mirror refresh queue item, which is already represented in `.codex-studio/published/QUEUE.generated.yaml` and separately closed in the design mirror sync section.
+- [x] Processed feedback `feedback/2026-04-14-110921-audit-task-11711.md` and `feedback/2026-04-14-124320-audit-task-11711.md` in order; both are duplicate publications of the same separate design-mirror refresh queue item and do not change the U7/U8 backlog/materialization slice.
+- [x] Processed feedback `feedback/2026-04-14-162939-audit-task-11711.md`, `feedback/2026-04-14-171134-audit-task-11711.md`, `feedback/2026-04-15-021121-audit-task-11711.md`, `feedback/2026-04-15-025948-audit-task-11711.md`, and `feedback/2026-04-15-033529-audit-task-11711.md` in order; all five republish the separate design-mirror refresh queue item and do not change the U7/U8 backlog/materialization slice.
+- [x] No duplicate U7/U8 backlog rows were added during re-entry.
+
+System re-entry evidence update (2026-04-18):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section, `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Confirmed the slice remains already complete in repo state: catalog keys are materialized in `PreviewGalleryManifest.CreateDefault()`, deterministic regression coverage exists in `tests/Chummer.Ui.Kit.Tests/Program.cs`, and release-discipline/adoption evidence remains published in `README.md` and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Processed unread feedback `feedback/2026-04-15-061327-audit-task-11711.md`; it republishes the separate design-mirror refresh queue item and does not reopen or change this U7/U8 backlog/materialization slice.
+- [x] No duplicate backlog rows were added for this slice during the 2026-04-18 re-entry pass.
+
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
@@ -205,7 +219,7 @@ Implementation evidence update (2026-03-21):
 
 ## Queue Slice: Flagship UX parity and reliability primitives
 
-- [queued] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
+- [x] `ui-kit`: Add canonical UX pattern definitions for onboarding, error, and empty states in `TokenCanon` so app consumers can render consistent user guidance.
 - [done] `ui-kit`: Publish a reusable accessibility-first pattern package for role transitions, progress-toasts, and resume affordances used by shell and mobile consumers.
 - [done] `ui-kit`: Add deterministic payload snapshots for the new UX state patterns and require them in shared adapter tests.
 - [x] `presentation` + `play`: Consume and verify the new patterns without source-copy reintroductions, and add regression assertions for fallback readability/contrast.
@@ -249,6 +263,11 @@ Implementation evidence update (2026-04-10, onboarding/action adoption + CI guar
 - [x] Added downstream adoption evidence and localized guard-scope proof in `docs/onboarding-action-adoption-evidence.md`.
 - [x] Extended `scripts/ai/verify.sh` in this repo to require onboarding/action adoption evidence and queued-slice closure status before passing.
 
+Implementation evidence update (2026-04-15, completion recovery closure):
+- [x] Added the missing canonical `error.state.*` token pair in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` so the guidance-state contract now fully covers onboarding, error, empty-state, recovery, and first-run.
+- [x] Extended `GuidanceStateKind`, Blazor contract-case mapping, and assertive live-region routing so `error` guidance payloads are deterministic alongside recovery-state payloads.
+- [x] Added token checks, adapter payload assertions, and new Blazor/Avalonia snapshots for the error-state guidance variant in `tests/Chummer.Ui.Kit.Tests/Program.cs` and `tests/Chummer.Ui.Kit.Tests/Snapshots/`.
+
 ## Queue Slice: Classic dense workbench preset (flagship Avalonia default)
 
 Milestone mapping:
@@ -276,6 +295,10 @@ Acceptance criteria:
 Feedback incorporation evidence (2026-04-11):
 - [x] Processed unread feedback in order: `feedback/2026-04-11-201723-dense-workbench-preset.md`, then `feedback/2026-04-11-204118-classic-dense-workbench-preset.md`.
 - [x] Added this runnable queue slice to materialize dense-workbench preset, noise-budget tokens, flagship Avalonia default posture, and dense visual-regression proof requirements.
+
+Feedback incorporation evidence (2026-04-12):
+- [x] Processed `feedback/2026-04-12-github-review-pr.md`; confirmed the current slice is the U7/U8 catalog, visual-regression, and release-discipline backlog/materialization slice rather than the `.codex-design`-only mirror-sync queue item.
+- [x] Processed `feedback/2026-04-12-dense-preset-default-and-noise-budget.md`; confirmed the classic dense-workbench preset is the flagship Avalonia default, covers menu/toolstrip/status/tab/list-detail/grid/inspector posture, keeps explicit compact/noise-budget tokens testable, and has dense layout regression snapshots/assertions.
 
 Implementation evidence update (2026-04-11, classic dense workbench closure):
 - [x] Added package-owned `classic_dense_workbench` and dense noise-budget tokens in `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`.
