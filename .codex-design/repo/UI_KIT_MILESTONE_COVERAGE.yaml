@@ -1,5 +1,5 @@
 repo: chummer-ui-kit
-last_reviewed: 2026-03-11
+last_reviewed: 2026-04-21
 truth_model: explicit_u_spine
 notes:
   - "ETA dates are planning targets, not guarantees."
@@ -115,17 +115,14 @@ milestones:
     title: Visual regression and catalog
     maps_to_program:
       - F0
-    status: open
-    percent_complete: 10
-    eta: 2026-04-18
+    status: in_progress
+    percent_complete: 70
+    eta: 2026-04-28
     evidence:
-      - "Requirement is recognized in feedback and queue overlay."
-      - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
+      - "Package-owned catalog coverage is registered in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`."
+      - "Deterministic visual regression fixtures and snapshot assertions now live in `tests/Chummer.Ui.Kit.Tests/Program.cs`."
+      - "Standard repo verification already runs the regression test path through `scripts/ai/verify.sh`, and the path passed on 2026-04-21."
     remaining_queue_work:
-      - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
-      - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
-      - "Add regression assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` that fail on payload shape/key drift for catalog-covered components."
-      - "Add CI-targetable verify entrypoint wiring in `scripts/ai/verify.sh` scope so catalog + regression checks run in one standard command."
       - "Publish downstream adoption instructions for presentation/play to consume catalog outputs rather than maintaining local preview copies."
       - "Acceptance criteria: catalog is package-owned, regression checks are deterministic, and no external-tool/provider logic is introduced."
 
@@ -134,17 +131,15 @@ milestones:
     maps_to_program:
       - F0
       - F3
-    status: open
-    percent_complete: 10
-    eta: 2026-04-25
+    status: in_progress
+    percent_complete: 65
+    eta: 2026-05-02
     evidence:
-      - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
+      - "Release gates are documented in `README.md` with SemVer, changelog, packaging, verification, and downstream adoption requirements."
+      - "A reusable release record now exists in `docs/release-evidence-template.md`."
+      - "Package validation is part of the standard verify path via `scripts/ai/verify.sh`, and the path passed on 2026-04-21."
     remaining_queue_work:
-      - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
-      - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
-      - "Add release gate tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` for token/primitive contract continuity expectations tied to major/minor bump behavior."
-      - "Document required adoption evidence fields for presentation/play (package version consumed, removed local copies, guard checks added)."
-      - "Add queue closure criteria linking U8 completion to verified U7 regression baseline stability."
+      - "Collect downstream adoption evidence for `chummer6-ui` and `chummer6-mobile` using `docs/release-evidence-template.md` before closure."
       - "Acceptance criteria: releases are reproducible, contract drift is detectable pre-publish, and package-only boundary evidence is attached per release."
 
   - id: U9

@@ -46,21 +46,21 @@ Acceptance criteria:
 
 ## Milestone modeling follow-through (from coverage file)
 
-- [ ] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
-- [ ] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
-- [ ] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
-- [ ] U8 release discipline: publish queue items for package release gates and verification checklist.
+- [x] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
+- [x] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
+- [x] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
+- [x] U8 release discipline: publish queue items for package release gates and verification checklist.
 
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
 Milestone mapping:
-- [ ] `U7 Visual regression and catalog` -> package-owned catalog manifests and deterministic adapter regression checks.
-- [ ] `U8 Release discipline` -> explicit release gates for versioning, changelog, packaging, verification, and downstream adoption evidence.
+- [x] `U7 Visual regression and catalog` -> package-owned catalog manifests and deterministic adapter regression checks.
+- [x] `U8 Release discipline` -> explicit release gates for versioning, changelog, packaging, verification, and downstream adoption evidence.
 
 Runnable backlog:
-- [ ] `ui-kit`: Add catalog coverage inventory in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for all package primitives/patterns used as shared boundary surface.
-- [ ] `ui-kit`: Add deterministic visual regression fixture inputs in `tests/Chummer.Ui.Kit.Tests/Program.cs` for Blazor and Avalonia payload projections.
-- [ ] `ui-kit`: Add regression assertions that fail on payload key/shape drift for catalog-covered components.
+- [x] `ui-kit`: Add catalog coverage inventory in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` for all package primitives/patterns used as shared boundary surface.
+- [x] `ui-kit`: Add deterministic visual regression fixture inputs in `tests/Chummer.Ui.Kit.Tests/Program.cs` for Blazor and Avalonia payload projections.
+- [x] `ui-kit`: Add regression assertions that fail on payload key/shape drift for catalog-covered components.
 - [x] `ui-kit`: Extend `scripts/ai/verify.sh` invocation path only if needed so catalog + regression checks run in the standard verification command.
 - [x] `ui-kit`: Add a release-discipline section in `README.md` with SemVer bump rules, changelog requirement, `dotnet pack` validation, and required verify command.
 - [x] `ui-kit`: Add release evidence template in docs/worklist notes for package version, contract impact, and downstream adoption proof.
@@ -68,6 +68,6 @@ Runnable backlog:
 - [ ] `presentation` + `play`: Add/keep guard checks preventing reintroduction of repo-local copies for catalog-covered primitives.
 
 Acceptance criteria:
-- [ ] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
-- [ ] Visual regression checks are deterministic and run from the repo-standard verification command.
-- [ ] Release checklist is explicit, repeatable, and requires package/adoption evidence before closure.
+- [x] Catalog entries are package-owned and do not depend on domain DTOs, HTTP clients, storage, or external-provider logic.
+- [x] Visual regression checks are deterministic and run from the repo-standard verification command.
+- [x] Release checklist is explicit, repeatable, and requires package/adoption evidence before closure.
