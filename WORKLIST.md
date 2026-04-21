@@ -217,6 +217,12 @@ System re-entry evidence update (2026-04-21):
 - [x] Processed unread feedback `feedback/2026-04-21-133747-audit-task-11711.md`; it republishes the separate design-mirror parity hygiene queue item already present in `.codex-studio/published/QUEUE.generated.yaml` and does not reopen or change this U7/U8 backlog/materialization slice.
 - [x] No duplicate backlog rows were added for this slice during the 2026-04-21 re-entry pass.
 
+System re-entry evidence update (2026-04-21, current pass):
+- [x] Re-read the required design mirror, repo scope, review context, queue overlay, and current repository state before taking action on this slice.
+- [x] Reconfirmed that `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` is already satisfied by this U7/U8 section plus `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Reconfirmed that the newer queue item `Auto-detect and repair recurring \`ui-kit\` mirror drift after 6373 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.` is a separate design-mirror hygiene slice and does not justify reopening or duplicating the already-closed U7/U8 backlog/materialization slice.
+- [x] No U7/U8 backlog, milestone, or acceptance rows were added or changed beyond this re-entry evidence note.
+
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
