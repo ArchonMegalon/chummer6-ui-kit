@@ -23,6 +23,10 @@
 
 ## Queue Slice: U4/U5 centralization (dense data + state badges + explain chips + Chummer patterns)
 
+Publication status:
+- [x] Runnable backlog for auditor findings `487871` and `487874` is published locally in this worklist for implementation follow-through.
+- [x] Acceptance criteria are published with the queue slice so downstream package, adapter, preview, and adoption work can close against one scope definition.
+
 Milestone mapping:
 - [ ] `U4 Dense-data controls` -> package-owned dense row and table primitives with deterministic adapter payloads.
 - [ ] `U5 Chummer-specific patterns` -> package-owned explain chips, stale/approval state badges, and reusable Chummer cards.
@@ -46,8 +50,8 @@ Acceptance criteria:
 
 ## Milestone modeling follow-through (from coverage file)
 
-- [ ] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
-- [ ] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
+- [x] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
+- [x] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
 - [ ] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
 - [ ] U8 release discipline: publish queue items for package release gates and verification checklist.
 
