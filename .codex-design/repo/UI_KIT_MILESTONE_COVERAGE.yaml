@@ -1,9 +1,11 @@
 repo: chummer-ui-kit
-last_reviewed: 2026-03-11
+last_reviewed: 2026-04-21
 truth_model: explicit_u_spine
+truth_as_of: 2026-04-21
 notes:
   - "ETA dates are planning targets, not guarantees."
-  - "Completion is tracked per milestone as percent_complete with evidence."
+  - "Completion is tracked per milestone as percent_complete with evidence from repo-local code, docs, and tests."
+  - "Generated queue/workpackage overlays referenced by fleet prompts were not present in this worktree on 2026-04-21, so remaining work is modeled from local repo truth only."
 
 milestones:
   - id: U0
@@ -14,9 +16,14 @@ milestones:
     status: complete
     percent_complete: 100
     eta: 2026-03-10
+    completion_basis:
+      - "Required local design mirror files are present."
+      - "Repo-local implementation scope and review context are mirrored."
+      - "A repo-local milestone coverage registry exists and is now fully enumerated."
     evidence:
       - "Local design mirror is present under .codex-design/."
       - "Repo-level scope/review guidance is in place."
+      - "`WORKLIST.md` and `.codex-design/repo/UI_KIT_MILESTONE_COVERAGE.yaml` provide repo-local milestone planning truth."
     remaining_queue_work: []
 
   - id: U1
@@ -24,12 +31,19 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 70
-    eta: 2026-03-18
+    percent_complete: 60
+    eta: 2026-05-02
+    completion_basis:
+      - "Default token canon exists with normalized keys/values and deterministic lookup semantics."
+      - "Theme compilation consumes token canon overrides and is verifier-backed."
+      - "Completion requires broader token coverage for shell/accessibility usage and downstream package adoption proof."
     evidence:
-      - "Token canon seed exists and is consumable."
-      - "Token usage still requires package-adoption closure in downstream repos."
+      - "`src/Chummer.Ui.Kit/Tokens/TokenCanon.cs` defines the repo-owned token canon seed."
+      - "`src/Chummer.Ui.Kit/Theming/ThemeCompiler.cs` compiles canon plus overrides into deterministic CSS variables."
+      - "`tests/Chummer.Ui.Kit.Tests/Program.cs` verifies default token values and compiler behavior."
     remaining_queue_work:
+      - "Expand token coverage to include the canonical shell chrome and accessibility keys consumed by adapters."
+      - "Document canonical token keys in `README.md` as part of the B1 package contract."
       - "Complete package-consumption checklist and adoption evidence for presentation/play."
 
   - id: U2
@@ -37,25 +51,35 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 65
-    eta: 2026-03-20
+    percent_complete: 50
+    eta: 2026-05-06
+    completion_basis:
+      - "Seed primitives exist for shell chrome, banners, stale badges, approval chips, offline banners, and accessibility state."
+      - "Completion requires broader primitive surface and stronger deterministic contract coverage."
     evidence:
-      - "Core primitives and adapter baseline exist."
-      - "Determinism and package-only boundary checks need completion for full closure."
+      - "`src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` defines the current package-owned primitive seed."
+      - "Blazor and Avalonia adapters project these primitives into deterministic payload shapes."
+      - "`tests/Chummer.Ui.Kit.Tests/Program.cs` verifies seed primitive payload determinism."
     remaining_queue_work:
-      - "Extend contract-style tests for deterministic adapter outputs."
+      - "Extend contract-style tests beyond the current seed primitives as new shared boundary components land."
+      - "Add explicit guardrails proving new primitives stay UI-only and domain-free."
 
   - id: U3
     title: Shell chrome
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 60
-    eta: 2026-03-21
+    percent_complete: 55
+    eta: 2026-05-09
+    completion_basis:
+      - "Shell chrome primitives and adapter payloads exist in both supported adapter targets."
+      - "Completion requires documented contract keys and downstream package-adoption proof."
     evidence:
-      - "Shell primitives are present in the kit."
-      - "Presentation/play package-only consumption proof remains open."
+      - "`ShellChrome` exists in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs`."
+      - "Blazor and Avalonia shell payload adapters are implemented and test-covered."
+      - "Preview manifest includes `shell_chrome` coverage."
     remaining_queue_work:
+      - "Document shell chrome adapter payload guarantees in `README.md`."
       - "Finalize shell chrome adapter contract and cross-repo adoption evidence."
 
   - id: U4
@@ -63,12 +87,15 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 25
-    eta: 2026-04-02
+    percent_complete: 15
+    eta: 2026-05-16
+    completion_basis:
+      - "Milestone is modeled with runnable backlog and acceptance criteria."
+      - "No dense-data primitives or previews exist in code yet."
     evidence:
-      - "Scope is defined in implementation guidance."
-      - "Queue slice now maps dense-data extraction into explicit runnable backlog."
-      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+      - "Dense-data ownership is stated in project scope and implementation guidance."
+      - "`WORKLIST.md` contains a dedicated U4/U5 queue slice with runnable backlog and acceptance criteria."
+      - "No `dense_data` preview registration or dense-data adapter primitives exist yet in `src/`."
     remaining_queue_work:
       - "Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense row metadata, and explain-affinity row state without domain DTO dependencies."
       - "Implement adapter payload methods in Blazor and Avalonia adapters for each new dense-data primitive with deterministic attribute keys."
@@ -82,13 +109,16 @@ milestones:
     maps_to_program:
       - B1
     status: in_progress
-    percent_complete: 30
-    eta: 2026-04-09
+    percent_complete: 20
+    eta: 2026-05-23
+    completion_basis:
+      - "State badge/chip intent is partially implemented through stale-state and approval primitives."
+      - "Explain-card and Chummer-specific pattern centralization remain backlog-only."
     evidence:
       - "Pattern intent is documented (state badges/explain chips/artifact cards)."
-      - "State badge/chip primitives and adapter payloads are present in the kit."
-      - "Queue slice now maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
-      - "Auditor findings 487871/487874 are mapped to executable U4/U5 queue items in WORKLIST.md."
+      - "State badge/chip primitives and adapter payloads are present in the kit for stale-state and approval patterns."
+      - "`WORKLIST.md` maps explain-chip and Chummer-specific pattern centralization into runnable backlog."
+      - "No `ExplainChip`, `SpiderStatusCard`, or `ArtifactStatusCard` types exist yet in `src/`."
     remaining_queue_work:
       - "Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only fields."
       - "Implement Blazor/Avalonia adapter payload methods for these patterns with stable role/class/attribute mappings."
@@ -103,24 +133,33 @@ milestones:
       - B1
       - F0
     status: in_progress
-    percent_complete: 55
-    eta: 2026-03-25
+    percent_complete: 45
+    eta: 2026-05-13
+    completion_basis:
+      - "A seed accessibility primitive exists with adapter payloads in both targets."
+      - "Completion requires full contract documentation, broader token support, and localization-safe expansion."
     evidence:
-      - "Accessibility primitives exist in adapters."
-      - "Completion requires full payload guarantees and localization-safe token coverage."
+      - "`AccessibilityState` exists in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs`."
+      - "Blazor and Avalonia accessibility payload mappings are implemented and test-covered."
+      - "Preview manifest includes `accessibility_state` coverage."
     remaining_queue_work:
       - "Finalize accessibility primitive payload contracts for Blazor and Avalonia."
+      - "Add localization-safe token and contract documentation for accessibility surfaces."
 
   - id: U7
     title: Visual regression and catalog
     maps_to_program:
       - F0
-    status: open
-    percent_complete: 10
-    eta: 2026-04-18
+    status: in_progress
+    percent_complete: 25
+    eta: 2026-05-30
+    completion_basis:
+      - "A seed preview catalog exists and deterministic adapter assertions already run in the repo verify path."
+      - "Completion requires full catalog coverage and explicit regression fixtures beyond current assertion-only tests."
     evidence:
-      - "Requirement is recognized in feedback and queue overlay."
-      - "Runnable queue work is now published for catalog manifests, visual-baseline artifacts, and deterministic regression checks."
+      - "`src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs` provides a package-owned preview catalog seed."
+      - "`tests/Chummer.Ui.Kit.Tests/Program.cs` already fails on adapter payload shape/key drift for current covered primitives."
+      - "`scripts/ai/verify.sh` runs the repo test harness in the standard verification path."
     remaining_queue_work:
       - "Create a package-owned catalog surface under `src/Chummer.Ui.Kit/Preview/` that enumerates all shared primitives and Chummer-specific patterns without domain/service dependencies."
       - "Add deterministic visual-baseline fixture generation in `tests/Chummer.Ui.Kit.Tests/` for Blazor and Avalonia adapter payload snapshots."
@@ -134,11 +173,16 @@ milestones:
     maps_to_program:
       - F0
       - F3
-    status: open
-    percent_complete: 10
-    eta: 2026-04-25
+    status: in_progress
+    percent_complete: 35
+    eta: 2026-06-06
+    completion_basis:
+      - "Release gates are partially documented and the standard verify path includes build, pack, and test."
+      - "Completion requires stronger release evidence templates and contract-continuity checks."
     evidence:
-      - "Release discipline queue work is explicitly modeled with versioning, changelog, package, verification, and adoption gates."
+      - "`README.md` contains a `Release Discipline Gates (U8)` section."
+      - "`scripts/ai/verify.sh` runs build, pack, and test in one standard command."
+      - "`WORKLIST.md` contains a dedicated U7/U8 queue slice and acceptance criteria."
     remaining_queue_work:
       - "Add a release checklist in `README.md` covering SemVer bump policy, changelog updates, package metadata validation, and required test/verify commands."
       - "Add a package validation command path to ensure `dotnet pack` succeeds with deterministic metadata before release tagging."
@@ -152,9 +196,12 @@ milestones:
     maps_to_program:
       - F3
     status: open
-    percent_complete: 5
-    eta: 2026-05-09
+    percent_complete: 0
+    eta: 2026-06-20
+    completion_basis:
+      - "This milestone is pure closure and should not accrue completion until U1-U8 are materially closed."
     evidence:
       - "Depends on closure of U1-U8."
+      - "Current repo state is still seed-stage and not yet a finished shared design system."
     remaining_queue_work:
       - "Close all open ui-kit spine milestones and remove uncovered-scope findings."

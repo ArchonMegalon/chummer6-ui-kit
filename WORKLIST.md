@@ -46,10 +46,10 @@ Acceptance criteria:
 
 ## Milestone modeling follow-through (from coverage file)
 
-- [ ] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
-- [ ] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
-- [ ] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
-- [ ] U8 release discipline: publish queue items for package release gates and verification checklist.
+- [done] U4 dense-data controls: publish runnable extraction backlog and acceptance criteria.
+- [done] U5 Chummer-specific patterns: publish runnable migration backlog for state badges/explain chips/artifact patterns.
+- [done] U7 visual regression/catalog: publish queue items for catalog surface + regression harness.
+- [done] U8 release discipline: publish queue items for package release gates and verification checklist.
 
 ## Queue Slice: U7/U8 materialization (catalog + visual regression + release discipline)
 
