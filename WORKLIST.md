@@ -210,6 +210,13 @@ System re-entry evidence update (2026-04-18):
 - [x] Processed unread feedback `feedback/2026-04-15-061327-audit-task-11711.md`; it republishes the separate design-mirror refresh queue item and does not reopen or change this U7/U8 backlog/materialization slice.
 - [x] No duplicate backlog rows were added for this slice during the 2026-04-18 re-entry pass.
 
+System re-entry evidence update (2026-04-21):
+- [x] Revalidated queue title `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` against this section, `.codex-studio/published/QUEUE.generated.yaml`, `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, and `docs/u7-u8-release-adoption-evidence.md`.
+- [x] Confirmed the slice remains already complete in repo state; no new runnable backlog or milestone mapping rows are needed because U7/U8 catalog coverage, deterministic regression checks, and release-discipline evidence are still materialized.
+- [x] Processed unread feedback `feedback/2026-04-18-193912-audit-task-11711.md`; it republishes the separate design-mirror refresh queue item and does not reopen or change this U7/U8 backlog/materialization slice.
+- [x] Processed unread feedback `feedback/2026-04-21-133747-audit-task-11711.md`; it republishes the separate design-mirror parity hygiene queue item already present in `.codex-studio/published/QUEUE.generated.yaml` and does not reopen or change this U7/U8 backlog/materialization slice.
+- [x] No duplicate backlog rows were added for this slice during the 2026-04-21 re-entry pass.
+
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
 - [x] `tests/Chummer.Ui.Kit.Tests/Program.cs` contains deterministic catalog/regression checks (`PreviewGalleryDefaultManifestCoversPackageCatalog`, `BlazorAndAvaloniaPayloadsStayDeterministic`) that fail on payload shape/key drift.
