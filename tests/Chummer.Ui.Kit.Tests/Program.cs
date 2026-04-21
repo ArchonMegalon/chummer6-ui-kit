@@ -83,6 +83,9 @@ static void PreviewGalleryDefaultManifestCoversPackageCatalog()
         "banner",
         "stale_state_badge",
         "approval_chip",
+        "dense_data",
+        "explain_patterns",
+        "chummer_cards",
         "offline_banner",
         "accessibility_state"
     };
@@ -104,6 +107,12 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var banner = new Banner("Read-only", "Data synced is paused.", BannerTone.Warning, pinned: true);
     var stale = new StaleStateBadge(StaleState.Failed, "Expired cache");
     var approval = new ApprovalChip(false, "Manager decision", "Alex");
+    var denseHeader = new DenseColumnHeader("initiative", "Initiative", DenseSortDirection.Descending, sortable: true, numeric: true);
+    var denseRow = new DenseRowMetadata("row-7", "Mystic Adept", "6 edge remaining", RowEmphasis.Warning, ExplainAffinity.High, selected: true);
+    var denseTable = new DenseTableSummary("Active effects", 14, 5);
+    var explainChip = new ExplainChip("Explain modifiers", "3 facts", ExplainChipTone.Informative, interactive: true);
+    var spiderCard = new SpiderStatusCard("Spider posture", "Escalation routed to GM host.", "Attention needed", CardTone.Warning, requiresAttention: true);
+    var artifactCard = new ArtifactStatusCard("Alpha build", "Preview ready", "Signed artifact available for install.", CardTone.Success, previewReady: true);
     var offline = new OfflineBanner("Runtime Relay", isOffline: true);
     var accessibility = new AccessibilityState("assertive", busy: true, disabled: false, label: "Loading panel", describedBy: "panel-help");
 
@@ -217,6 +226,188 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["approver"] = "Alex"
         },
         "avalonia approval-chip payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptDenseColumnHeader(denseHeader),
+        "chummer-dense-header",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "columnheader",
+            ["data-key"] = "initiative",
+            ["data-label"] = "Initiative",
+            ["data-sort"] = "descending",
+            ["data-sortable"] = "true",
+            ["data-numeric"] = "true",
+            ["class"] = "chummer-dense-header chummer-dense-header-sortable chummer-dense-header-numeric",
+            ["aria-sort"] = "descending"
+        },
+        "blazor dense-header payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptDenseColumnHeader(denseHeader),
+        "DenseColumnHeader",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-column-header",
+            ["classes"] = "DenseColumnHeader DenseColumnHeaderSortable DenseColumnHeaderNumeric",
+            ["key"] = "initiative",
+            ["label"] = "Initiative",
+            ["sort"] = "Descending",
+            ["sortable"] = "true",
+            ["numeric"] = "true"
+        },
+        "avalonia dense-header payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        "chummer-dense-row",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "row",
+            ["data-row-key"] = "row-7",
+            ["data-primary"] = "Mystic Adept",
+            ["data-secondary"] = "6 edge remaining",
+            ["data-emphasis"] = "warning",
+            ["data-explain-affinity"] = "high",
+            ["data-selected"] = "true",
+            ["data-disabled"] = "false",
+            ["class"] = "chummer-dense-row chummer-dense-row-warning chummer-dense-row-selected",
+            ["aria-label"] = "Mystic Adept 6 edge remaining"
+        },
+        "blazor dense-row payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        "DenseRow",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-row",
+            ["classes"] = "DenseRowWarning DenseRowSelected",
+            ["row-key"] = "row-7",
+            ["primary"] = "Mystic Adept",
+            ["secondary"] = "6 edge remaining",
+            ["emphasis"] = "Warning",
+            ["explain-affinity"] = "High",
+            ["selected"] = "true",
+            ["disabled"] = "false"
+        },
+        "avalonia dense-row payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptDenseTableSummary(denseTable),
+        "chummer-dense-table",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "table",
+            ["data-label"] = "Active effects",
+            ["data-row-count"] = "14",
+            ["data-visible-columns"] = "5",
+            ["data-compact"] = "true",
+            ["data-zebra-stripes"] = "true",
+            ["class"] = "chummer-dense-table chummer-dense-table-compact chummer-dense-table-striped",
+            ["aria-label"] = "Active effects dense table"
+        },
+        "blazor dense-table payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptDenseTableSummary(denseTable),
+        "DenseTable",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-table",
+            ["classes"] = "DenseTable DenseTableCompact DenseTableStriped",
+            ["label"] = "Active effects",
+            ["row-count"] = "14",
+            ["visible-columns"] = "5",
+            ["compact"] = "true",
+            ["zebra-stripes"] = "true"
+        },
+        "avalonia dense-table payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptExplainChip(explainChip),
+        "chummer-explain-chip",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "note",
+            ["data-label"] = "Explain modifiers",
+            ["data-evidence-count"] = "3 facts",
+            ["data-tone"] = "informative",
+            ["data-interactive"] = "true",
+            ["class"] = "chummer-explain-chip chummer-explain-chip-informative chummer-explain-chip-actionable",
+            ["aria-label"] = "Explain modifiers 3 facts"
+        },
+        "blazor explain-chip payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptExplainChip(explainChip),
+        "ExplainChip",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "explain-chip",
+            ["classes"] = "ExplainChipInformative ExplainChipInteractive",
+            ["label"] = "Explain modifiers",
+            ["evidence-count"] = "3 facts",
+            ["tone"] = "Informative",
+            ["interactive"] = "true"
+        },
+        "avalonia explain-chip payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        "chummer-status-card",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "article",
+            ["data-title"] = "Spider posture",
+            ["data-summary"] = "Escalation routed to GM host.",
+            ["data-posture"] = "Attention needed",
+            ["data-tone"] = "warning",
+            ["data-requires-attention"] = "true",
+            ["class"] = "chummer-status-card chummer-status-card-spider chummer-status-card-warning chummer-status-card-attention",
+            ["aria-label"] = "Spider posture Attention needed"
+        },
+        "blazor spider-card payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        "SpiderStatusCard",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "spider-status-card",
+            ["classes"] = "StatusCard StatusCardSpider StatusCardWarning StatusCardAttention",
+            ["title"] = "Spider posture",
+            ["summary"] = "Escalation routed to GM host.",
+            ["posture"] = "Attention needed",
+            ["tone"] = "Warning",
+            ["requires-attention"] = "true"
+        },
+        "avalonia spider-card payload");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        "chummer-status-card",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "article",
+            ["data-title"] = "Alpha build",
+            ["data-status"] = "Preview ready",
+            ["data-detail"] = "Signed artifact available for install.",
+            ["data-tone"] = "success",
+            ["data-preview-ready"] = "true",
+            ["class"] = "chummer-status-card chummer-status-card-artifact chummer-status-card-success chummer-status-card-preview-ready",
+            ["aria-label"] = "Alpha build Preview ready"
+        },
+        "blazor artifact-card payload");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        "ArtifactStatusCard",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "artifact-status-card",
+            ["classes"] = "StatusCard StatusCardArtifact StatusCardSuccess StatusCardPreviewReady",
+            ["title"] = "Alpha build",
+            ["status"] = "Preview ready",
+            ["detail"] = "Signed artifact available for install.",
+            ["tone"] = "Success",
+            ["preview-ready"] = "true"
+        },
+        "avalonia artifact-card payload");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptOfflineBanner(offline),

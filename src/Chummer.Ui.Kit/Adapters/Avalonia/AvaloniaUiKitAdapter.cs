@@ -1,5 +1,6 @@
 using Chummer.Ui.Kit.Adapters;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Chummer.Ui.Kit.Avalonia.Adapters;
 
@@ -68,6 +69,103 @@ public static class AvaloniaUiKitAdapter
         }
 
         return new UiAdapterPayload("ApprovalChip", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptDenseColumnHeader(DenseColumnHeader header)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-column-header",
+            ["classes"] = $"DenseColumnHeader{(header.Sortable ? " DenseColumnHeaderSortable" : string.Empty)}{(header.Numeric ? " DenseColumnHeaderNumeric" : string.Empty)}",
+            ["key"] = header.Key,
+            ["label"] = header.Label,
+            ["sort"] = header.SortDirection.ToString(),
+            ["sortable"] = header.Sortable.ToString().ToLowerInvariant(),
+            ["numeric"] = header.Numeric.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("DenseColumnHeader", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptDenseRowMetadata(DenseRowMetadata row)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-row",
+            ["classes"] = $"DenseRow{row.Emphasis}{(row.Selected ? " DenseRowSelected" : string.Empty)}{(row.Disabled ? " DenseRowDisabled" : string.Empty)}",
+            ["row-key"] = row.RowKey,
+            ["primary"] = row.PrimaryText,
+            ["secondary"] = row.SecondaryText ?? string.Empty,
+            ["emphasis"] = row.Emphasis.ToString(),
+            ["explain-affinity"] = row.ExplainAffinity.ToString(),
+            ["selected"] = row.Selected.ToString().ToLowerInvariant(),
+            ["disabled"] = row.Disabled.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("DenseRow", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptDenseTableSummary(DenseTableSummary summary)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "dense-table",
+            ["classes"] = $"DenseTable{(summary.Compact ? " DenseTableCompact" : string.Empty)}{(summary.ZebraStripes ? " DenseTableStriped" : string.Empty)}",
+            ["label"] = summary.Label,
+            ["row-count"] = summary.RowCount.ToString(CultureInfo.InvariantCulture),
+            ["visible-columns"] = summary.VisibleColumnCount.ToString(CultureInfo.InvariantCulture),
+            ["compact"] = summary.Compact.ToString().ToLowerInvariant(),
+            ["zebra-stripes"] = summary.ZebraStripes.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("DenseTable", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptExplainChip(ExplainChip chip)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "explain-chip",
+            ["classes"] = $"ExplainChip{chip.Tone}{(chip.Interactive ? " ExplainChipInteractive" : string.Empty)}",
+            ["label"] = chip.Label,
+            ["evidence-count"] = chip.EvidenceCountLabel,
+            ["tone"] = chip.Tone.ToString(),
+            ["interactive"] = chip.Interactive.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("ExplainChip", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptSpiderStatusCard(SpiderStatusCard card)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "spider-status-card",
+            ["classes"] = $"StatusCard StatusCardSpider StatusCard{card.Tone}{(card.RequiresAttention ? " StatusCardAttention" : string.Empty)}",
+            ["title"] = card.Title,
+            ["summary"] = card.Summary,
+            ["posture"] = card.PostureLabel,
+            ["tone"] = card.Tone.ToString(),
+            ["requires-attention"] = card.RequiresAttention.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("SpiderStatusCard", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptArtifactStatusCard(ArtifactStatusCard card)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "artifact-status-card",
+            ["classes"] = $"StatusCard StatusCardArtifact StatusCard{card.Tone}{(card.PreviewReady ? " StatusCardPreviewReady" : string.Empty)}",
+            ["title"] = card.Title,
+            ["status"] = card.StatusLabel,
+            ["detail"] = card.Detail,
+            ["tone"] = card.Tone.ToString(),
+            ["preview-ready"] = card.PreviewReady.ToString().ToLowerInvariant()
+        };
+
+        return new UiAdapterPayload("ArtifactStatusCard", new ReadOnlyDictionary<string, string>(attrs));
     }
 
     public static UiAdapterPayload AdaptOfflineBanner(OfflineBanner banner)

@@ -28,12 +28,12 @@ Milestone mapping:
 - [ ] `U5 Chummer-specific patterns` -> package-owned explain chips, stale/approval state badges, and reusable Chummer cards.
 
 Runnable backlog:
-- [ ] `ui-kit`: Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense-row metadata, row-state emphasis, and explain-affinity hints without domain DTO fields.
-- [ ] `ui-kit`: Implement Blazor/Avalonia adapter methods for each dense-data primitive with stable payload keys and role/class mappings.
-- [ ] `ui-kit`: Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only inputs.
-- [ ] `ui-kit`: Extend Blazor/Avalonia adapters with payload builders for explain chip and card patterns; include accessibility attributes where relevant.
-- [ ] `ui-kit`: Register `dense_data`, `explain_patterns`, and `chummer_cards` preview entries in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`.
-- [ ] `ui-kit`: Add deterministic contract tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` covering all new dense-data and pattern payloads.
+- [x] `ui-kit`: Add dense-data primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` for sortable headers, dense-row metadata, row-state emphasis, and explain-affinity hints without domain DTO fields.
+- [x] `ui-kit`: Implement Blazor/Avalonia adapter methods for each dense-data primitive with stable payload keys and role/class mappings.
+- [x] `ui-kit`: Add explicit `ExplainChip`, `SpiderStatusCard`, and `ArtifactStatusCard` primitives in `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs` with UI-only inputs.
+- [x] `ui-kit`: Extend Blazor/Avalonia adapters with payload builders for explain chip and card patterns; include accessibility attributes where relevant.
+- [x] `ui-kit`: Register `dense_data`, `explain_patterns`, and `chummer_cards` preview entries in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`.
+- [x] `ui-kit`: Add deterministic contract tests in `tests/Chummer.Ui.Kit.Tests/Program.cs` covering all new dense-data and pattern payloads.
 - [ ] `presentation`: Replace local dense table state badges/chips/cards with `Chummer.Ui.Kit` package primitives.
 - [ ] `play`: Replace local dense table state badges/chips/cards with `Chummer.Ui.Kit` package primitives.
 - [ ] `presentation` + `play`: Add guard checks that fail CI if local/source-copied dense-data or explain/state pattern components reappear.

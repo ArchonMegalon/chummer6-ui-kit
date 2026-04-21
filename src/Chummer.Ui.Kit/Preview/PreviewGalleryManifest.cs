@@ -38,6 +38,9 @@ public sealed class PreviewGalleryManifest
                 ["banner"] = "Banner primitive and adapter mappings.",
                 ["stale_state_badge"] = "Stale-state badge primitive and adapter mappings.",
                 ["approval_chip"] = "Approval chip primitive and adapter mappings.",
+                ["dense_data"] = "Dense-data headers, rows, and table-summary primitives.",
+                ["explain_patterns"] = "Explain chip and explain-affinity pattern mappings.",
+                ["chummer_cards"] = "Spider and artifact status-card primitive mappings.",
                 ["offline_banner"] = "Offline banner primitive and adapter mappings.",
                 ["accessibility_state"] = "Accessibility state primitive and adapter mappings."
             });
