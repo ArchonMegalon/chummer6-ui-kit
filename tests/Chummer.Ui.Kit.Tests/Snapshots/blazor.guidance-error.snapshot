@@ -1,0 +1,11 @@
+root=chummer-guidance-state
+aria-label=Sync failed
+aria-live=assertive
+class=chummer-guidance-state chummer-guidance-state-error
+data-body=Chummer could not finish restoring your workspace.
+data-detail=Crash packet CR-17 was captured.
+data-primary-action=Review error
+data-secondary-action=Try again
+data-state-kind=error
+data-title=Sync failed
+role=region

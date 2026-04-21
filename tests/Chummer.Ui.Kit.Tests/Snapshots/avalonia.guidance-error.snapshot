@@ -1,0 +1,9 @@
+root=GuidanceState
+body=Chummer could not finish restoring your workspace.
+classes=GuidanceState GuidanceStateError
+detail=Crash packet CR-17 was captured.
+part=guidance-state
+primary-action=Review error
+secondary-action=Try again
+state-kind=Error
+title=Sync failed

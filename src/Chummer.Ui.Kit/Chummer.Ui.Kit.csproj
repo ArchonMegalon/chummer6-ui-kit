@@ -2,6 +2,8 @@
   <PropertyGroup>
     <RootNamespace>Chummer.Ui.Kit</RootNamespace>
     <AssemblyName>Chummer.Ui.Kit</AssemblyName>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
     <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
   </PropertyGroup>
 </Project>

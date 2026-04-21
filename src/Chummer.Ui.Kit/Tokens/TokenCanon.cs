@@ -57,6 +57,8 @@ public sealed class TokenCanon
             ["resume.affordance.recovery.default"] = "false",
             ["onboarding.state.root.class"] = "chummer-guidance-state",
             ["onboarding.state.primary.action.default"] = "Get started",
+            ["error.state.root.class"] = "chummer-guidance-state",
+            ["error.state.primary.action.default"] = "Review error",
             ["empty.state.root.class"] = "chummer-guidance-state",
             ["empty.state.primary.action.default"] = "Create first item",
             ["recovery.state.root.class"] = "chummer-guidance-state",

@@ -10,6 +10,7 @@ Current seed includes:
 - theme compilation to CSS custom properties
 - shell chrome, badges, banners, and accessibility primitives
 - role-transition, progress-toast, and resume-affordance patterns for accessibility-first long-running flows
+- guidance-state patterns for onboarding, error, empty, recovery, and first-run flows
 - preview/gallery metadata kept inside `Chummer.Ui.Kit`
 
 Excluded by design:

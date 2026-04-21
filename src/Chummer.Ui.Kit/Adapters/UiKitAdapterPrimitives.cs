@@ -207,6 +207,7 @@ public sealed class ResumeAffordance
 public enum GuidanceStateKind
 {
     Onboarding,
+    Error,
     EmptyState,
     Recovery,
     FirstRun

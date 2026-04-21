@@ -296,7 +296,7 @@ public static class BlazorUiKitAdapter
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["role"] = "region",
-            ["aria-live"] = state.Kind == GuidanceStateKind.Recovery ? "assertive" : "polite",
+            ["aria-live"] = state.Kind is GuidanceStateKind.Recovery or GuidanceStateKind.Error ? "assertive" : "polite",
             ["aria-label"] = state.Title,
             ["data-state-kind"] = kind,
             ["data-title"] = state.Title,
@@ -352,6 +352,7 @@ public static class BlazorUiKitAdapter
 
     private static string ToContractCase(GuidanceStateKind kind) => kind switch
     {
+        GuidanceStateKind.Error => "error",
         GuidanceStateKind.EmptyState => "empty-state",
         GuidanceStateKind.FirstRun => "first-run",
         GuidanceStateKind.Onboarding => "onboarding",

@@ -104,6 +104,8 @@ static void DefaultCanonContainsGuidanceAndLongRunningTokens()
     {
         "onboarding.state.root.class",
         "onboarding.state.primary.action.default",
+        "error.state.root.class",
+        "error.state.primary.action.default",
         "empty.state.root.class",
         "empty.state.primary.action.default",
         "recovery.state.root.class",
@@ -121,6 +123,7 @@ static void DefaultCanonContainsGuidanceAndLongRunningTokens()
     }
 
     ExpectEqual("chummer-guidance-state", canon["onboarding.state.root.class"], "onboarding root class token");
+    ExpectEqual("Review error", canon["error.state.primary.action.default"], "error primary action token");
     ExpectEqual("Create first item", canon["empty.state.primary.action.default"], "empty-state primary action token");
     ExpectEqual("Review recovery", canon["recovery.state.primary.action.default"], "recovery primary action token");
     ExpectEqual("Start walkthrough", canon["first.run.state.primary.action.default"], "first-run primary action token");
@@ -310,6 +313,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var progressToast = new ProgressToast("Syncing campaign", "Applying replay packets", 72, ProgressToastTone.Info, allowCancel: true, allowResume: true);
     var resumeAffordance = new ResumeAffordance("Resume run", "Checkpoint: Scene 4", "Resume from checkpoint", requiresRecovery: true, detail: "One conflict needs review.");
     var onboardingState = new GuidanceState(GuidanceStateKind.Onboarding, "Welcome to Chummer", "Connect your first campaign workspace.", "Start onboarding", "Skip for now");
+    var errorState = new GuidanceState(GuidanceStateKind.Error, "Sync failed", "Chummer could not finish restoring your workspace.", "Review error", "Try again", "Crash packet CR-17 was captured.");
     var emptyState = new GuidanceState(GuidanceStateKind.EmptyState, "No runs yet", "Create a run to begin tracking outcomes.", "Create run");
     var recoveryState = new GuidanceState(GuidanceStateKind.Recovery, "Recovery required", "A sync conflict needs review before publish.", "Review recovery", "Dismiss later", "Last sync stopped at packet 381.");
     var firstRunState = new GuidanceState(GuidanceStateKind.FirstRun, "First run checklist", "Confirm your profile, locale, and device role.", "Open checklist");
@@ -831,6 +835,47 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         AvaloniaUiKitAdapter.AdaptGuidanceState(onboardingState),
         "avalonia.guidance-onboarding.snapshot",
         "avalonia onboarding guidance snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptGuidanceState(errorState),
+        "chummer-guidance-state",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "region",
+            ["aria-live"] = "assertive",
+            ["aria-label"] = "Sync failed",
+            ["data-state-kind"] = "error",
+            ["data-title"] = "Sync failed",
+            ["data-body"] = "Chummer could not finish restoring your workspace.",
+            ["data-primary-action"] = "Review error",
+            ["data-secondary-action"] = "Try again",
+            ["data-detail"] = "Crash packet CR-17 was captured.",
+            ["class"] = "chummer-guidance-state chummer-guidance-state-error"
+        },
+        "blazor error guidance payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptGuidanceState(errorState),
+        "blazor.guidance-error.snapshot",
+        "blazor error guidance snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(errorState),
+        "GuidanceState",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "guidance-state",
+            ["classes"] = "GuidanceState GuidanceStateError",
+            ["state-kind"] = "Error",
+            ["title"] = "Sync failed",
+            ["body"] = "Chummer could not finish restoring your workspace.",
+            ["primary-action"] = "Review error",
+            ["secondary-action"] = "Try again",
+            ["detail"] = "Crash packet CR-17 was captured."
+        },
+        "avalonia error guidance payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptGuidanceState(errorState),
+        "avalonia.guidance-error.snapshot",
+        "avalonia error guidance snapshot");
 
     ExpectPayload(
         BlazorUiKitAdapter.AdaptGuidanceState(emptyState),
