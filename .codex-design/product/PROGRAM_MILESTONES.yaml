@@ -737,7 +737,7 @@ executable_queue:
   milestone: F3
   status: done
   backlog: products/chummer/sync/LOCAL_MIRROR_PUBLISH_BACKLOG.md
-  notes: "Closed 2026-03-19: `publish_local_mirrors.py` republished the final release-closeout drift and `--check` then confirmed zero remaining drift across all configured mirror targets, including Fleet."
+  notes: "Closed 2026-04-22: the latest recurring cycle audited all seven code-repo mirror subsets, repaired mounted repo-root discovery in `publish_local_mirrors.py`, republished product-only drift across the code repos plus Fleet/EA mirrors, and `--check` reconfirmed zero remaining drift across all configured mirror targets."
 - id: WL-D019
   milestone: C1b
   status: done

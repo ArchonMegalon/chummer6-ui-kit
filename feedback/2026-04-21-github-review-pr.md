@@ -1,0 +1,8 @@
+# GitHub Codex Review
+
+PR: https://github.com/ArchonMegalon/chummer6-ui-kit/pull/14
+
+Findings:
+- [high] WORKLIST.md [review] slice-scope-drift-mixed-branch
+The requested slice is `Finish milestone coverage modeling for ui-kit so ETA and completion truth are no longer partial.`, which is documented in `WORKLIST.md` as a coverage/modeling follow-through item.; `git diff --stat main...HEAD` shows 134 changed files, including large implementation and verification surfaces outside milestone modeling: adapter code, token canon changes, preview/catalog changes, snapshot fixtures, release-proof artifacts, and a broad `.codex-design` mirror refresh.; Concrete non-slice files in the diff include `src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs`, `src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs`, `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, multiple snapshot files under `tests/Chummer.Ui.Kit.Tests/Snapshots/`, and many product mirror files under `.codex-design/product/`.; A prior repo-local review already flagged the same problem in `feedback/2026-04-21-github-review-pr.md` under stable finding id `slice-scope-drift-mixed-branch`, and the current diff still exhibits that same mixed-branch condition.; AGENTS.md requires `Keep changes scoped to the queue item.`, but the branch contents prevent an attributable review of visual regressions, accessibility regressions, and missing tests for this slice alone.
+Expected fix: Restack or split the branch so the review contains only the milestone-coverage modeling files for this queue item, or explicitly widen the authoritative slice definition before requesting review again.
