@@ -15,6 +15,35 @@ Excluded by design:
 - HTTP clients
 - rules math
 
+## B1 Token + Shell Chrome + Accessibility Contract
+
+This package-owned boundary exists so `chummer6-ui` and `chummer6-mobile` can consume the same shared chrome and accessibility primitives without source-copying UI classes.
+
+Canonical token keys currently required by the B1 shell/accessibility surface:
+
+- `color.background.canvas`
+- `color.background.panel`
+- `color.border.subtle`
+- `color.text.primary`
+- `color.text.muted`
+- `color.accent.primary`
+- `space.100`
+- `space.200`
+- `space.400`
+- `radius.sm`
+- `radius.md`
+- `font.family.base`
+- `font.size.body`
+- `font.size.title`
+
+Adapter payload guarantees for this slice:
+
+- `ShellChrome`, `Banner`, `StaleStateBadge`, `ApprovalChip`, `OfflineBanner`, and `AccessibilityState` remain UI-only primitives with no domain DTO or service dependencies.
+- Blazor payload keys stay deterministic across runs: `role`, `aria-*`, `data-*`, and `class`.
+- Avalonia payload keys stay deterministic across runs: `part`, `classes`, semantic text fields, and explicit state booleans.
+- Accessibility payloads keep shared busy/live/disabled semantics in both adapter families.
+- Any additive or breaking payload-key change must follow the release-discipline gates below.
+
 ## Release Discipline Gates (U8)
 
 Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.

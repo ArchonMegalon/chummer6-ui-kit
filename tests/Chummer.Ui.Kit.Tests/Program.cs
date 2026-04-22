@@ -8,6 +8,7 @@ using Chummer.Ui.Kit.Avalonia.Adapters;
 var checks = new Action[]
 {
     DefaultCanonContainsExpectedTokens,
+    DefaultCanonContainsB1BoundaryTokens,
     CompilerProducesCssVariablesFromCanonAndOverrides,
     CompilerRejectsUnknownOverrideKeys,
     PreviewGalleryDefaultManifestCoversPackageCatalog,
@@ -29,6 +30,33 @@ static void DefaultCanonContainsExpectedTokens()
     ExpectEqual("#F7F3EA", canon["color.background.canvas"], "canvas color");
     ExpectEqual("1rem", canon["space.400"], "space token");
     ExpectEqual("\"IBM Plex Sans\", \"Segoe UI\", sans-serif", canon["font.family.base"], "font family");
+}
+
+static void DefaultCanonContainsB1BoundaryTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "color.background.canvas",
+        "color.background.panel",
+        "color.border.subtle",
+        "color.text.primary",
+        "color.text.muted",
+        "color.accent.primary",
+        "space.100",
+        "space.200",
+        "space.400",
+        "radius.sm",
+        "radius.md",
+        "font.family.base",
+        "font.size.body",
+        "font.size.title"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"B1 token key present: {key}");
+    }
 }
 
 static void CompilerProducesCssVariablesFromCanonAndOverrides()
