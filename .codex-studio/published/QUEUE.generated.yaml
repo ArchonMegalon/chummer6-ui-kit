@@ -1,24 +1,5 @@
-mode: prepend
+mode: append
 items:
-- title: Auto-detect and repair recurring `ui-kit` mirror drift after 8020 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.
-  task: Auto-detect and repair recurring `ui-kit` mirror drift after 8020 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.
-  package_id: audit-task-11711
-  source_ref: audit_task_candidates[11711]
-  audit_finding_key: project.design_mirror_missing_or_stale
-  audit_scope_id: ui-kit
-  source_items:
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/README.md
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/WEEKLY_PRODUCT_PULSE.generated.json
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/METRICS_AND_SLOS.yaml
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/CAMPAIGN_AUTHORITY_AND_PERMISSIONS.md
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/USER_JOURNEYS.md
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/NEXT_90_DAY_QUEUE_STAGING.generated.yaml
-  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/PROGRAM_MILESTONES.yaml
-  allowed_paths:
-  - .codex-design
-  owned_surfaces:
-  - design_mirror:ui-kit
 - Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
 - Add milestone mapping or executable queue work for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..
 - Publish or append runnable backlog for Dense data, state badges, explain chips, and Chummer-specific reusable patterns are still implicit in app repos instead of centralized here..
@@ -27,4 +8,23 @@ items:
 - Publish or append runnable backlog for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
 - Add milestone mapping or executable queue work for Shared token, shell chrome, and accessibility primitives are still not a real package-only boundary consumed by presentation and play..
 - Sync the approved Chummer design bundle into `ui-kit` under `.codex-design/` and refresh repo-local review context.
+- title: Auto-detect and repair recurring `ui-kit` mirror drift after 15539 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.
+  task: Auto-detect and repair recurring `ui-kit` mirror drift after 15539 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.
+  package_id: audit-task-11711
+  source_ref: audit_task_candidates[11711]
+  audit_finding_key: project.design_mirror_missing_or_stale
+  audit_scope_id: ui-kit
+  source_items:
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/README.md
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/START_HERE.md
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/VISION.md
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/ARCHITECTURE.md
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/PRODUCT_CONTROL_AND_GOVERNOR_LOOP.md
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/WEEKLY_PRODUCT_PULSE.generated.json
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/METRICS_AND_SLOS.yaml
+  - /docker/chummercomplete/chummer-ui-kit/.codex-design/product/GOLDEN_JOURNEY_RELEASE_GATES.yaml
+  allowed_paths:
+  - .codex-design
+  owned_surfaces:
+  - design_mirror:ui-kit
 source_queue_fingerprint: 97d170e1550eee4afc0af065b78cda302a97674c
