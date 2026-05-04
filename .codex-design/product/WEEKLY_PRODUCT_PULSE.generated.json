@@ -1,22 +1,67 @@
 {
   "contract_name": "chummer.weekly_product_pulse",
   "contract_version": 3,
-  "generated_at": "2026-04-22T15:57:56Z",
-  "as_of": "2026-04-22",
+  "generated_at": "2026-05-04T19:47:27Z",
+  "as_of": "2026-05-04",
   "scorecard_source": "products/chummer/PRODUCT_HEALTH_SCORECARD.yaml",
   "progress_report_source": "products/chummer/PROGRESS_REPORT.generated.json",
   "progress_history_source": "products/chummer/PROGRESS_HISTORY.generated.json",
-  "summary": "Next 12 Biggest Wins remains the active wave; journey proof is blocked; overall progress is 100% in 'Public-fit polish'; the longest pole remains Core Engine; support closure is clear.",
+  "summary": "Next 12 Biggest Wins is materially closed as the latest recommended closeout wave; journey proof is blocked; flagship replacement readiness is still open; overall progress is 99% in 'Public-fit polish'; the longest pole remains Core Engine; support closure still needs follow-through.",
   "active_wave": "Next 12 Biggest Wins",
   "active_wave_status": "complete",
+  "closure_semantics": {
+    "plane": "dual",
+    "front_door_closeout": "complete",
+    "substrate_proof_lane": "in_progress",
+    "front_door_belief": "public release-control plane and public tuple posture are stable on public main",
+    "substrate_belief": "campaign-world-community-admin proof contracts remain in active proof status"
+  },
+  "substrate_contract_sets_in_progress": [
+    "outbound_notification_delivery_vnext",
+    "community_rule_environment_vnext",
+    "world_frame_vnext",
+    "mission_market_vnext",
+    "intel_economy_vnext",
+    "world_tick_vnext",
+    "resolution_report_vnext",
+    "world_newsreel_vnext",
+    "opposition_packet_vnext",
+    "open_run_network_vnext",
+    "seasonal_honors_vnext",
+    "feedback_signal_ooda_vnext",
+    "admin_projection_and_intent_vnext",
+    "journey_proof_vnext",
+    "crash_automation_vnext",
+    "account_aware_install_linking_vnext",
+    "desktop_update_vnext"
+  ],
   "release_health": {
-    "state": "green_or_explained",
-    "reason": "No red blockers are open. Foundation release remains closed and the active work is additive middle-layer and trust-surface depth.",
+    "state": "needs_attention",
+    "reason": "Published flagship readiness proof is not green, so release posture cannot overclaim even when red blockers are clear.",
     "front_door_wave_closed": true
   },
   "flagship_readiness": {
     "state": "watch",
-    "reason": "Flagship readiness is still constrained by blocked journey proof or missing local release proof."
+    "reason": "Published flagship readiness proof is fail. Coverage gaps remain: desktop_client, mobile_play_shell, ui_kit_and_flagship_polish, media_artifacts, fleet_and_operator_loop. Readiness-plane gaps remain: structural_ready, flagship_ready, veteran_deep_workflow_ready, primary_route_ready, dense_workbench_ready, feedback_loop_ready, public_shelf_ready, recovery_trust_ready, rules_explainability_ready.",
+    "proof_status": "fail",
+    "coverage_gap_keys": [
+      "desktop_client",
+      "mobile_play_shell",
+      "ui_kit_and_flagship_polish",
+      "media_artifacts",
+      "fleet_and_operator_loop"
+    ],
+    "readiness_plane_gap_keys": [
+      "structural_ready",
+      "flagship_ready",
+      "veteran_deep_workflow_ready",
+      "primary_route_ready",
+      "dense_workbench_ready",
+      "feedback_loop_ready",
+      "public_shelf_ready",
+      "recovery_trust_ready",
+      "rules_explainability_ready"
+    ]
   },
   "rule_environment_trust": {
     "state": "watch",
@@ -67,12 +112,12 @@
   "public_promise_drift_count": 0,
   "governor_decisions": [
     {
-      "decision_id": "2026-04-22-focus-next-12-biggest-wins",
+      "decision_id": "2026-05-04-focus-next-12-biggest-wins",
       "action": "focus_shift",
-      "reason": "Keep delivery focus on Next 12 Biggest Wins. The pulse shows 100% overall progress in 'Public-fit polish', history depth has reached 16 snapshots, and the pacing risk remains concentrated in Core Engine while trust/publication/utility closure still needs measured completion on the active registry.",
+      "reason": "Keep delivery focus on Next 12 Biggest Wins. The pulse shows 99% overall progress in 'Public-fit polish', history depth has reached 20 snapshots, and the pacing risk remains concentrated in Core Engine while trust/publication/utility closure still needs measured completion on the active registry.",
       "cited_signals": [
-        "overall_progress_percent=100",
-        "history_snapshot_count=16",
+        "overall_progress_percent=99",
+        "history_snapshot_count=20",
         "oldest_blocker_days=0",
         "phase_label=Public-fit polish",
         "longest_pole=Core Engine",
@@ -80,32 +125,53 @@
       ]
     },
     {
-      "decision_id": "2026-04-22-launch-governance",
+      "decision_id": "2026-05-04-launch-governance",
       "action": "freeze_launch",
       "reason": "Freeze launch expansion while 6 golden journey(s) remain blocked and journey health is blocked.",
       "cited_signals": [
         "journey_gate_state=blocked",
         "journey_gate_blocked_count=6",
         "local_release_proof_status=passed",
+        "flagship_readiness_state=watch",
+        "flagship_readiness_proof_status=fail",
         "provider_canary_status=Canary green on all active lanes",
-        "closure_health_state=clear",
-        "successor_dependency_state=blocked",
-        "successor_open_dependency_ids=101,102,104,105",
-        "successor_open_dependency_work_task_ids=101.4,102.2,102.3,104.4,105.3,105.4",
-        "status_plane_final_claim_status=fail"
+        "closure_health_state=watch",
+        "successor_dependency_state=ready",
+        "successor_open_dependency_ids=",
+        "successor_open_dependency_work_task_ids=",
+        "status_plane_final_claim_status=pass"
       ]
     }
   ],
   "next_checkpoint_question": "What is the smallest cross-repo slice that makes the campaign OS indispensable and turns trust, adoption, and publication depth into a real launch advantage?",
   "snapshot": {
     "release_health": {
-      "state": "green_or_explained",
-      "reason": "No red blockers are open. Foundation release remains closed and the active work is additive middle-layer and trust-surface depth.",
+      "state": "needs_attention",
+      "reason": "Published flagship readiness proof is not green, so release posture cannot overclaim even when red blockers are clear.",
       "front_door_wave_closed": true
     },
     "flagship_readiness": {
       "state": "watch",
-      "reason": "Flagship readiness is still constrained by blocked journey proof or missing local release proof."
+      "reason": "Published flagship readiness proof is fail. Coverage gaps remain: desktop_client, mobile_play_shell, ui_kit_and_flagship_polish, media_artifacts, fleet_and_operator_loop. Readiness-plane gaps remain: structural_ready, flagship_ready, veteran_deep_workflow_ready, primary_route_ready, dense_workbench_ready, feedback_loop_ready, public_shelf_ready, recovery_trust_ready, rules_explainability_ready.",
+      "proof_status": "fail",
+      "coverage_gap_keys": [
+        "desktop_client",
+        "mobile_play_shell",
+        "ui_kit_and_flagship_polish",
+        "media_artifacts",
+        "fleet_and_operator_loop"
+      ],
+      "readiness_plane_gap_keys": [
+        "structural_ready",
+        "flagship_ready",
+        "veteran_deep_workflow_ready",
+        "primary_route_ready",
+        "dense_workbench_ready",
+        "feedback_loop_ready",
+        "public_shelf_ready",
+        "recovery_trust_ready",
+        "rules_explainability_ready"
+      ]
     },
     "rule_environment_trust": {
       "state": "watch",
@@ -156,12 +222,12 @@
     "public_promise_drift_count": 0,
     "governor_decisions": [
       {
-        "decision_id": "2026-04-22-focus-next-12-biggest-wins",
+        "decision_id": "2026-05-04-focus-next-12-biggest-wins",
         "action": "focus_shift",
-        "reason": "Keep delivery focus on Next 12 Biggest Wins. The pulse shows 100% overall progress in 'Public-fit polish', history depth has reached 16 snapshots, and the pacing risk remains concentrated in Core Engine while trust/publication/utility closure still needs measured completion on the active registry.",
+        "reason": "Keep delivery focus on Next 12 Biggest Wins. The pulse shows 99% overall progress in 'Public-fit polish', history depth has reached 20 snapshots, and the pacing risk remains concentrated in Core Engine while trust/publication/utility closure still needs measured completion on the active registry.",
         "cited_signals": [
-          "overall_progress_percent=100",
-          "history_snapshot_count=16",
+          "overall_progress_percent=99",
+          "history_snapshot_count=20",
           "oldest_blocker_days=0",
           "phase_label=Public-fit polish",
           "longest_pole=Core Engine",
@@ -169,19 +235,21 @@
         ]
       },
       {
-        "decision_id": "2026-04-22-launch-governance",
+        "decision_id": "2026-05-04-launch-governance",
         "action": "freeze_launch",
         "reason": "Freeze launch expansion while 6 golden journey(s) remain blocked and journey health is blocked.",
         "cited_signals": [
           "journey_gate_state=blocked",
           "journey_gate_blocked_count=6",
           "local_release_proof_status=passed",
+          "flagship_readiness_state=watch",
+          "flagship_readiness_proof_status=fail",
           "provider_canary_status=Canary green on all active lanes",
-          "closure_health_state=clear",
-          "successor_dependency_state=blocked",
-          "successor_open_dependency_ids=101,102,104,105",
-          "successor_open_dependency_work_task_ids=101.4,102.2,102.3,104.4,105.3,105.4",
-          "status_plane_final_claim_status=fail"
+          "closure_health_state=watch",
+          "successor_dependency_state=ready",
+          "successor_open_dependency_ids=",
+          "successor_open_dependency_work_task_ids=",
+          "status_plane_final_claim_status=pass"
         ]
       }
     ],
@@ -189,19 +257,19 @@
   },
   "supporting_signals": {
     "current_recommended_wave": "Next 12 Biggest Wins",
-    "overall_progress_percent": 100,
+    "overall_progress_percent": 99,
     "phase_label": "Public-fit polish",
-    "history_snapshot_count": 16,
+    "history_snapshot_count": 20,
     "longest_pole": "Core Engine",
     "launch_readiness": "Hold launch expansion pending route-canary validation. 6 golden journey(s) remain blocked.",
     "provider_route_stewardship": {
       "default_status": "Pilot defaults are governed",
       "canary_status": "Canary green on all active lanes",
-      "review_due": "2026-05-04",
-      "next_decision": "Promote once canaries stay green and support fallout remains clear through the next route review."
+      "review_due": "2026-05-16",
+      "next_decision": "Keep the current pilot default until support closure returns to a clear posture."
     },
     "successor_dependency_posture": {
-      "state": "blocked",
+      "state": "ready",
       "milestone_id": 106,
       "dependency_ids": [
         101,
@@ -210,22 +278,12 @@
         104,
         105
       ],
-      "open_dependency_ids": [
-        101,
-        102,
-        104,
-        105
-      ],
-      "open_dependency_work_task_ids": [
-        "101.4",
-        "102.2",
-        "102.3",
-        "104.4",
-        "105.3",
-        "105.4"
-      ],
-      "summary": "Successor launch dependency work tasks remain open in the next-90-day registry: 101.4, 102.2, 102.3, 104.4, 105.3, 105.4."
+      "open_dependency_ids": [],
+      "open_dependency_work_task_ids": [],
+      "summary": "Successor launch dependencies are closed in the next-90-day registry."
     },
+    "flagship_product_readiness_source": "/docker/fleet/.codex-studio/published/FLAGSHIP_PRODUCT_READINESS.generated.json",
+    "flagship_product_readiness_status": "fail",
     "journey_gate_source": "/docker/fleet/.codex-studio/published/JOURNEY_GATES.generated.json",
     "post_audit_next20_status": "complete",
     "active_wave_registry": "products/chummer/NEXT_12_BIGGEST_WINS_REGISTRY.yaml",
@@ -241,48 +299,32 @@
       "summary": "Automation frontier aligns with the active program open milestones."
     },
     "closure_health": {
-      "state": "clear",
+      "state": "watch",
       "open_case_count": 0,
       "waiting_closure_count": 0,
-      "pending_human_response_count": 0,
+      "pending_human_response_count": 6,
       "reported_case_count": 0,
-      "materialized_packet_count": 0,
+      "materialized_packet_count": 1,
       "design_impact_count": 0,
-      "summary": "0 waiting closure / 0 pending human response. 0 open support packets across 0 reported cases."
+      "summary": "0 waiting closure / 6 pending human response. 0 open support packets still need closure follow-through."
     },
     "adoption_health": {
       "state": "clear",
       "local_release_proof_status": "passed",
       "proven_journey_count": 5,
-      "proven_route_count": 8,
-      "history_snapshot_count": 16,
-      "summary": "Current local edge proof passed. 5 journey proofs and 8 trust routes are on record. 16 weekly snapshots are on record for the current public trust posture."
+      "proven_route_count": 10,
+      "history_snapshot_count": 20,
+      "summary": "Current local edge proof passed. 5 journey proofs and 10 trust routes are on record. 20 weekly snapshots are on record for the current public trust posture."
     },
     "progress_trend": {
       "state": "moving",
-      "direction": "up",
+      "direction": "down",
       "delta_percent": 1,
-      "from_as_of": "2026-04-14",
-      "to_as_of": "2026-04-16",
-      "summary": "Upward momentum +1% from 2026-04-14 to 2026-04-16. Trend window: 2026-04-03 100% -> 2026-04-04 100% -> 2026-04-05 100% -> 2026-04-11 99% -> 2026-04-12 99% -> 2026-04-13 99% -> 2026-04-14 99% -> 2026-04-16 100%.",
+      "from_as_of": "2026-04-26",
+      "to_as_of": "2026-05-01",
+      "summary": "Regression -1% from 2026-04-26 to 2026-05-01. Trend window: 2026-04-12 99% -> 2026-04-13 99% -> 2026-04-14 99% -> 2026-04-16 100% -> 2026-04-23 100% -> 2026-04-25 100% -> 2026-04-26 100% -> 2026-05-01 99%.",
       "sample_count": 8,
       "samples": [
-        {
-          "as_of": "2026-04-03",
-          "overall_progress_percent": 100
-        },
-        {
-          "as_of": "2026-04-04",
-          "overall_progress_percent": 100
-        },
-        {
-          "as_of": "2026-04-05",
-          "overall_progress_percent": 100
-        },
-        {
-          "as_of": "2026-04-11",
-          "overall_progress_percent": 99
-        },
         {
           "as_of": "2026-04-12",
           "overall_progress_percent": 99
@@ -298,8 +340,50 @@
         {
           "as_of": "2026-04-16",
           "overall_progress_percent": 100
+        },
+        {
+          "as_of": "2026-04-23",
+          "overall_progress_percent": 100
+        },
+        {
+          "as_of": "2026-04-25",
+          "overall_progress_percent": 100
+        },
+        {
+          "as_of": "2026-04-26",
+          "overall_progress_percent": 100
+        },
+        {
+          "as_of": "2026-05-01",
+          "overall_progress_percent": 99
         }
       ]
-    }
+    },
+    "closure_semantics": {
+      "plane": "dual",
+      "front_door_closeout": "complete",
+      "substrate_proof_lane": "in_progress",
+      "front_door_belief": "public release-control plane and public tuple posture are stable on public main",
+      "substrate_belief": "campaign-world-community-admin proof contracts remain in active proof status"
+    },
+    "substrate_contract_sets_in_progress": [
+      "outbound_notification_delivery_vnext",
+      "community_rule_environment_vnext",
+      "world_frame_vnext",
+      "mission_market_vnext",
+      "intel_economy_vnext",
+      "world_tick_vnext",
+      "resolution_report_vnext",
+      "world_newsreel_vnext",
+      "opposition_packet_vnext",
+      "open_run_network_vnext",
+      "seasonal_honors_vnext",
+      "feedback_signal_ooda_vnext",
+      "admin_projection_and_intent_vnext",
+      "journey_proof_vnext",
+      "crash_automation_vnext",
+      "account_aware_install_linking_vnext",
+      "desktop_update_vnext"
+    ]
   }
 }
