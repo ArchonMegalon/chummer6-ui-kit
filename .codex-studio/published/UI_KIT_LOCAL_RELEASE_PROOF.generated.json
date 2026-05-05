@@ -5,9 +5,10 @@
     "u7_u8_release_adoption_evidence_path": "/docker/chummercomplete/chummer-ui-kit/docs/u7-u8-release-adoption-evidence.md",
     "verify_script_path": "/docker/chummercomplete/chummer-ui-kit/scripts/ai/verify.sh"
   },
-  "generated_at": "2026-04-10T13:39:23Z",
+  "generated_at": "2026-05-05T03:54:26Z",
   "reasons": [],
   "repo_root": "/docker/chummercomplete/chummer-ui-kit",
   "schema_version": 1,
-  "status": "passed"
+  "status": "passed",
+  "generatedAt": "2026-05-05T03:54:26Z"
 }
