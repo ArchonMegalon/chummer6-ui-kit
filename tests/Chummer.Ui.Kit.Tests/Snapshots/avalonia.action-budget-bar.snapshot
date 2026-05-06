@@ -1,0 +1,11 @@
+root=ActionBudgetBar
+available=1
+classes=ActionBudgetBar ActionBudgetBarWarning ActionBudgetBarOverdrawn
+detail=Pending called shot spends the remaining action.
+emphasis=Warning
+kind=Major
+label=Major action
+maximum=2
+overdrawn=true
+part=action-budget-bar
+pending-cost=2

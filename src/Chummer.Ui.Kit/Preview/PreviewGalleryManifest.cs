@@ -46,7 +46,11 @@ public sealed class PreviewGalleryManifest
                 ["transition_patterns"] = "Role-transition, progress-toast, and resume-affordance payload mappings.",
                 ["guidance_states"] = "Onboarding, error, empty-state, recovery, and first-run guidance payload mappings.",
                 ["long_running_actions"] = "Retry/cancel/rollback/safe-continuation control payload mappings.",
-                ["classic_dense_workbench"] = "Classic dense-workbench preset payload and noise-budget posture mappings."
+                ["action_budget_bars"] = "Action-budget bars for live turn-economy truth across desktop and mobile consumers.",
+                ["condition_effect_chips"] = "Condition and effect chips with source-anchor-aware summary payload mappings.",
+                ["source_anchor_drawers"] = "Source-anchor drawer payload mappings for rulebook-backed follow-up affordances.",
+                ["runboard_primitives"] = "Runboard card payload mappings for initiative, objectives, opposition, heat, and resolution follow-up.",
+                ["classic_dense_workbench"] = "Classic dense-workbench preset payload, family proof bindings, and stale-chrome/noise-budget posture mappings."
             });
     }
 }

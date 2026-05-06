@@ -66,16 +66,40 @@ Deterministic contract checks for all listed adapter methods run in `tests/Chumm
 
 ## Classic Dense Workbench Preset
 
-`TokenCanon.CreateDefault()` now includes the package-owned `classic_dense_workbench` preset and dense noise-budget tokens for:
+`TokenCanon.CreateDefault()` now includes the package-owned `classic_dense_workbench` preset, its design-owned budget version, and dense noise-budget tokens for:
 
 - compact spacing scale
 - compact header scale
+- row-spacing max
+- card-padding max
+- input-padding horizontal/vertical max
 - banner-height ceiling
 - badge-density ceiling
+- persistent-banner max count
+- persistent secondary badge-cluster max
 - compact field height
 - compact button height
+- compact button min-height max
+- compact icon-button size max
+- hero-banner max height
+- card-nesting depth max
+- dashboard-tile max count in the toolstrip
+- decorative landing chrome max count in the workbench
+- menu-height max
+- toolstrip-height max
+- menu/toolstrip combined height max
+- workspace-context strip required
+- dense tab-strip height max
+- left-navigation and right-inspector width bounds
+- status-strip height max
+- header-to-content ratio max
+- dense list-row height max
+- dense-list and detail-group minimum visible density
+- builder-route minimum visible rows at `1440x900` and `1366x768`
 
-The preset contract captures top menu bar, toolstrip, dense tab strip, compact list/detail panes, compact inspector forms, and permanent status-strip posture. Avalonia projections include a `FlagshipDesktopDefault` class marker so flagship desktop consumers can treat this preset as the default posture unless explicitly overridden.
+The preset contract captures top menu bar, toolstrip, workspace-context strip, dense tab strip, compact list/detail panes, compact inspector forms, permanent status-strip posture, explicit center-pane dominance, the M142 family bindings for dense builder/career, dice/initiative, and identity/contacts/lifestyles/history, and fail-closed stale-chrome sentinels that keep hero banners, dashboard tiles, decorative landing chrome, inflated chrome heights, persistent badge clusters, and nested-card drift out of the promoted workbench. Avalonia projections include a `FlagshipDesktopDefault` class marker so flagship desktop consumers can treat this preset as the default posture unless explicitly overridden.
+
+Release-proof evidence for that preset is explicit in `docs/m142-classic-dense-workbench-evidence.md`, and `scripts/ai/verify.sh` now fails if the M142 family bindings or stale-chrome sentinel documentation drifts out of the repo-local release proof.
 
 ## Release Discipline Gates (U8)
 

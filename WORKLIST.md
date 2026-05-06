@@ -218,13 +218,40 @@ System re-entry evidence update (2026-04-21):
 - [x] No duplicate backlog rows were added for this slice during the 2026-04-21 re-entry pass.
 
 System re-entry evidence update (2026-04-21, current pass):
+
+System re-entry evidence update (2026-05-06, M142 successor closure pass):
+- [x] Revalidated the M142 package row against `/docker/fleet/.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml`, `/docker/chummercomplete/chummer-design/products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml`, and `/var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md`.
+- [x] Refreshed the repo-local closure anchors so `docs/m142-classic-dense-workbench-evidence.md` and `.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json` now point at the latest matching worker receipt `20260506T085631Z-shard-2`.
+- [x] Kept the package proof fail-closed around `classic_dense_workbench`, the three direct family ids, and the stale-chrome/noise-budget sentinels without widening the shared boundary.
+- [x] Re-ran `bash scripts/ai/verify.sh`, `python3 scripts/ai/materialize_ui_kit_release_proof.py --check`, and `dotnet run --project tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj --no-build --nologo` after refreshing the receipt-bound proof.
+
+System re-entry evidence update (2026-05-06, M142 stale-receipt guard pass):
+- [x] Revalidated successor package `next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t` against `TASK_LOCAL_TELEMETRY.generated.json`, `NEXT_90_DAY_QUEUE_STAGING.generated.yaml`, `NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml`, and `ACTIVE_RUN_HANDOFF.generated.md`.
+- [x] Tightened `scripts/ai/verify.sh` and `scripts/ai/materialize_ui_kit_release_proof.py` so stale M142 task-local telemetry paths fail closed in both the repo-local evidence document and `.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json`.
+- [x] Tightened the runtime handoff guard to the actual shard-safe markers (`Frontier ids`, current `Run id`, and matching `prompt.txt` path) so the proof lane stops depending on handoff text that is not emitted by the worker shim.
+- [x] Refreshed `docs/m142-classic-dense-workbench-evidence.md` and regenerated `.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json` to pin the latest matching worker receipt path (`20260506T083650Z-shard-2`) for this shard-safe closure pass.
 - [x] Re-read the required design mirror, repo scope, review context, queue overlay, and current repository state before taking action on this slice.
 - [x] Reconfirmed that `Publish or append runnable backlog for Catalog, visual-regression, and release discipline for the shared kit are not yet materialized..` is already satisfied by this U7/U8 section plus `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `tests/Chummer.Ui.Kit.Tests/Program.cs`, and `docs/u7-u8-release-adoption-evidence.md`.
 - [x] Reconfirmed that the newer queue item `Auto-detect and repair recurring \`ui-kit\` mirror drift after 6373 repeated audit observations; keep one bounded queue slice for the affected local design mirror bundle instead of reopening one-off mirror refresh work.` is a separate design-mirror hygiene slice and does not justify reopening or duplicating the already-closed U7/U8 backlog/materialization slice.
-- [x] Re-ran `bash scripts/ai/verify.sh` on 2026-04-21; build, deterministic catalog/regression checks, packaging, and local release-proof refresh all passed for the existing U7/U8 implementation.
+- [x] Re-ran `bash scripts/ai/verify.sh`, `python3 scripts/ai/materialize_ui_kit_release_proof.py --check`, and `dotnet run --project tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj` on 2026-05-06; build, deterministic catalog/regression checks, packaging, and local release-proof refresh all passed for the existing U7/U8 plus M142 implementation.
 - [x] No U7/U8 backlog, milestone, or acceptance rows were added or changed beyond this re-entry evidence note.
 - [x] Revalidated the currently modified repo state before closing this pass; the in-progress `guidance-state` error variant additions in `README.md`, `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`, `src/Chummer.Ui.Kit/Tokens/TokenCanon.cs`, `src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs`, `src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs`, and `tests/Chummer.Ui.Kit.Tests/Program.cs` remain additive to the same package-owned catalog/regression surface and do not reopen the queue ask to publish runnable backlog.
 - [x] Confirmed the new snapshot files `tests/Chummer.Ui.Kit.Tests/Snapshots/blazor.guidance-error.snapshot` and `tests/Chummer.Ui.Kit.Tests/Snapshots/avalonia.guidance-error.snapshot` verify cleanly through the standard repo verify path, so this pass needed only evidence publication rather than new queue rows.
+
+System re-entry evidence update (2026-05-06, M142 successor closure pass):
+- [x] Revalidated the same successor package receipt against the current shard-safe worker run (`20260506T084713Z-shard-2`) after the prior proof packet aged behind the latest task-local telemetry snapshot.
+- [x] Refreshed `docs/m142-classic-dense-workbench-evidence.md` and regenerated `.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json` so both artifacts now cite `/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/20260506T084713Z-shard-2/TASK_LOCAL_TELEMETRY.generated.json` instead of the older matching receipt path.
+- [x] Re-ran the repo-standard verifier lane plus the release-proof materializer/test checks after the receipt refresh so stale telemetry citations fail closed before future shards can reuse this closure bundle.
+
+System re-entry evidence update (2026-05-06, M142 current worker receipt refresh):
+- [x] Revalidated the same successor package against the current worker-safe telemetry receipt `20260506T095536Z-shard-2` selected by `TASK_LOCAL_TELEMETRY.generated.json`, `NEXT_90_DAY_QUEUE_STAGING.generated.yaml`, `NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml`, and `ACTIVE_RUN_HANDOFF.generated.md`.
+- [x] Refreshed `docs/m142-classic-dense-workbench-evidence.md` so the repo-local closure note cites `/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/20260506T095536Z-shard-2/TASK_LOCAL_TELEMETRY.generated.json` rather than a stale earlier receipt.
+- [x] Regenerated `.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json` and re-ran the standard verifier/materializer/test lane so stale receipt drift still fails closed before downstream desktop proof can reuse this package closure.
+
+System re-entry evidence update (2026-05-06, M142 proof-floor guard pass):
+- [x] Tightened `scripts/ai/verify.sh` and `scripts/ai/materialize_ui_kit_release_proof.py` so the repo-local closure packet now requires the strongest executable M142 guards to remain present: `FlagshipClassicDenseWorkbenchDefaultIsTokenBacked`, `classic dense-workbench stale chrome sentinel list fails closed`, and `classic dense-workbench non-canonical proof family broadening fails closed`.
+- [x] Added Python proof-floor tests in `tests/test_materialize_ui_kit_release_proof.py` so future edits to the materializer constants cannot silently drop those M142 guard markers.
+- [x] Refreshed `docs/m142-classic-dense-workbench-evidence.md` to record the higher proof floor for this successor slice before re-running verification.
 
 Implementation evidence update (2026-03-21):
 - [x] `PreviewGalleryManifest.CreateDefault()` publishes package-owned catalog keys for token canon, theme compilation, shell chrome, banner, stale-state badge, approval chip, offline banner, and accessibility state.
@@ -322,3 +349,20 @@ Implementation evidence update (2026-04-11, classic dense workbench closure):
 - [x] Added deterministic Blazor/Avalonia preset projections in `src/Chummer.Ui.Kit/Adapters/Blazor/BlazorUiKitAdapter.cs` and `src/Chummer.Ui.Kit/Adapters/Avalonia/AvaloniaUiKitAdapter.cs`, including `FlagshipDesktopDefault` Avalonia posture.
 - [x] Added catalog entry `classic_dense_workbench` in `src/Chummer.Ui.Kit/Preview/PreviewGalleryManifest.cs`.
 - [x] Added deterministic token/payload/snapshot/density-budget assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` and `tests/Chummer.Ui.Kit.Tests/Snapshots/{blazor,avalonia}.classic-dense-workbench.snapshot`.
+
+Implementation evidence update (2026-05-05, M142 dense-workbench proof binding):
+- [x] Expanded the package-owned `classic_dense_workbench` contract to carry the design-owned dense-budget version, fail-closed chrome sentinels, center-pane dominance, menu/status-strip height budgets, and visible-row minimums that the promoted desktop workbench must keep.
+- [x] Bound the M142 flagship families directly into the preset contract (`family:dense_builder_and_career_workflows`, `family:dice_initiative_and_table_utilities`, and `family:identity_contacts_lifestyles_history`) so shared-kit proof can be cited without broad family prose.
+- [x] Extended deterministic Blazor/Avalonia payloads and snapshots so stale chrome regressions fail on package contract drift before downstream desktop proof is republished.
+- [x] Expanded the preset contract to carry split chrome-height, width-bound, banner/badge-cluster, card-nesting, and row-spacing budget fields directly in UI Kit so dense-workbench proof no longer stops at combined-height prose.
+- [x] Fail-closed `ClassicDenseWorkbenchPreset` custom-list overrides so missing flagship family ids or stale-chrome sentinels throw before downstream shells can materialize a weakened preset.
+- [x] Re-ran `bash scripts/ai/verify.sh` and `python3 scripts/ai/materialize_ui_kit_release_proof.py --check` on 2026-05-05; build, deterministic adapter/snapshot checks, and the repo-local release proof all pass with the M142 bindings and stale-chrome sentinels in place.
+- [x] Hardened the repo-local release proof and verifier so M142 closure now fails if the dense-workbench source anchors or snapshot fixtures disappear, preventing future shards from treating prose-only markers as sufficient evidence.
+
+System re-entry evidence update (2026-05-06, M142 successor closure pass):
+- [x] Revalidated package `next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t` against the canonical successor-wave queue row and confirmed the repo-local M142 implementation is already materially landed.
+- [x] Recorded both the canonical staged-queue frontier `1752713026` and the task-local handoff frontier `1971223526` in the repo-local M142 evidence doc, verifier markers, and generated proof payload so future shards fail closed on frontier drift instead of trusting the handoff alone.
+- [x] Tightened the repo-local verifier and generated proof materializer so the closure now fails when the canonical successor queue row or the canonical registry work-task row for `142.2` drifts away from the current package contract.
+- [x] Re-ran `bash scripts/ai/verify.sh` on 2026-05-06 after tightening the closure markers; build, tests, pack, and `UI_KIT_LOCAL_RELEASE_PROOF.generated.json` all remain green.
+- [x] Replaced the stale hard-coded task-local telemetry path with a latest-matching worker-receipt resolver rooted at `/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs` so future shard reruns do not reopen M142 only because the run id changed.
+- [x] Tightened the runtime handoff marker set to the stable frontier, owner-focus, package-id, and title receipts that are actually emitted by `ACTIVE_RUN_HANDOFF.generated.md`, then refreshed the repo-local proof against the latest worker receipt.

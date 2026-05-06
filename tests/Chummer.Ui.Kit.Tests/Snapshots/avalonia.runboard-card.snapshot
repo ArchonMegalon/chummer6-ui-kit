@@ -1,0 +1,11 @@
+root=RunboardCard
+classes=RunboardCard RunboardCardHeat RunboardCardRaised RunboardCardAttention
+detail=Escalation timer reaches dispatch on the next round boundary.
+item-count=3
+kind=Heat
+metric-label=Heat 6/10
+part=runboard-card
+priority=Raised
+requires-attention=true
+summary=Lone Star response escalates next round.
+title=Scene pressure

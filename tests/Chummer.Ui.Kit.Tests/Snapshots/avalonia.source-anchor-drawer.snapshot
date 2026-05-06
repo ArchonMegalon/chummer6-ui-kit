@@ -1,0 +1,11 @@
+root=SourceAnchorDrawer
+anchor-id=sr6-combat-suppressive-fire
+classes=SourceAnchorDrawer SourceAnchorDrawerOpen SourceAnchorDrawerConflict
+conflict-warning=true
+excerpt=Targets inside the area must spend an action or take the attack.
+location-label=p. 114
+open=true
+part=source-anchor-drawer
+source-short-code=SR6
+support-label=House rule adds gel-round fallout.
+title=Suppressive fire

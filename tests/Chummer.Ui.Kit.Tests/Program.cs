@@ -12,7 +12,10 @@ var checks = new Action[]
     DefaultCanonContainsB1ShellAndAccessibilityTokens,
     DefaultCanonContainsRoleTransitionAndResumeTokens,
     DefaultCanonContainsGuidanceAndLongRunningTokens,
+    DefaultCanonContainsRunboardAndSourceAnchorTokens,
+    NewPrimitiveGuardsFailClosed,
     DefaultCanonContainsClassicDenseWorkbenchTokens,
+    FlagshipClassicDenseWorkbenchDefaultIsTokenBacked,
     DefaultFallbackContrastRemainsReadable,
     AdapterDefaultsStayAlignedWithTokenCanon,
     AvaloniaCompatibilityAliasesRemainAvailable,
@@ -132,25 +135,161 @@ static void DefaultCanonContainsGuidanceAndLongRunningTokens()
     ExpectEqual("design/DR-129", canon["long.running.actions.dictionary"], "long-running dictionary token");
 }
 
+static void DefaultCanonContainsRunboardAndSourceAnchorTokens()
+{
+    var canon = TokenCanon.CreateDefault();
+    var expectedKeys = new[]
+    {
+        "action.budget.bar.root.class",
+        "action.budget.bar.kind.default",
+        "action.budget.bar.emphasis.default",
+        "condition.effect.chip.root.class",
+        "condition.effect.chip.kind.default",
+        "condition.effect.chip.tone.default",
+        "source.anchor.drawer.root.class",
+        "source.anchor.drawer.open.default",
+        "runboard.card.root.class",
+        "runboard.card.priority.default"
+    };
+
+    foreach (var key in expectedKeys)
+    {
+        ExpectTrue(canon.Contains(key), $"default canon contains {key}");
+    }
+
+    ExpectEqual("chummer-action-budget-bar", canon["action.budget.bar.root.class"], "action-budget root class token");
+    ExpectEqual("major", canon["action.budget.bar.kind.default"], "action-budget kind token");
+    ExpectEqual("steady", canon["action.budget.bar.emphasis.default"], "action-budget emphasis token");
+    ExpectEqual("chummer-condition-effect-chip", canon["condition.effect.chip.root.class"], "condition/effect root class token");
+    ExpectEqual("effect", canon["condition.effect.chip.kind.default"], "condition/effect kind token");
+    ExpectEqual("neutral", canon["condition.effect.chip.tone.default"], "condition/effect tone token");
+    ExpectEqual("chummer-source-anchor-drawer", canon["source.anchor.drawer.root.class"], "source-anchor drawer root class token");
+    ExpectEqual("false", canon["source.anchor.drawer.open.default"], "source-anchor drawer open token");
+    ExpectEqual("chummer-runboard-card", canon["runboard.card.root.class"], "runboard root class token");
+    ExpectEqual("standard", canon["runboard.card.priority.default"], "runboard priority token");
+}
+
+static void NewPrimitiveGuardsFailClosed()
+{
+    ExpectThrows<ArgumentOutOfRangeException>(
+        () => _ = new ActionBudgetBar("Major", ActionBudgetKind.Major, available: 3, maximum: 2),
+        "action-budget available count above maximum fails closed");
+    ExpectThrows<ArgumentOutOfRangeException>(
+        () => _ = new ActionBudgetBar("Major", ActionBudgetKind.Major, available: -1, maximum: 2),
+        "action-budget negative available count fails closed");
+    ExpectThrows<ArgumentOutOfRangeException>(
+        () => _ = new ConditionEffectChip("Prone", stackCount: 0),
+        "condition/effect chip zero stack count fails closed");
+    ExpectThrows<ArgumentException>(
+        () => _ = new SourceAnchorDrawer("Suppressive fire", "SR6", "p. 114", "bad anchor"),
+        "source-anchor drawer whitespace anchor id fails closed");
+    ExpectThrows<ArgumentOutOfRangeException>(
+        () => _ = new RunboardCard("Scene pressure", "Escalates next round.", itemCount: -1),
+        "runboard negative item count fails closed");
+    ExpectThrows<ArgumentException>(
+        () => _ = new ClassicDenseWorkbenchPreset(
+            proofFamilyIds: new[]
+            {
+                "family:dense_builder_and_career_workflows",
+                "family:dice_initiative_and_table_utilities",
+            }),
+        "classic dense-workbench missing required proof family ids fails closed");
+    ExpectThrows<ArgumentException>(
+        () => _ = new ClassicDenseWorkbenchPreset(
+            chromeRegressionSentinels: new[]
+            {
+                "hero_banner_height_max=0",
+                "dashboard_tile_count_in_toolstrip_max=0",
+                "decorative_landing_chrome_in_workbench_max=0",
+                "menu_height_max=32",
+                "toolstrip_height_max=40",
+                "status_strip_height_max=26",
+                "persistent_banner_count_max=1",
+                "card_nesting_depth_max=2",
+                "center_pane_must_dominate=true",
+            }),
+        "classic dense-workbench missing required chrome sentinel fails closed");
+    ExpectThrows<ArgumentException>(
+        () => _ = new ClassicDenseWorkbenchPreset(
+            menuHeightMax: "28",
+            chromeRegressionSentinels: new[]
+            {
+                "hero_banner_height_max=0",
+                "dashboard_tile_count_in_toolstrip_max=0",
+                "decorative_landing_chrome_in_workbench_max=0",
+                "menu_height_max=32",
+                "toolstrip_height_max=40",
+                "status_strip_height_max=26",
+                "persistent_banner_count_max=1",
+                "persistent_secondary_badge_cluster_max=3",
+                "card_nesting_depth_max=2",
+                "center_pane_must_dominate=true",
+            }),
+        "classic dense-workbench stale chrome sentinel list fails closed");
+    ExpectThrows<ArgumentException>(
+        () => _ = new ClassicDenseWorkbenchPreset(
+            proofFamilyIds: new[]
+            {
+                "family:dense_builder_and_career_workflows",
+                "family:dice_initiative_and_table_utilities",
+                "family:identity_contacts_lifestyles_history",
+                "family:non_canonical_extra",
+            }),
+        "classic dense-workbench non-canonical proof family broadening fails closed");
+}
+
 static void DefaultCanonContainsClassicDenseWorkbenchTokens()
 {
     var canon = TokenCanon.CreateDefault();
     var expectedKeys = new[]
     {
         "classic.dense.workbench.preset.id",
+        "classic.dense.workbench.budget.version",
         "classic.dense.workbench.flagship.avalonia.default",
+        "classic.dense.workbench.proof.family.ids",
+        "classic.dense.workbench.chrome.regression.sentinels",
         "noise.budget.compact.spacing.scale",
         "noise.budget.compact.header.scale",
+        "noise.budget.row.spacing.max",
+        "noise.budget.card.padding.max",
+        "noise.budget.input.padding.horizontal.max",
+        "noise.budget.input.padding.vertical.max",
         "noise.budget.banner.height.max",
         "noise.budget.badge.density.max",
+        "noise.budget.persistent.banner.count.max",
+        "noise.budget.badge.cluster.secondary.max",
         "noise.budget.field.height.compact",
         "noise.budget.button.height.compact",
+        "noise.budget.button.min.height.max",
+        "noise.budget.icon.button.size.compact.max",
+        "noise.budget.hero.banner.height.max",
+        "noise.budget.card.nesting.depth.max",
+        "noise.budget.toolstrip.dashboard.tile.max",
+        "noise.budget.decorative.landing.chrome.max",
         "workbench.layout.top.menu.enabled",
         "workbench.layout.toolstrip.enabled",
+        "workbench.layout.workspace.context.strip.required",
+        "workbench.layout.menu.height.max",
+        "workbench.layout.toolstrip.height.max",
         "workbench.layout.tab.strip.density",
+        "workbench.layout.tab.strip.height.max",
         "workbench.layout.list.detail.compact",
         "workbench.layout.inspector.forms.compact",
-        "workbench.layout.status.strip.posture"
+        "workbench.layout.left.navigation.width.min",
+        "workbench.layout.left.navigation.width.max",
+        "workbench.layout.right.inspector.width.min",
+        "workbench.layout.right.inspector.width.max",
+        "workbench.layout.status.strip.posture",
+        "workbench.layout.menu.toolstrip.height.max",
+        "workbench.layout.status.strip.height.max",
+        "workbench.layout.center.pane.must.dominate",
+        "workbench.layout.section.rhythm.must.remain.visible",
+        "workbench.layout.header.to.content.ratio.max",
+        "workbench.visible.list.row.height.max",
+        "workbench.visible.dense.list.row.min",
+        "workbench.visible.dense.detail.group.field.min",
+        "workbench.visible.builder.rows.1440x900.min",
+        "workbench.visible.builder.rows.1366x768.min"
     };
 
     foreach (var key in expectedKeys)
@@ -159,9 +298,72 @@ static void DefaultCanonContainsClassicDenseWorkbenchTokens()
     }
 
     ExpectEqual("classic_dense_workbench", canon["classic.dense.workbench.preset.id"], "dense preset id token");
+    ExpectEqual("2026-04-16", canon["classic.dense.workbench.budget.version"], "dense budget version token");
     ExpectEqual("true", canon["classic.dense.workbench.flagship.avalonia.default"], "avalonia flagship default token");
+    ExpectEqual("family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history", canon["classic.dense.workbench.proof.family.ids"], "dense preset proof families token");
+    ExpectEqual("hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true", canon["classic.dense.workbench.chrome.regression.sentinels"], "dense preset chrome sentinel token");
+    ExpectEqual("6", canon["noise.budget.row.spacing.max"], "row spacing max token");
+    ExpectEqual("10", canon["noise.budget.card.padding.max"], "card padding max token");
+    ExpectEqual("8", canon["noise.budget.input.padding.horizontal.max"], "input horizontal padding max token");
+    ExpectEqual("6", canon["noise.budget.input.padding.vertical.max"], "input vertical padding max token");
+    ExpectEqual("0", canon["noise.budget.hero.banner.height.max"], "hero banner max token");
+    ExpectEqual("2", canon["noise.budget.card.nesting.depth.max"], "card nesting depth max token");
+    ExpectEqual("0", canon["noise.budget.toolstrip.dashboard.tile.max"], "dashboard tile max token");
+    ExpectEqual("0", canon["noise.budget.decorative.landing.chrome.max"], "decorative landing chrome max token");
+    ExpectEqual("1", canon["noise.budget.persistent.banner.count.max"], "persistent banner count max token");
+    ExpectEqual("3", canon["noise.budget.badge.cluster.secondary.max"], "persistent secondary badge-cluster max token");
+    ExpectEqual("32", canon["noise.budget.button.min.height.max"], "compact button min-height max token");
+    ExpectEqual("32", canon["noise.budget.icon.button.size.compact.max"], "compact icon-button size max token");
+    ExpectEqual("true", canon["workbench.layout.workspace.context.strip.required"], "workspace-context strip requirement token");
+    ExpectEqual("32", canon["workbench.layout.menu.height.max"], "menu height max token");
+    ExpectEqual("40", canon["workbench.layout.toolstrip.height.max"], "toolstrip height max token");
     ExpectEqual("compact", canon["workbench.layout.tab.strip.density"], "tab strip density token");
+    ExpectEqual("30", canon["workbench.layout.tab.strip.height.max"], "tab strip height max token");
+    ExpectEqual("180", canon["workbench.layout.left.navigation.width.min"], "left-navigation width min token");
+    ExpectEqual("240", canon["workbench.layout.left.navigation.width.max"], "left-navigation width max token");
+    ExpectEqual("260", canon["workbench.layout.right.inspector.width.min"], "right-inspector width min token");
+    ExpectEqual("340", canon["workbench.layout.right.inspector.width.max"], "right-inspector width max token");
     ExpectEqual("permanent", canon["workbench.layout.status.strip.posture"], "status strip posture token");
+    ExpectEqual("72", canon["workbench.layout.menu.toolstrip.height.max"], "menu/toolstrip height max token");
+    ExpectEqual("26", canon["workbench.layout.status.strip.height.max"], "status strip height max token");
+    ExpectEqual("true", canon["workbench.layout.center.pane.must.dominate"], "center pane dominance token");
+    ExpectEqual("true", canon["workbench.layout.section.rhythm.must.remain.visible"], "section rhythm token");
+    ExpectEqual("0.30", canon["workbench.layout.header.to.content.ratio.max"], "header-to-content ratio max token");
+    ExpectEqual("32", canon["workbench.visible.list.row.height.max"], "dense list-row height max token");
+    ExpectEqual("9", canon["workbench.visible.dense.list.row.min"], "dense list visible row minimum token");
+    ExpectEqual("6", canon["workbench.visible.dense.detail.group.field.min"], "dense detail group field minimum token");
+    ExpectEqual("12", canon["workbench.visible.builder.rows.1440x900.min"], "1440x900 builder row minimum token");
+    ExpectEqual("9", canon["workbench.visible.builder.rows.1366x768.min"], "1366x768 builder row minimum token");
+}
+
+static void FlagshipClassicDenseWorkbenchDefaultIsTokenBacked()
+{
+    var canon = TokenCanon.CreateDefault();
+    var preset = ClassicDenseWorkbenchPreset.CreateFlagshipDesktopDefault(canon);
+
+    ExpectEqual(canon["classic.dense.workbench.preset.id"], preset.PresetId, "flagship preset id comes from canon");
+    ExpectEqual(canon["classic.dense.workbench.budget.version"], preset.DenseWorkbenchBudgetVersion, "flagship preset budget version comes from canon");
+    ExpectEqual(canon["classic.dense.workbench.proof.family.ids"], string.Join(",", preset.ProofFamilyIds), "flagship proof families come from canon");
+    ExpectEqual(canon["classic.dense.workbench.chrome.regression.sentinels"], string.Join(",", preset.ChromeRegressionSentinels), "flagship chrome sentinels come from canon");
+    ExpectEqual(canon["noise.budget.compact.spacing.scale"], preset.CompactSpacingScale, "flagship compact spacing scale comes from canon");
+    ExpectEqual(canon["noise.budget.row.spacing.max"], preset.RowSpacingMax, "flagship row spacing max comes from canon");
+    ExpectEqual(canon["noise.budget.decorative.landing.chrome.max"], preset.DecorativeLandingChromeInWorkbenchMax, "flagship decorative chrome cap comes from canon");
+    ExpectEqual(canon["workbench.layout.menu.height.max"], preset.MenuHeightMax, "flagship menu height comes from canon");
+    ExpectEqual(canon["workbench.layout.toolstrip.height.max"], preset.ToolstripHeightMax, "flagship toolstrip height comes from canon");
+    ExpectEqual(canon["workbench.layout.status.strip.height.max"], preset.StatusStripHeightMax, "flagship status strip height comes from canon");
+    ExpectEqual(canon["workbench.visible.builder.rows.1440x900.min"], preset.BuilderRouteVisibleRowsAt1440x900Min, "flagship 1440x900 row minimum comes from canon");
+    ExpectEqual(canon["workbench.visible.builder.rows.1366x768.min"], preset.BuilderRouteVisibleRowsAt1366x768Min, "flagship 1366x768 row minimum comes from canon");
+
+    var overriddenTokens = canon.Tokens.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
+    overriddenTokens["classic.dense.workbench.budget.version"] = "2099-12-31";
+    overriddenTokens["noise.budget.decorative.landing.chrome.max"] = "1";
+    overriddenTokens["classic.dense.workbench.chrome.regression.sentinels"] =
+        "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=1,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true";
+
+    var overriddenPreset = ClassicDenseWorkbenchPreset.CreateFlagshipDesktopDefault(new TokenCanon(overriddenTokens));
+    ExpectEqual("2099-12-31", overriddenPreset.DenseWorkbenchBudgetVersion, "flagship preset refreshes from overridden canon budget version");
+    ExpectEqual("1", overriddenPreset.DecorativeLandingChromeInWorkbenchMax, "flagship preset refreshes from overridden canon chrome cap");
+    ExpectContains(string.Join(",", overriddenPreset.ChromeRegressionSentinels), "decorative_landing_chrome_in_workbench_max=1", "flagship preset refreshes from overridden canon chrome sentinels");
 }
 
 static void DefaultFallbackContrastRemainsReadable()
@@ -280,6 +482,10 @@ static void PreviewGalleryDefaultManifestCoversPackageCatalog()
         "transition_patterns",
         "guidance_states",
         "long_running_actions",
+        "action_budget_bars",
+        "condition_effect_chips",
+        "source_anchor_drawers",
+        "runboard_primitives",
         "classic_dense_workbench"
     };
 
@@ -329,6 +535,10 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         safeContinuationEnabled: true,
         actionDictionaryReference: "design/DR-129",
         detail: "Prefer safe continuation when replay integrity is uncertain.");
+    var actionBudgetBar = new ActionBudgetBar("Major action", ActionBudgetKind.Major, available: 1, maximum: 2, pendingCost: 2, emphasis: ActionBudgetEmphasis.Warning, detail: "Pending called shot spends the remaining action.");
+    var conditionEffectChip = new ConditionEffectChip("Prone", ConditionEffectKind.Condition, ConditionEffectTone.Warning, stackCount: 2, sourceAnchored: true, detail: "Applies a -2 defense modifier until cleared.");
+    var sourceAnchorDrawer = new SourceAnchorDrawer("Suppressive fire", "SR6", "p. 114", "sr6-combat-suppressive-fire", open: true, conflictWarning: true, excerpt: "Targets inside the area must spend an action or take the attack.", supportLabel: "House rule adds gel-round fallout.");
+    var runboardCard = new RunboardCard("Scene pressure", "Lone Star response escalates next round.", RunboardCardKind.Heat, RunboardCardPriority.Raised, metricLabel: "Heat 6/10", itemCount: 3, requiresAttention: true, detail: "Escalation timer reaches dispatch on the next round boundary.");
     var classicDenseWorkbench = new ClassicDenseWorkbenchPreset();
 
     ExpectPayload(
@@ -1035,6 +1245,186 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectSingleNoLossPath(blazorLongRunning.Attributes, "data-", "blazor long-running controls");
     ExpectSingleNoLossPath(avaloniaLongRunning.Attributes, string.Empty, "avalonia long-running controls");
 
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptActionBudgetBar(actionBudgetBar),
+        "chummer-action-budget-bar",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "progressbar",
+            ["aria-label"] = "Major action action budget",
+            ["aria-valuemin"] = "0",
+            ["aria-valuemax"] = "2",
+            ["aria-valuenow"] = "1",
+            ["data-label"] = "Major action",
+            ["data-kind"] = "major",
+            ["data-available"] = "1",
+            ["data-maximum"] = "2",
+            ["data-pending-cost"] = "2",
+            ["data-overdrawn"] = "true",
+            ["data-emphasis"] = "warning",
+            ["data-detail"] = "Pending called shot spends the remaining action.",
+            ["class"] = "chummer-action-budget-bar chummer-action-budget-bar-warning chummer-action-budget-bar-overdrawn"
+        },
+        "blazor action-budget payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptActionBudgetBar(actionBudgetBar),
+        "blazor.action-budget-bar.snapshot",
+        "blazor action-budget snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptActionBudgetBar(actionBudgetBar),
+        "ActionBudgetBar",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "action-budget-bar",
+            ["classes"] = "ActionBudgetBar ActionBudgetBarWarning ActionBudgetBarOverdrawn",
+            ["label"] = "Major action",
+            ["kind"] = "Major",
+            ["available"] = "1",
+            ["maximum"] = "2",
+            ["pending-cost"] = "2",
+            ["overdrawn"] = "true",
+            ["emphasis"] = "Warning",
+            ["detail"] = "Pending called shot spends the remaining action."
+        },
+        "avalonia action-budget payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptActionBudgetBar(actionBudgetBar),
+        "avalonia.action-budget-bar.snapshot",
+        "avalonia action-budget snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptConditionEffectChip(conditionEffectChip),
+        "chummer-condition-effect-chip",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-label"] = "Prone x2",
+            ["data-label"] = "Prone",
+            ["data-kind"] = "condition",
+            ["data-tone"] = "warning",
+            ["data-stack-count"] = "2",
+            ["data-source-anchored"] = "true",
+            ["data-detail"] = "Applies a -2 defense modifier until cleared.",
+            ["class"] = "chummer-condition-effect-chip chummer-condition-effect-chip-condition chummer-condition-effect-chip-warning chummer-condition-effect-chip-source-anchored"
+        },
+        "blazor condition/effect payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptConditionEffectChip(conditionEffectChip),
+        "blazor.condition-effect-chip.snapshot",
+        "blazor condition/effect snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptConditionEffectChip(conditionEffectChip),
+        "ConditionEffectChip",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "condition-effect-chip",
+            ["classes"] = "ConditionEffectChip ConditionEffectChipCondition ConditionEffectChipWarning ConditionEffectChipAnchored",
+            ["label"] = "Prone",
+            ["kind"] = "Condition",
+            ["tone"] = "Warning",
+            ["stack-count"] = "2",
+            ["source-anchored"] = "true",
+            ["detail"] = "Applies a -2 defense modifier until cleared."
+        },
+        "avalonia condition/effect payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptConditionEffectChip(conditionEffectChip),
+        "avalonia.condition-effect-chip.snapshot",
+        "avalonia condition/effect snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptSourceAnchorDrawer(sourceAnchorDrawer),
+        "chummer-source-anchor-drawer",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "complementary",
+            ["aria-label"] = "Suppressive fire",
+            ["data-title"] = "Suppressive fire",
+            ["data-source-short-code"] = "SR6",
+            ["data-location-label"] = "p. 114",
+            ["data-anchor-id"] = "sr6-combat-suppressive-fire",
+            ["data-open"] = "true",
+            ["data-conflict-warning"] = "true",
+            ["data-excerpt"] = "Targets inside the area must spend an action or take the attack.",
+            ["data-support-label"] = "House rule adds gel-round fallout.",
+            ["class"] = "chummer-source-anchor-drawer chummer-source-anchor-drawer-open chummer-source-anchor-drawer-conflict"
+        },
+        "blazor source-anchor drawer payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptSourceAnchorDrawer(sourceAnchorDrawer),
+        "blazor.source-anchor-drawer.snapshot",
+        "blazor source-anchor drawer snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptSourceAnchorDrawer(sourceAnchorDrawer),
+        "SourceAnchorDrawer",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "source-anchor-drawer",
+            ["classes"] = "SourceAnchorDrawer SourceAnchorDrawerOpen SourceAnchorDrawerConflict",
+            ["title"] = "Suppressive fire",
+            ["source-short-code"] = "SR6",
+            ["location-label"] = "p. 114",
+            ["anchor-id"] = "sr6-combat-suppressive-fire",
+            ["open"] = "true",
+            ["conflict-warning"] = "true",
+            ["excerpt"] = "Targets inside the area must spend an action or take the attack.",
+            ["support-label"] = "House rule adds gel-round fallout."
+        },
+        "avalonia source-anchor drawer payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptSourceAnchorDrawer(sourceAnchorDrawer),
+        "avalonia.source-anchor-drawer.snapshot",
+        "avalonia source-anchor drawer snapshot");
+
+    ExpectPayload(
+        BlazorUiKitAdapter.AdaptRunboardCard(runboardCard),
+        "chummer-runboard-card",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "group",
+            ["aria-label"] = "Scene pressure",
+            ["data-title"] = "Scene pressure",
+            ["data-summary"] = "Lone Star response escalates next round.",
+            ["data-kind"] = "heat",
+            ["data-priority"] = "raised",
+            ["data-item-count"] = "3",
+            ["data-requires-attention"] = "true",
+            ["data-metric-label"] = "Heat 6/10",
+            ["data-detail"] = "Escalation timer reaches dispatch on the next round boundary.",
+            ["class"] = "chummer-runboard-card chummer-runboard-card-heat chummer-runboard-card-raised chummer-runboard-card-attention"
+        },
+        "blazor runboard payload");
+    ExpectPayloadSnapshot(
+        BlazorUiKitAdapter.AdaptRunboardCard(runboardCard),
+        "blazor.runboard-card.snapshot",
+        "blazor runboard snapshot");
+    ExpectPayload(
+        AvaloniaUiKitAdapter.AdaptRunboardCard(runboardCard),
+        "RunboardCard",
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "runboard-card",
+            ["classes"] = "RunboardCard RunboardCardHeat RunboardCardRaised RunboardCardAttention",
+            ["title"] = "Scene pressure",
+            ["summary"] = "Lone Star response escalates next round.",
+            ["kind"] = "Heat",
+            ["priority"] = "Raised",
+            ["item-count"] = "3",
+            ["requires-attention"] = "true",
+            ["metric-label"] = "Heat 6/10",
+            ["detail"] = "Escalation timer reaches dispatch on the next round boundary."
+        },
+        "avalonia runboard payload");
+    ExpectPayloadSnapshot(
+        AvaloniaUiKitAdapter.AdaptRunboardCard(runboardCard),
+        "avalonia.runboard-card.snapshot",
+        "avalonia runboard snapshot");
+
+    ExpectEqual(TokenCanon.CreateDefault()["action.budget.bar.root.class"], BlazorUiKitAdapter.AdaptActionBudgetBar(actionBudgetBar).RootClass, "action-budget root aligns with canon");
+    ExpectEqual(TokenCanon.CreateDefault()["condition.effect.chip.root.class"], BlazorUiKitAdapter.AdaptConditionEffectChip(conditionEffectChip).RootClass, "condition/effect root aligns with canon");
+    ExpectEqual(TokenCanon.CreateDefault()["source.anchor.drawer.root.class"], BlazorUiKitAdapter.AdaptSourceAnchorDrawer(sourceAnchorDrawer).RootClass, "source-anchor drawer root aligns with canon");
+    ExpectEqual(TokenCanon.CreateDefault()["runboard.card.root.class"], BlazorUiKitAdapter.AdaptRunboardCard(runboardCard).RootClass, "runboard root aligns with canon");
+
     var blazorDenseWorkbench = BlazorUiKitAdapter.AdaptClassicDenseWorkbenchPreset(classicDenseWorkbench);
     var avaloniaDenseWorkbench = AvaloniaUiKitAdapter.AdaptClassicDenseWorkbenchPreset(classicDenseWorkbench);
 
@@ -1046,6 +1436,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["role"] = "region",
             ["aria-label"] = "Classic dense workbench preset",
             ["data-preset-id"] = "classic_dense_workbench",
+            ["data-dense-workbench-budget-version"] = "2026-04-16",
             ["data-top-menu-bar-enabled"] = "true",
             ["data-toolstrip-enabled"] = "true",
             ["data-tab-strip-density"] = "compact",
@@ -1054,10 +1445,42 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["data-status-strip-posture"] = "permanent",
             ["data-compact-spacing-scale"] = "0.85",
             ["data-compact-header-scale"] = "0.90",
+            ["data-row-spacing-max"] = "6",
+            ["data-card-padding-max"] = "10",
+            ["data-input-padding-horizontal-max"] = "8",
+            ["data-input-padding-vertical-max"] = "6",
             ["data-banner-height-ceiling"] = "2.50rem",
             ["data-badge-density-ceiling"] = "3",
+            ["data-persistent-banner-count-max"] = "1",
+            ["data-persistent-secondary-badge-cluster-max"] = "3",
             ["data-compact-field-height"] = "1.875rem",
             ["data-compact-button-height"] = "1.875rem",
+            ["data-compact-button-min-height-max"] = "32",
+            ["data-compact-icon-button-size-max"] = "32",
+            ["data-hero-banner-height-max"] = "0",
+            ["data-card-nesting-depth-max"] = "2",
+            ["data-dashboard-tile-count-in-toolstrip-max"] = "0",
+            ["data-decorative-landing-chrome-in-workbench-max"] = "0",
+            ["data-menu-height-max"] = "32",
+            ["data-toolstrip-height-max"] = "40",
+            ["data-workspace-context-strip-required"] = "true",
+            ["data-tab-strip-height-max"] = "30",
+            ["data-left-navigation-width-min"] = "180",
+            ["data-left-navigation-width-max"] = "240",
+            ["data-right-inspector-width-min"] = "260",
+            ["data-right-inspector-width-max"] = "340",
+            ["data-menu-and-toolstrip-combined-height-max"] = "72",
+            ["data-status-strip-height-max"] = "26",
+            ["data-center-pane-must-dominate"] = "true",
+            ["data-section-rhythm-must-remain-visible"] = "true",
+            ["data-header-to-content-ratio-max"] = "0.30",
+            ["data-dense-list-row-height-max"] = "32",
+            ["data-dense-list-visible-row-min"] = "9",
+            ["data-dense-detail-group-visible-field-min"] = "6",
+            ["data-builder-route-visible-rows-1440x900-min"] = "12",
+            ["data-builder-route-visible-rows-1366x768-min"] = "9",
+            ["data-proof-family-ids"] = "family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history",
+            ["data-chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
             ["data-flagship-default-avalonia"] = "true",
             ["class"] = "chummer-classic-dense-workbench"
         },
@@ -1075,6 +1498,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["part"] = "classic-dense-workbench",
             ["classes"] = "ClassicDenseWorkbench FlagshipDesktopDefault",
             ["preset-id"] = "classic_dense_workbench",
+            ["dense-workbench-budget-version"] = "2026-04-16",
             ["top-menu-bar-enabled"] = "true",
             ["toolstrip-enabled"] = "true",
             ["tab-strip-density"] = "compact",
@@ -1083,10 +1507,42 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["status-strip-posture"] = "permanent",
             ["compact-spacing-scale"] = "0.85",
             ["compact-header-scale"] = "0.90",
+            ["row-spacing-max"] = "6",
+            ["card-padding-max"] = "10",
+            ["input-padding-horizontal-max"] = "8",
+            ["input-padding-vertical-max"] = "6",
             ["banner-height-ceiling"] = "2.50rem",
             ["badge-density-ceiling"] = "3",
+            ["persistent-banner-count-max"] = "1",
+            ["persistent-secondary-badge-cluster-max"] = "3",
             ["compact-field-height"] = "1.875rem",
             ["compact-button-height"] = "1.875rem",
+            ["compact-button-min-height-max"] = "32",
+            ["compact-icon-button-size-max"] = "32",
+            ["hero-banner-height-max"] = "0",
+            ["card-nesting-depth-max"] = "2",
+            ["dashboard-tile-count-in-toolstrip-max"] = "0",
+            ["decorative-landing-chrome-in-workbench-max"] = "0",
+            ["menu-height-max"] = "32",
+            ["toolstrip-height-max"] = "40",
+            ["workspace-context-strip-required"] = "true",
+            ["tab-strip-height-max"] = "30",
+            ["left-navigation-width-min"] = "180",
+            ["left-navigation-width-max"] = "240",
+            ["right-inspector-width-min"] = "260",
+            ["right-inspector-width-max"] = "340",
+            ["menu-and-toolstrip-combined-height-max"] = "72",
+            ["status-strip-height-max"] = "26",
+            ["center-pane-must-dominate"] = "true",
+            ["section-rhythm-must-remain-visible"] = "true",
+            ["header-to-content-ratio-max"] = "0.30",
+            ["dense-list-row-height-max"] = "32",
+            ["dense-list-visible-row-min"] = "9",
+            ["dense-detail-group-visible-field-min"] = "6",
+            ["builder-route-visible-rows-1440x900-min"] = "12",
+            ["builder-route-visible-rows-1366x768-min"] = "9",
+            ["proof-family-ids"] = "family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history",
+            ["chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
             ["flagship-default-avalonia"] = "true"
         },
         "avalonia classic dense-workbench payload");
@@ -1099,10 +1555,50 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectContains(avaloniaDenseWorkbench.Attributes["classes"], "FlagshipDesktopDefault", "avalonia classic dense-workbench flagship class");
     ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-spacing-scale"]) <= 0.85d, "blazor compact spacing scale stays within dense noise budget");
     ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-header-scale"]) <= 0.90d, "blazor compact header scale stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-row-spacing-max"]) <= 6d, "blazor row spacing max stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-card-padding-max"]) <= 10d, "blazor card padding max stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-input-padding-horizontal-max"]) <= 8d, "blazor input horizontal padding max stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-input-padding-vertical-max"]) <= 6d, "blazor input vertical padding max stays within dense noise budget");
     ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-badge-density-ceiling"]) <= 3d, "blazor badge density ceiling stays within dense noise budget");
     ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-banner-height-ceiling"]) <= 2.50d, "blazor banner height ceiling stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-persistent-banner-count-max"]) <= 1d, "blazor persistent banner count stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-persistent-secondary-badge-cluster-max"]) <= 3d, "blazor secondary badge-cluster count stays within dense noise budget");
     ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-compact-field-height"]) <= 1.875d, "blazor compact field height stays within dense noise budget");
     ExpectTrue(ParseRemValue(blazorDenseWorkbench.Attributes["data-compact-button-height"]) <= 1.875d, "blazor compact button height stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-button-min-height-max"]) <= 32d, "blazor compact button minimum height stays within dense noise budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-compact-icon-button-size-max"]) <= 32d, "blazor compact icon-button size stays within dense noise budget");
+    ExpectEqual("0", blazorDenseWorkbench.Attributes["data-hero-banner-height-max"], "blazor hero banner height stays fail-closed");
+    ExpectEqual("2", blazorDenseWorkbench.Attributes["data-card-nesting-depth-max"], "blazor card nesting depth stays fail-closed");
+    ExpectEqual("0", blazorDenseWorkbench.Attributes["data-dashboard-tile-count-in-toolstrip-max"], "blazor dashboard tile count stays fail-closed");
+    ExpectEqual("0", blazorDenseWorkbench.Attributes["data-decorative-landing-chrome-in-workbench-max"], "blazor decorative landing chrome stays fail-closed");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-menu-height-max"]) <= 32d, "blazor menu height stays within budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-toolstrip-height-max"]) <= 40d, "blazor toolstrip height stays within budget");
+    ExpectEqual("true", blazorDenseWorkbench.Attributes["data-workspace-context-strip-required"], "blazor workspace-context strip requirement stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-tab-strip-height-max"]) <= 30d, "blazor tab-strip height stays within budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-left-navigation-width-min"]) >= 180d, "blazor left-navigation minimum width stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-left-navigation-width-max"]) <= 240d, "blazor left-navigation maximum width stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-right-inspector-width-min"]) >= 260d, "blazor right-inspector minimum width stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-right-inspector-width-max"]) <= 340d, "blazor right-inspector maximum width stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-menu-and-toolstrip-combined-height-max"]) <= 72d, "blazor menu/toolstrip combined height stays within budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-status-strip-height-max"]) <= 26d, "blazor status-strip height stays within budget");
+    ExpectEqual("true", blazorDenseWorkbench.Attributes["data-center-pane-must-dominate"], "blazor center-pane dominance stays explicit");
+    ExpectEqual("true", blazorDenseWorkbench.Attributes["data-section-rhythm-must-remain-visible"], "blazor section rhythm stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-header-to-content-ratio-max"]) <= 0.30d, "blazor header-to-content ratio stays within budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-dense-list-row-height-max"]) <= 32d, "blazor dense list-row height stays within budget");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-dense-list-visible-row-min"]) >= 9d, "blazor dense-list visible row minimum stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-dense-detail-group-visible-field-min"]) >= 6d, "blazor dense detail-group minimum stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-builder-route-visible-rows-1440x900-min"]) >= 12d, "blazor 1440x900 builder-row minimum stays explicit");
+    ExpectTrue(ParseInvariantDouble(blazorDenseWorkbench.Attributes["data-builder-route-visible-rows-1366x768-min"]) >= 9d, "blazor 1366x768 builder-row minimum stays explicit");
+    ExpectEqual("family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history", blazorDenseWorkbench.Attributes["data-proof-family-ids"], "blazor proof families stay bound to dense preset");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "decorative_landing_chrome_in_workbench_max=0", "blazor chrome sentinels include decorative chrome fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "menu_height_max=32", "blazor chrome sentinels include menu-height fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "toolstrip_height_max=40", "blazor chrome sentinels include toolstrip-height fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "status_strip_height_max=26", "blazor chrome sentinels include status-strip fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "persistent_banner_count_max=1", "blazor chrome sentinels include persistent-banner fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "persistent_secondary_badge_cluster_max=3", "blazor chrome sentinels include badge-cluster fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "card_nesting_depth_max=2", "blazor chrome sentinels include card-nesting fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "center_pane_must_dominate=true", "blazor chrome sentinels include center-pane dominance");
+    ExpectEqual("2026-04-16", blazorDenseWorkbench.Attributes["data-dense-workbench-budget-version"], "blazor dense budget version stays explicit");
 }
 
 static void ExpectPayloadSnapshot(UiAdapterPayload payload, string snapshotFileName, string scenario)
@@ -1182,6 +1678,25 @@ static void ExpectTrue(bool condition, string scenario)
     {
         throw new InvalidOperationException($"Expected {scenario}.");
     }
+}
+
+static void ExpectThrows<TException>(Action action, string scenario)
+    where TException : Exception
+{
+    try
+    {
+        action();
+    }
+    catch (TException)
+    {
+        return;
+    }
+    catch (Exception ex)
+    {
+        throw new InvalidOperationException($"Expected {scenario} to throw {typeof(TException).Name} but got {ex.GetType().Name}.", ex);
+    }
+
+    throw new InvalidOperationException($"Expected {scenario} to throw {typeof(TException).Name}.");
 }
 
 static void ExpectSingleNoLossPath(IReadOnlyDictionary<string, string> attributes, string prefix, string scenario)

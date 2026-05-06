@@ -1,0 +1,12 @@
+root=chummer-runboard-card
+aria-label=Scene pressure
+class=chummer-runboard-card chummer-runboard-card-heat chummer-runboard-card-raised chummer-runboard-card-attention
+data-detail=Escalation timer reaches dispatch on the next round boundary.
+data-item-count=3
+data-kind=heat
+data-metric-label=Heat 6/10
+data-priority=raised
+data-requires-attention=true
+data-summary=Lone Star response escalates next round.
+data-title=Scene pressure
+role=group

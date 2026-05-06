@@ -1,0 +1,10 @@
+root=chummer-condition-effect-chip
+aria-label=Prone x2
+class=chummer-condition-effect-chip chummer-condition-effect-chip-condition chummer-condition-effect-chip-warning chummer-condition-effect-chip-source-anchored
+data-detail=Applies a -2 defense modifier until cleared.
+data-kind=condition
+data-label=Prone
+data-source-anchored=true
+data-stack-count=2
+data-tone=warning
+role=status

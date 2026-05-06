@@ -51,9 +51,26 @@ Copy and fill this block per downstream repo:
 - Added deterministic density-budget assertions in `tests/Chummer.Ui.Kit.Tests/Program.cs` for:
   - compact spacing scale
   - compact header scale
+  - row spacing max
+  - card/input padding max
   - banner height ceiling
   - badge density ceiling
-  - compact field/button heights
+  - persistent banner and secondary badge-cluster limits
+  - compact field/button heights plus compact icon-button sizing
+- Added explicit budget/version and stale-chrome fail-close fields to the preset contract for:
+  - hero-banner max height
+  - dashboard-tile max count in the toolstrip
+  - decorative landing chrome max count in the workbench
+  - menu/toolstrip split height ceilings and combined ceiling
+  - workspace-context strip requirement
+  - menu/toolstrip combined height max
+  - status-strip height max
+  - left-navigation and right-inspector width bounds
+  - card-nesting and persistent banner/badge-cluster limits
+  - dense list-row height max and header-to-content ratio max
+  - center-pane dominance
+  - dense-list and builder-route minimum visible rows
+  - M142 family proof ids bound to the preset itself
 - Added Avalonia default posture marker (`FlagshipDesktopDefault`) in preset payload projection.
 
 ## Submitted evidence

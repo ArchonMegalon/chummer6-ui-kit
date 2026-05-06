@@ -198,6 +198,7 @@ public static class AvaloniaUiKitAdapter
             ["part"] = "classic-dense-workbench",
             ["classes"] = $"ClassicDenseWorkbench{(preset.FlagshipDefaultForAvalonia ? " FlagshipDesktopDefault" : string.Empty)}",
             ["preset-id"] = preset.PresetId,
+            ["dense-workbench-budget-version"] = preset.DenseWorkbenchBudgetVersion,
             ["top-menu-bar-enabled"] = preset.TopMenuBarEnabled.ToString().ToLowerInvariant(),
             ["toolstrip-enabled"] = preset.ToolstripEnabled.ToString().ToLowerInvariant(),
             ["tab-strip-density"] = preset.TabStripDensity,
@@ -206,10 +207,42 @@ public static class AvaloniaUiKitAdapter
             ["status-strip-posture"] = preset.StatusStripPosture,
             ["compact-spacing-scale"] = preset.CompactSpacingScale,
             ["compact-header-scale"] = preset.CompactHeaderScale,
+            ["row-spacing-max"] = preset.RowSpacingMax,
+            ["card-padding-max"] = preset.CardPaddingMax,
+            ["input-padding-horizontal-max"] = preset.InputPaddingHorizontalMax,
+            ["input-padding-vertical-max"] = preset.InputPaddingVerticalMax,
             ["banner-height-ceiling"] = preset.BannerHeightCeiling,
             ["badge-density-ceiling"] = preset.BadgeDensityCeiling,
+            ["persistent-banner-count-max"] = preset.PersistentBannerCountMax,
+            ["persistent-secondary-badge-cluster-max"] = preset.PersistentSecondaryBadgeClusterMax,
             ["compact-field-height"] = preset.CompactFieldHeight,
             ["compact-button-height"] = preset.CompactButtonHeight,
+            ["compact-button-min-height-max"] = preset.CompactButtonMinHeightMax,
+            ["compact-icon-button-size-max"] = preset.CompactIconButtonSizeMax,
+            ["hero-banner-height-max"] = preset.HeroBannerHeightMax,
+            ["card-nesting-depth-max"] = preset.CardNestingDepthMax,
+            ["dashboard-tile-count-in-toolstrip-max"] = preset.DashboardTileCountInToolstripMax,
+            ["decorative-landing-chrome-in-workbench-max"] = preset.DecorativeLandingChromeInWorkbenchMax,
+            ["menu-height-max"] = preset.MenuHeightMax,
+            ["toolstrip-height-max"] = preset.ToolstripHeightMax,
+            ["workspace-context-strip-required"] = preset.WorkspaceContextStripRequired.ToString().ToLowerInvariant(),
+            ["tab-strip-height-max"] = preset.TabStripHeightMax,
+            ["left-navigation-width-min"] = preset.LeftNavigationWidthMin,
+            ["left-navigation-width-max"] = preset.LeftNavigationWidthMax,
+            ["right-inspector-width-min"] = preset.RightInspectorWidthMin,
+            ["right-inspector-width-max"] = preset.RightInspectorWidthMax,
+            ["menu-and-toolstrip-combined-height-max"] = preset.MenuAndToolstripCombinedHeightMax,
+            ["status-strip-height-max"] = preset.StatusStripHeightMax,
+            ["center-pane-must-dominate"] = preset.CenterPaneMustDominate.ToString().ToLowerInvariant(),
+            ["section-rhythm-must-remain-visible"] = preset.SectionRhythmMustRemainVisible.ToString().ToLowerInvariant(),
+            ["header-to-content-ratio-max"] = preset.HeaderToContentRatioMax,
+            ["dense-list-row-height-max"] = preset.DenseListRowHeightMax,
+            ["dense-list-visible-row-min"] = preset.DenseListVisibleRowMin,
+            ["dense-detail-group-visible-field-min"] = preset.DenseDetailGroupVisibleFieldMin,
+            ["builder-route-visible-rows-1440x900-min"] = preset.BuilderRouteVisibleRowsAt1440x900Min,
+            ["builder-route-visible-rows-1366x768-min"] = preset.BuilderRouteVisibleRowsAt1366x768Min,
+            ["proof-family-ids"] = string.Join(",", preset.ProofFamilyIds),
+            ["chrome-regression-sentinels"] = string.Join(",", preset.ChromeRegressionSentinels),
             ["flagship-default-avalonia"] = preset.FlagshipDefaultForAvalonia.ToString().ToLowerInvariant()
         };
 
@@ -330,6 +363,110 @@ public static class AvaloniaUiKitAdapter
         }
 
         return new UiAdapterPayload("LongRunningActionControls", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptActionBudgetBar(ActionBudgetBar budget)
+    {
+        var kind = budget.Kind.ToString();
+        var emphasis = budget.Emphasis.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "action-budget-bar",
+            ["classes"] = $"ActionBudgetBar ActionBudgetBar{emphasis}{(budget.Overdrawn ? " ActionBudgetBarOverdrawn" : string.Empty)}",
+            ["label"] = budget.Label,
+            ["kind"] = kind,
+            ["available"] = budget.Available.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["maximum"] = budget.Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["pending-cost"] = budget.PendingCost.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["overdrawn"] = budget.Overdrawn.ToString().ToLowerInvariant(),
+            ["emphasis"] = emphasis
+        };
+
+        if (!string.IsNullOrWhiteSpace(budget.Detail))
+        {
+            attrs["detail"] = budget.Detail;
+        }
+
+        return new UiAdapterPayload("ActionBudgetBar", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptConditionEffectChip(ConditionEffectChip chip)
+    {
+        var kind = chip.Kind.ToString();
+        var tone = chip.Tone.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "condition-effect-chip",
+            ["classes"] = $"ConditionEffectChip ConditionEffectChip{kind} ConditionEffectChip{tone}{(chip.SourceAnchored ? " ConditionEffectChipAnchored" : string.Empty)}",
+            ["label"] = chip.Label,
+            ["kind"] = kind,
+            ["tone"] = tone,
+            ["stack-count"] = chip.StackCount.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["source-anchored"] = chip.SourceAnchored.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(chip.Detail))
+        {
+            attrs["detail"] = chip.Detail;
+        }
+
+        return new UiAdapterPayload("ConditionEffectChip", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptSourceAnchorDrawer(SourceAnchorDrawer drawer)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "source-anchor-drawer",
+            ["classes"] = $"SourceAnchorDrawer{(drawer.Open ? " SourceAnchorDrawerOpen" : string.Empty)}{(drawer.ConflictWarning ? " SourceAnchorDrawerConflict" : string.Empty)}",
+            ["title"] = drawer.Title,
+            ["source-short-code"] = drawer.SourceShortCode,
+            ["location-label"] = drawer.LocationLabel,
+            ["anchor-id"] = drawer.AnchorId,
+            ["open"] = drawer.Open.ToString().ToLowerInvariant(),
+            ["conflict-warning"] = drawer.ConflictWarning.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(drawer.Excerpt))
+        {
+            attrs["excerpt"] = drawer.Excerpt;
+        }
+
+        if (!string.IsNullOrWhiteSpace(drawer.SupportLabel))
+        {
+            attrs["support-label"] = drawer.SupportLabel;
+        }
+
+        return new UiAdapterPayload("SourceAnchorDrawer", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptRunboardCard(RunboardCard card)
+    {
+        var kind = card.Kind.ToString();
+        var priority = card.Priority.ToString();
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["part"] = "runboard-card",
+            ["classes"] = $"RunboardCard RunboardCard{kind} RunboardCard{priority}{(card.RequiresAttention ? " RunboardCardAttention" : string.Empty)}",
+            ["title"] = card.Title,
+            ["summary"] = card.Summary,
+            ["kind"] = kind,
+            ["priority"] = priority,
+            ["item-count"] = card.ItemCount.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["requires-attention"] = card.RequiresAttention.ToString().ToLowerInvariant()
+        };
+
+        if (!string.IsNullOrWhiteSpace(card.MetricLabel))
+        {
+            attrs["metric-label"] = card.MetricLabel;
+        }
+
+        if (!string.IsNullOrWhiteSpace(card.Detail))
+        {
+            attrs["detail"] = card.Detail;
+        }
+
+        return new UiAdapterPayload("RunboardCard", new ReadOnlyDictionary<string, string>(attrs));
     }
 
     private static string ToContractCase(LongRunningControlId controlId)

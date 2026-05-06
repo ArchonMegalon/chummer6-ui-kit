@@ -204,6 +204,7 @@ public static class BlazorUiKitAdapter
             ["role"] = "region",
             ["aria-label"] = "Classic dense workbench preset",
             ["data-preset-id"] = preset.PresetId,
+            ["data-dense-workbench-budget-version"] = preset.DenseWorkbenchBudgetVersion,
             ["data-top-menu-bar-enabled"] = preset.TopMenuBarEnabled.ToString().ToLowerInvariant(),
             ["data-toolstrip-enabled"] = preset.ToolstripEnabled.ToString().ToLowerInvariant(),
             ["data-tab-strip-density"] = preset.TabStripDensity,
@@ -212,10 +213,42 @@ public static class BlazorUiKitAdapter
             ["data-status-strip-posture"] = preset.StatusStripPosture,
             ["data-compact-spacing-scale"] = preset.CompactSpacingScale,
             ["data-compact-header-scale"] = preset.CompactHeaderScale,
+            ["data-row-spacing-max"] = preset.RowSpacingMax,
+            ["data-card-padding-max"] = preset.CardPaddingMax,
+            ["data-input-padding-horizontal-max"] = preset.InputPaddingHorizontalMax,
+            ["data-input-padding-vertical-max"] = preset.InputPaddingVerticalMax,
             ["data-banner-height-ceiling"] = preset.BannerHeightCeiling,
             ["data-badge-density-ceiling"] = preset.BadgeDensityCeiling,
+            ["data-persistent-banner-count-max"] = preset.PersistentBannerCountMax,
+            ["data-persistent-secondary-badge-cluster-max"] = preset.PersistentSecondaryBadgeClusterMax,
             ["data-compact-field-height"] = preset.CompactFieldHeight,
             ["data-compact-button-height"] = preset.CompactButtonHeight,
+            ["data-compact-button-min-height-max"] = preset.CompactButtonMinHeightMax,
+            ["data-compact-icon-button-size-max"] = preset.CompactIconButtonSizeMax,
+            ["data-hero-banner-height-max"] = preset.HeroBannerHeightMax,
+            ["data-card-nesting-depth-max"] = preset.CardNestingDepthMax,
+            ["data-dashboard-tile-count-in-toolstrip-max"] = preset.DashboardTileCountInToolstripMax,
+            ["data-decorative-landing-chrome-in-workbench-max"] = preset.DecorativeLandingChromeInWorkbenchMax,
+            ["data-menu-height-max"] = preset.MenuHeightMax,
+            ["data-toolstrip-height-max"] = preset.ToolstripHeightMax,
+            ["data-workspace-context-strip-required"] = preset.WorkspaceContextStripRequired.ToString().ToLowerInvariant(),
+            ["data-tab-strip-height-max"] = preset.TabStripHeightMax,
+            ["data-left-navigation-width-min"] = preset.LeftNavigationWidthMin,
+            ["data-left-navigation-width-max"] = preset.LeftNavigationWidthMax,
+            ["data-right-inspector-width-min"] = preset.RightInspectorWidthMin,
+            ["data-right-inspector-width-max"] = preset.RightInspectorWidthMax,
+            ["data-menu-and-toolstrip-combined-height-max"] = preset.MenuAndToolstripCombinedHeightMax,
+            ["data-status-strip-height-max"] = preset.StatusStripHeightMax,
+            ["data-center-pane-must-dominate"] = preset.CenterPaneMustDominate.ToString().ToLowerInvariant(),
+            ["data-section-rhythm-must-remain-visible"] = preset.SectionRhythmMustRemainVisible.ToString().ToLowerInvariant(),
+            ["data-header-to-content-ratio-max"] = preset.HeaderToContentRatioMax,
+            ["data-dense-list-row-height-max"] = preset.DenseListRowHeightMax,
+            ["data-dense-list-visible-row-min"] = preset.DenseListVisibleRowMin,
+            ["data-dense-detail-group-visible-field-min"] = preset.DenseDetailGroupVisibleFieldMin,
+            ["data-builder-route-visible-rows-1440x900-min"] = preset.BuilderRouteVisibleRowsAt1440x900Min,
+            ["data-builder-route-visible-rows-1366x768-min"] = preset.BuilderRouteVisibleRowsAt1366x768Min,
+            ["data-proof-family-ids"] = string.Join(",", preset.ProofFamilyIds),
+            ["data-chrome-regression-sentinels"] = string.Join(",", preset.ChromeRegressionSentinels),
             ["data-flagship-default-avalonia"] = preset.FlagshipDefaultForAvalonia.ToString().ToLowerInvariant(),
             ["class"] = "chummer-classic-dense-workbench"
         };
@@ -350,6 +383,117 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-action-controls", new ReadOnlyDictionary<string, string>(attrs));
     }
 
+    public static UiAdapterPayload AdaptActionBudgetBar(ActionBudgetBar budget)
+    {
+        var kind = ToContractCase(budget.Kind);
+        var emphasis = ToContractCase(budget.Emphasis);
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "progressbar",
+            ["aria-label"] = $"{budget.Label} action budget",
+            ["aria-valuemin"] = "0",
+            ["aria-valuemax"] = budget.Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["aria-valuenow"] = budget.Available.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-label"] = budget.Label,
+            ["data-kind"] = kind,
+            ["data-available"] = budget.Available.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-maximum"] = budget.Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-pending-cost"] = budget.PendingCost.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-overdrawn"] = budget.Overdrawn.ToString().ToLowerInvariant(),
+            ["data-emphasis"] = emphasis,
+            ["class"] = $"chummer-action-budget-bar chummer-action-budget-bar-{emphasis}{(budget.Overdrawn ? " chummer-action-budget-bar-overdrawn" : string.Empty)}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(budget.Detail))
+        {
+            attrs["data-detail"] = budget.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-action-budget-bar", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptConditionEffectChip(ConditionEffectChip chip)
+    {
+        var kind = ToContractCase(chip.Kind);
+        var tone = ToContractCase(chip.Tone);
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "status",
+            ["aria-label"] = chip.StackCount == 1 ? chip.Label : $"{chip.Label} x{chip.StackCount.ToString(System.Globalization.CultureInfo.InvariantCulture)}",
+            ["data-label"] = chip.Label,
+            ["data-kind"] = kind,
+            ["data-tone"] = tone,
+            ["data-stack-count"] = chip.StackCount.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-source-anchored"] = chip.SourceAnchored.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-condition-effect-chip chummer-condition-effect-chip-{kind} chummer-condition-effect-chip-{tone}{(chip.SourceAnchored ? " chummer-condition-effect-chip-source-anchored" : string.Empty)}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(chip.Detail))
+        {
+            attrs["data-detail"] = chip.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-condition-effect-chip", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptSourceAnchorDrawer(SourceAnchorDrawer drawer)
+    {
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "complementary",
+            ["aria-label"] = drawer.Title,
+            ["data-title"] = drawer.Title,
+            ["data-source-short-code"] = drawer.SourceShortCode,
+            ["data-location-label"] = drawer.LocationLabel,
+            ["data-anchor-id"] = drawer.AnchorId,
+            ["data-open"] = drawer.Open.ToString().ToLowerInvariant(),
+            ["data-conflict-warning"] = drawer.ConflictWarning.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-source-anchor-drawer{(drawer.Open ? " chummer-source-anchor-drawer-open" : string.Empty)}{(drawer.ConflictWarning ? " chummer-source-anchor-drawer-conflict" : string.Empty)}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(drawer.Excerpt))
+        {
+            attrs["data-excerpt"] = drawer.Excerpt;
+        }
+
+        if (!string.IsNullOrWhiteSpace(drawer.SupportLabel))
+        {
+            attrs["data-support-label"] = drawer.SupportLabel;
+        }
+
+        return new UiAdapterPayload("chummer-source-anchor-drawer", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
+    public static UiAdapterPayload AdaptRunboardCard(RunboardCard card)
+    {
+        var kind = ToContractCase(card.Kind);
+        var priority = ToContractCase(card.Priority);
+        var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["role"] = "group",
+            ["aria-label"] = card.Title,
+            ["data-title"] = card.Title,
+            ["data-summary"] = card.Summary,
+            ["data-kind"] = kind,
+            ["data-priority"] = priority,
+            ["data-item-count"] = card.ItemCount.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["data-requires-attention"] = card.RequiresAttention.ToString().ToLowerInvariant(),
+            ["class"] = $"chummer-runboard-card chummer-runboard-card-{kind} chummer-runboard-card-{priority}{(card.RequiresAttention ? " chummer-runboard-card-attention" : string.Empty)}"
+        };
+
+        if (!string.IsNullOrWhiteSpace(card.MetricLabel))
+        {
+            attrs["data-metric-label"] = card.MetricLabel;
+        }
+
+        if (!string.IsNullOrWhiteSpace(card.Detail))
+        {
+            attrs["data-detail"] = card.Detail;
+        }
+
+        return new UiAdapterPayload("chummer-runboard-card", new ReadOnlyDictionary<string, string>(attrs));
+    }
+
     private static string ToContractCase(GuidanceStateKind kind) => kind switch
     {
         GuidanceStateKind.Error => "error",
@@ -367,5 +511,60 @@ public static class BlazorUiKitAdapter
         LongRunningControlId.Cancel => "cancel",
         LongRunningControlId.Rollback => "rollback",
         _ => id.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(ActionBudgetKind kind) => kind switch
+    {
+        ActionBudgetKind.Major => "major",
+        ActionBudgetKind.Minor => "minor",
+        ActionBudgetKind.Reaction => "reaction",
+        ActionBudgetKind.Edge => "edge",
+        _ => kind.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(ActionBudgetEmphasis emphasis) => emphasis switch
+    {
+        ActionBudgetEmphasis.Steady => "steady",
+        ActionBudgetEmphasis.Ready => "ready",
+        ActionBudgetEmphasis.Warning => "warning",
+        ActionBudgetEmphasis.Critical => "critical",
+        _ => emphasis.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(ConditionEffectKind kind) => kind switch
+    {
+        ConditionEffectKind.Condition => "condition",
+        ConditionEffectKind.Effect => "effect",
+        ConditionEffectKind.Modifier => "modifier",
+        ConditionEffectKind.Warning => "warning",
+        _ => kind.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(ConditionEffectTone tone) => tone switch
+    {
+        ConditionEffectTone.Neutral => "neutral",
+        ConditionEffectTone.Info => "info",
+        ConditionEffectTone.Success => "success",
+        ConditionEffectTone.Warning => "warning",
+        ConditionEffectTone.Danger => "danger",
+        _ => tone.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(RunboardCardKind kind) => kind switch
+    {
+        RunboardCardKind.Initiative => "initiative",
+        RunboardCardKind.Objective => "objective",
+        RunboardCardKind.Opposition => "opposition",
+        RunboardCardKind.Heat => "heat",
+        RunboardCardKind.Resolution => "resolution",
+        _ => kind.ToString().ToLowerInvariant()
+    };
+
+    private static string ToContractCase(RunboardCardPriority priority) => priority switch
+    {
+        RunboardCardPriority.Standard => "standard",
+        RunboardCardPriority.Raised => "raised",
+        RunboardCardPriority.Critical => "critical",
+        _ => priority.ToString().ToLowerInvariant()
     };
 }

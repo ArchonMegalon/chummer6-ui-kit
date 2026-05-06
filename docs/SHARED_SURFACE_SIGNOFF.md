@@ -9,6 +9,8 @@ Purpose: keep the `chummer6-ui-kit` share of `F0` explicit.
 - package build, pack, and deterministic test execution stay green
 - shell chrome, banner, stale-state, approval, offline, and accessibility primitives remain package-owned
 - both Blazor and Avalonia adapters keep deterministic payload shape for the shared primitives
+- milestone `121` action-budget bars, condition/effect chips, source-anchor drawers, and Runboard cards remain package-owned with shared token and snapshot evidence
+- milestone `142` classic dense-workbench preset remains package-owned, binds the direct flagship family ids, and keeps stale-chrome/noise-budget sentinels fail-closed across chrome heights, banner/badge clusters, card nesting, and center-pane dominance
 - preview/gallery metadata stays package-owned instead of drifting into downstream repos
 
 ## Accessibility and localization posture
@@ -23,4 +25,4 @@ Purpose: keep the `chummer6-ui-kit` share of `F0` explicit.
 
 ## Exit statement
 
-The shared boundary is release-ready for the active token/theme/shell/state contract. Future dense-data and catalog expansion remain additive package evolution, not a blocker on current cross-head hardening closure.
+The shared boundary is release-ready for the active token/theme/shell/state contract, including the milestone `121` live action-economy and Runboard primitives plus the milestone `142` classic dense-workbench flagship preset. Future dense-data and catalog expansion remain additive package evolution, not a blocker on current cross-head hardening closure.

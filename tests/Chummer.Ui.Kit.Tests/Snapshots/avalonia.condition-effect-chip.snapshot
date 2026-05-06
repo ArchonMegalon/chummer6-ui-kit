@@ -1,0 +1,9 @@
+root=ConditionEffectChip
+classes=ConditionEffectChip ConditionEffectChipCondition ConditionEffectChipWarning ConditionEffectChipAnchored
+detail=Applies a -2 defense modifier until cleared.
+kind=Condition
+label=Prone
+part=condition-effect-chip
+source-anchored=true
+stack-count=2
+tone=Warning

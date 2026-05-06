@@ -1,0 +1,12 @@
+root=chummer-source-anchor-drawer
+aria-label=Suppressive fire
+class=chummer-source-anchor-drawer chummer-source-anchor-drawer-open chummer-source-anchor-drawer-conflict
+data-anchor-id=sr6-combat-suppressive-fire
+data-conflict-warning=true
+data-excerpt=Targets inside the area must spend an action or take the attack.
+data-location-label=p. 114
+data-open=true
+data-source-short-code=SR6
+data-support-label=House rule adds gel-round fallout.
+data-title=Suppressive fire
+role=complementary
