@@ -8,7 +8,7 @@ data-builder-route-visible-rows-1440x900-min=12
 data-card-nesting-depth-max=2
 data-card-padding-max=10
 data-center-pane-must-dominate=true
-data-chrome-regression-sentinels=hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true
+data-chrome-regression-sentinels=hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true
 data-compact-button-height=1.875rem
 data-compact-button-min-height-max=32
 data-compact-field-height=1.875rem

@@ -84,7 +84,7 @@ rg -F "$runtime_handoff_rule" \
   "$repo_root/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json" >/dev/null
 rg -n "Frontier ids: 1971223526|Run id: ${task_local_run_id}|Prompt path: /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/${task_local_run_id}/prompt.txt" \
   /var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md >/dev/null
-rg -n 'menu height max|toolstrip height max|persistent banner count max|persistent secondary badge-cluster max|card-nesting depth max|row spacing max|input padding horizontal/vertical max|left-navigation and right-inspector width bounds|header-to-content ratio max' \
+rg -n 'menu height max|toolstrip height max|menu/toolstrip combined height max|persistent banner count max|persistent secondary badge-cluster max|card-nesting depth max|row spacing max|input padding horizontal/vertical max|left-navigation and right-inspector width bounds|header-to-content ratio max' \
   "$repo_root/docs/m142-classic-dense-workbench-evidence.md" >/dev/null
 rg -n 'public sealed class ClassicDenseWorkbenchPreset|CreateFlagshipDesktopDefault|private ClassicDenseWorkbenchPreset\(TokenCanon tokenCanon\)|RequiredProofFamilyIds|BuildExpectedChromeRegressionSentinels|NormalizeExactContractIdList' \
   "$repo_root/src/Chummer.Ui.Kit/Adapters/UiKitAdapterPrimitives.cs" >/dev/null

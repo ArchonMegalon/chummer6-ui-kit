@@ -203,6 +203,7 @@ static void NewPrimitiveGuardsFailClosed()
                 "decorative_landing_chrome_in_workbench_max=0",
                 "menu_height_max=32",
                 "toolstrip_height_max=40",
+                "menu_and_toolstrip_combined_height_max=72",
                 "status_strip_height_max=26",
                 "persistent_banner_count_max=1",
                 "card_nesting_depth_max=2",
@@ -219,6 +220,7 @@ static void NewPrimitiveGuardsFailClosed()
                 "decorative_landing_chrome_in_workbench_max=0",
                 "menu_height_max=32",
                 "toolstrip_height_max=40",
+                "menu_and_toolstrip_combined_height_max=72",
                 "status_strip_height_max=26",
                 "persistent_banner_count_max=1",
                 "persistent_secondary_badge_cluster_max=3",
@@ -301,7 +303,7 @@ static void DefaultCanonContainsClassicDenseWorkbenchTokens()
     ExpectEqual("2026-04-16", canon["classic.dense.workbench.budget.version"], "dense budget version token");
     ExpectEqual("true", canon["classic.dense.workbench.flagship.avalonia.default"], "avalonia flagship default token");
     ExpectEqual("family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history", canon["classic.dense.workbench.proof.family.ids"], "dense preset proof families token");
-    ExpectEqual("hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true", canon["classic.dense.workbench.chrome.regression.sentinels"], "dense preset chrome sentinel token");
+    ExpectEqual("hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true", canon["classic.dense.workbench.chrome.regression.sentinels"], "dense preset chrome sentinel token");
     ExpectEqual("6", canon["noise.budget.row.spacing.max"], "row spacing max token");
     ExpectEqual("10", canon["noise.budget.card.padding.max"], "card padding max token");
     ExpectEqual("8", canon["noise.budget.input.padding.horizontal.max"], "input horizontal padding max token");
@@ -358,7 +360,7 @@ static void FlagshipClassicDenseWorkbenchDefaultIsTokenBacked()
     overriddenTokens["classic.dense.workbench.budget.version"] = "2099-12-31";
     overriddenTokens["noise.budget.decorative.landing.chrome.max"] = "1";
     overriddenTokens["classic.dense.workbench.chrome.regression.sentinels"] =
-        "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=1,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true";
+        "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=1,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true";
 
     var overriddenPreset = ClassicDenseWorkbenchPreset.CreateFlagshipDesktopDefault(new TokenCanon(overriddenTokens));
     ExpectEqual("2099-12-31", overriddenPreset.DenseWorkbenchBudgetVersion, "flagship preset refreshes from overridden canon budget version");
@@ -1480,7 +1482,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["data-builder-route-visible-rows-1440x900-min"] = "12",
             ["data-builder-route-visible-rows-1366x768-min"] = "9",
             ["data-proof-family-ids"] = "family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history",
-            ["data-chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
+            ["data-chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
             ["data-flagship-default-avalonia"] = "true",
             ["class"] = "chummer-classic-dense-workbench"
         },
@@ -1542,7 +1544,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
             ["builder-route-visible-rows-1440x900-min"] = "12",
             ["builder-route-visible-rows-1366x768-min"] = "9",
             ["proof-family-ids"] = "family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history",
-            ["chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
+            ["chrome-regression-sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
             ["flagship-default-avalonia"] = "true"
         },
         "avalonia classic dense-workbench payload");
@@ -1593,6 +1595,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "decorative_landing_chrome_in_workbench_max=0", "blazor chrome sentinels include decorative chrome fail-close");
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "menu_height_max=32", "blazor chrome sentinels include menu-height fail-close");
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "toolstrip_height_max=40", "blazor chrome sentinels include toolstrip-height fail-close");
+    ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "menu_and_toolstrip_combined_height_max=72", "blazor chrome sentinels include combined top-chrome fail-close");
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "status_strip_height_max=26", "blazor chrome sentinels include status-strip fail-close");
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "persistent_banner_count_max=1", "blazor chrome sentinels include persistent-banner fail-close");
     ExpectContains(blazorDenseWorkbench.Attributes["data-chrome-regression-sentinels"], "persistent_secondary_badge_cluster_max=3", "blazor chrome sentinels include badge-cluster fail-close");

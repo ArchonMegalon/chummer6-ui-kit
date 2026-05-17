@@ -93,6 +93,7 @@ M142_DOC_MARKERS = (
     "hero-banner max height",
     "dashboard-tile max count in the toolstrip",
     "decorative landing chrome max count in the workbench",
+    "menu/toolstrip combined height max",
     "FlagshipDesktopDefault",
 )
 
@@ -172,6 +173,7 @@ VERIFY_SCRIPT_MARKERS = (
     "classic dense-workbench stale chrome sentinel list fails closed",
     "classic dense-workbench non-canonical proof family broadening fails closed",
     "hero-banner max height",
+    "menu/toolstrip combined height max",
     "persistent secondary badge-cluster max",
 )
 
