@@ -82,7 +82,7 @@ public sealed class TokenCanon
             ["classic.dense.workbench.budget.version"] = "2026-04-16",
             ["classic.dense.workbench.flagship.avalonia.default"] = "true",
             ["classic.dense.workbench.proof.family.ids"] = "family:dense_builder_and_career_workflows,family:dice_initiative_and_table_utilities,family:identity_contacts_lifestyles_history",
-            ["classic.dense.workbench.chrome.regression.sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
+            ["classic.dense.workbench.chrome.regression.sentinels"] = "hero_banner_height_max=0,dashboard_tile_count_in_toolstrip_max=0,decorative_landing_chrome_in_workbench_max=0,menu_height_max=32,toolstrip_height_max=40,menu_and_toolstrip_combined_height_max=72,status_strip_height_max=26,persistent_banner_count_max=1,persistent_secondary_badge_cluster_max=3,card_nesting_depth_max=2,center_pane_must_dominate=true",
             ["noise.budget.compact.spacing.scale"] = "0.85",
             ["noise.budget.compact.header.scale"] = "0.90",
             ["noise.budget.row.spacing.max"] = "6",
