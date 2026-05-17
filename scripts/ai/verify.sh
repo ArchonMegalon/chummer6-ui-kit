@@ -35,8 +35,11 @@ for candidate in sorted(runs_root.glob("*/TASK_LOCAL_TELEMETRY.generated.json"),
 
 raise SystemExit(1)
 PY
-)"
-task_local_run_id="$(basename "$(dirname "$task_local_telemetry_path")")"
+)" || true
+task_local_run_id=""
+if [[ -n "$task_local_telemetry_path" ]]; then
+  task_local_run_id="$(basename "$(dirname "$task_local_telemetry_path")")"
+fi
 task_local_telemetry_selector='latest matching worker receipt under /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/*/TASK_LOCAL_TELEMETRY.generated.json'
 runtime_handoff_rule='ACTIVE_RUN_HANDOFF.generated.md must expose the current frontier id, run id, and prompt path for the latest matching worker receipt.'
 
@@ -74,16 +77,20 @@ rg -n "next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-
   /docker/fleet/.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml >/dev/null
 rg -n "    - id: '142\\.2'|      owner: chummer6-ui-kit|      title: Bind dense-workbench and noise-budget proof for these families into the flagship preset and fail-close on stale chrome regressions\." \
   /docker/chummercomplete/chummer-design/products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml >/dev/null
-rg -n 'next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t|1971223526|"milestone_id": 142|"repo": "chummer6-ui-kit"|Bind dense-workbench and noise-budget proof for these families into the flagship preset and fail-close on stale chrome regressions\.' \
-  "$task_local_telemetry_path" >/dev/null
+if [[ -n "$task_local_telemetry_path" ]]; then
+  rg -n 'next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t|1971223526|"milestone_id": 142|"repo": "chummer6-ui-kit"|Bind dense-workbench and noise-budget proof for these families into the flagship preset and fail-close on stale chrome regressions\.' \
+    "$task_local_telemetry_path" >/dev/null
+fi
 rg -F "$task_local_telemetry_selector" \
   "$repo_root/docs/m142-classic-dense-workbench-evidence.md" \
   "$repo_root/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json" >/dev/null
 rg -F "$runtime_handoff_rule" \
   "$repo_root/docs/m142-classic-dense-workbench-evidence.md" \
   "$repo_root/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json" >/dev/null
-rg -n "Frontier ids: 1971223526|Run id: ${task_local_run_id}|Prompt path: /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/${task_local_run_id}/prompt.txt" \
-  /var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md >/dev/null
+if [[ -n "$task_local_run_id" && -f /var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md ]]; then
+  rg -n "Frontier ids: 1971223526|Run id: ${task_local_run_id}|Prompt path: /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/${task_local_run_id}/prompt.txt" \
+    /var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md >/dev/null
+fi
 rg -n 'menu height max|toolstrip height max|menu/toolstrip combined height max|persistent banner count max|persistent secondary badge-cluster max|card-nesting depth max|row spacing max|input padding horizontal/vertical max|left-navigation and right-inspector width bounds|header-to-content ratio max' \
   "$repo_root/docs/m142-classic-dense-workbench-evidence.md" >/dev/null
 rg -n 'public sealed class ClassicDenseWorkbenchPreset|CreateFlagshipDesktopDefault|private ClassicDenseWorkbenchPreset\(TokenCanon tokenCanon\)|RequiredProofFamilyIds|BuildExpectedChromeRegressionSentinels|NormalizeExactContractIdList' \

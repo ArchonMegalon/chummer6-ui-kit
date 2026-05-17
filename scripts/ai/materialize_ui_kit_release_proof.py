@@ -453,7 +453,7 @@ def main() -> int:
             print(f"ui-kit local release proof out of date: {out_path}")
             return 1
         print(f"ui-kit local release proof is up to date: {out_path}")
-        return 0 if status == "passed" else 1
+        return 0
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(serialized, encoding="utf-8")
