@@ -48,9 +48,12 @@
     "verify_script_path": "/docker/chummercomplete/chummer-ui-kit/scripts/ai/verify.sh",
     "worklist_path": "/docker/chummercomplete/chummer-ui-kit/WORKLIST.md"
   },
-  "generated_at": "2026-05-06T10:21:26Z",
-  "reasons": [],
+  "generated_at": "2026-05-17T18:45:33Z",
+  "reasons": [
+    "Missing task-local telemetry snapshot under /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs for the current M142 ui-kit worker package receipt.",
+    "Missing runtime handoff snapshot: /var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md"
+  ],
   "repo_root": "/docker/chummercomplete/chummer-ui-kit",
   "schema_version": 1,
-  "status": "passed"
+  "status": "failed"
 }
