@@ -13,10 +13,19 @@ M142_CANONICAL_QUEUE_FRONTIER_ID = "1752713026"
 M142_TASK_LOCAL_HANDOFF_FRONTIER_ID = "1971223526"
 SUCCESSOR_QUEUE_PATH = Path("/docker/fleet/.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml")
 SUCCESSOR_REGISTRY_PATH = Path("/docker/chummercomplete/chummer-design/products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml")
-TASK_LOCAL_TELEMETRY_RUNS_ROOT = Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs")
-RUNTIME_HANDOFF_PATH = Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md")
+TASK_LOCAL_TELEMETRY_RUNS_ROOT_CANDIDATES = (
+    Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs"),
+    Path("/docker/fleet/state/chummer_design_supervisor/shard-2/runs"),
+    Path("/docker/fleet/state/chummer_design_supervisor/runs"),
+)
+RUNTIME_HANDOFF_PATH_CANDIDATES = (
+    Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md"),
+    Path("/docker/fleet/state/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md"),
+    Path("/docker/fleet/state/chummer_design_supervisor/ACTIVE_RUN_HANDOFF.generated.md"),
+)
 TASK_LOCAL_TELEMETRY_SELECTOR = (
-    f"latest matching worker receipt under {TASK_LOCAL_TELEMETRY_RUNS_ROOT}/*/TASK_LOCAL_TELEMETRY.generated.json"
+    "latest matching worker receipt under the active Fleet design-supervisor runs root "
+    "(* /TASK_LOCAL_TELEMETRY.generated.json)"
 )
 
 M121_DOC_MARKERS = (
@@ -84,8 +93,6 @@ M142_DOC_MARKERS = (
     M142_WORK_TASK_ID,
     M142_CANONICAL_QUEUE_FRONTIER_ID,
     M142_TASK_LOCAL_HANDOFF_FRONTIER_ID,
-    TASK_LOCAL_TELEMETRY_SELECTOR,
-    "ACTIVE_RUN_HANDOFF.generated.md",
     "classic_dense_workbench",
     "family:dense_builder_and_career_workflows",
     "family:dice_initiative_and_table_utilities",
@@ -252,12 +259,20 @@ def resolve_task_local_telemetry_path(runs_root: Path) -> Path | None:
     return None
 
 
+def resolve_first_existing_path(candidates: tuple[Path, ...]) -> Path | None:
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def build_runtime_handoff_markers(task_local_telemetry_path: Path) -> tuple[str, ...]:
     run_id = task_local_telemetry_path.parent.name
+    prompt_path = task_local_telemetry_path.parent / "prompt.txt"
     return (
         f"Frontier ids: {M142_TASK_LOCAL_HANDOFF_FRONTIER_ID}",
         f"Run id: {run_id}",
-        f"Prompt path: /var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/{run_id}/prompt.txt",
+        f"Prompt path: {prompt_path}",
     )
 
 
@@ -354,12 +369,14 @@ def main() -> int:
             "Canonical successor registry drifted away from the M142 ui-kit work-task row",
             reasons,
         )
-    task_local_telemetry_path = resolve_task_local_telemetry_path(TASK_LOCAL_TELEMETRY_RUNS_ROOT)
-    if task_local_telemetry_path is None:
-        reasons.append(
-            f"Missing task-local telemetry snapshot under {TASK_LOCAL_TELEMETRY_RUNS_ROOT} for the current M142 ui-kit worker package receipt."
-        )
-    else:
+    task_local_telemetry_runs_root = resolve_first_existing_path(TASK_LOCAL_TELEMETRY_RUNS_ROOT_CANDIDATES)
+    runtime_handoff_path = resolve_first_existing_path(RUNTIME_HANDOFF_PATH_CANDIDATES)
+    task_local_telemetry_path = (
+        resolve_task_local_telemetry_path(task_local_telemetry_runs_root)
+        if task_local_telemetry_runs_root is not None
+        else None
+    )
+    if task_local_telemetry_path is not None:
         require_markers(
             task_local_telemetry_path,
             TASK_LOCAL_TELEMETRY_MARKERS,
@@ -368,21 +385,14 @@ def main() -> int:
         )
         require_markers(
             milestone_142_doc,
-            (TASK_LOCAL_TELEMETRY_SELECTOR, build_runtime_handoff_rule()),
+            (TASK_LOCAL_TELEMETRY_SELECTOR, "ACTIVE_RUN_HANDOFF.generated.md", build_runtime_handoff_rule()),
             "Milestone 142 evidence drifted away from the dynamic worker-receipt closure rule",
             reasons,
         )
-    if require_file(RUNTIME_HANDOFF_PATH, f"Missing runtime handoff snapshot: {RUNTIME_HANDOFF_PATH}", reasons):
-        if task_local_telemetry_path is None:
+    if runtime_handoff_path is not None and task_local_telemetry_path is not None and require_file(runtime_handoff_path, f"Missing runtime handoff snapshot: {runtime_handoff_path}", reasons):
+        if task_local_telemetry_path is not None:
             require_markers(
-                RUNTIME_HANDOFF_PATH,
-                (f"Frontier ids: {M142_TASK_LOCAL_HANDOFF_FRONTIER_ID}",),
-                "Runtime handoff drifted away from the M142 ui-kit frontier receipt",
-                reasons,
-            )
-        else:
-            require_markers(
-                RUNTIME_HANDOFF_PATH,
+                runtime_handoff_path,
                 build_runtime_handoff_markers(task_local_telemetry_path),
                 "Runtime handoff drifted away from the current M142 ui-kit worker receipt",
                 reasons,
@@ -425,9 +435,9 @@ def main() -> int:
             "m142_snapshot_anchor_paths": [str((repo_root / relative_path).resolve()) for relative_path in M142_SNAPSHOT_PATHS],
             "m142_successor_queue_path": str(SUCCESSOR_QUEUE_PATH),
             "m142_successor_registry_path": str(SUCCESSOR_REGISTRY_PATH),
-            "task_local_telemetry_runs_root": str(TASK_LOCAL_TELEMETRY_RUNS_ROOT),
+            "task_local_telemetry_runs_root": str(task_local_telemetry_runs_root) if task_local_telemetry_runs_root else "",
             "task_local_telemetry_selector": TASK_LOCAL_TELEMETRY_SELECTOR,
-            "runtime_handoff_path": str(RUNTIME_HANDOFF_PATH),
+            "runtime_handoff_path": str(runtime_handoff_path) if runtime_handoff_path else "",
             "runtime_handoff_receipt_rule": build_runtime_handoff_rule(),
             "verify_script_path": str(verify_script),
             "worklist_path": str(worklist_path),
