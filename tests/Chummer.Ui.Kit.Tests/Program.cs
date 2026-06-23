@@ -341,7 +341,15 @@ static void DefaultCanonContainsClassicDenseWorkbenchTokens()
 static void FlagshipClassicDenseWorkbenchDefaultIsTokenBacked()
 {
     var canon = TokenCanon.CreateDefault();
+    var publicDefaultPreset = new ClassicDenseWorkbenchPreset();
     var preset = ClassicDenseWorkbenchPreset.CreateFlagshipDesktopDefault(canon);
+
+    ExpectEqual(canon["classic.dense.workbench.preset.id"], publicDefaultPreset.PresetId, "public default preset id comes from canon");
+    ExpectEqual(canon["classic.dense.workbench.budget.version"], publicDefaultPreset.DenseWorkbenchBudgetVersion, "public default preset budget version comes from canon");
+    ExpectEqual(canon["noise.budget.compact.spacing.scale"], publicDefaultPreset.CompactSpacingScale, "public default compact spacing scale comes from canon");
+    ExpectEqual(canon["noise.budget.decorative.landing.chrome.max"], publicDefaultPreset.DecorativeLandingChromeInWorkbenchMax, "public default decorative chrome cap comes from canon");
+    ExpectEqual(canon["workbench.layout.menu.height.max"], publicDefaultPreset.MenuHeightMax, "public default menu height comes from canon");
+    ExpectEqual(canon["workbench.visible.builder.rows.1440x900.min"], publicDefaultPreset.BuilderRouteVisibleRowsAt1440x900Min, "public default 1440x900 row minimum comes from canon");
 
     ExpectEqual(canon["classic.dense.workbench.preset.id"], preset.PresetId, "flagship preset id comes from canon");
     ExpectEqual(canon["classic.dense.workbench.budget.version"], preset.DenseWorkbenchBudgetVersion, "flagship preset budget version comes from canon");

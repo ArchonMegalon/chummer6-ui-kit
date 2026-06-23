@@ -497,98 +497,100 @@ public sealed class ClassicDenseWorkbenchPreset
         new(tokenCanon ?? TokenCanon.CreateDefault());
 
     public ClassicDenseWorkbenchPreset(
-        string presetId = "classic_dense_workbench",
-        string denseWorkbenchBudgetVersion = "2026-04-16",
-        bool topMenuBarEnabled = true,
-        bool toolstripEnabled = true,
-        string tabStripDensity = "compact",
-        bool compactListDetailPanes = true,
-        bool compactInspectorForms = true,
-        string statusStripPosture = "permanent",
-        string compactSpacingScale = "0.85",
-        string compactHeaderScale = "0.90",
-        string rowSpacingMax = "6",
-        string cardPaddingMax = "10",
-        string inputPaddingHorizontalMax = "8",
-        string inputPaddingVerticalMax = "6",
-        string bannerHeightCeiling = "2.50rem",
-        string badgeDensityCeiling = "3",
-        string persistentBannerCountMax = "1",
-        string persistentSecondaryBadgeClusterMax = "3",
-        string compactFieldHeight = "1.875rem",
-        string compactButtonHeight = "1.875rem",
-        string compactButtonMinHeightMax = "32",
-        string compactIconButtonSizeMax = "32",
-        string heroBannerHeightMax = "0",
-        string cardNestingDepthMax = "2",
-        string dashboardTileCountInToolstripMax = "0",
-        string decorativeLandingChromeInWorkbenchMax = "0",
-        string menuHeightMax = "32",
-        string toolstripHeightMax = "40",
-        bool workspaceContextStripRequired = true,
-        string tabStripHeightMax = "30",
-        string leftNavigationWidthMin = "180",
-        string leftNavigationWidthMax = "240",
-        string rightInspectorWidthMin = "260",
-        string rightInspectorWidthMax = "340",
-        string menuAndToolstripCombinedHeightMax = "72",
-        string statusStripHeightMax = "26",
-        bool centerPaneMustDominate = true,
-        bool sectionRhythmMustRemainVisible = true,
-        string headerToContentRatioMax = "0.30",
-        string denseListRowHeightMax = "32",
-        string denseListVisibleRowMin = "9",
-        string denseDetailGroupVisibleFieldMin = "6",
-        string builderRouteVisibleRowsAt1440x900Min = "12",
-        string builderRouteVisibleRowsAt1366x768Min = "9",
+        string? presetId = null,
+        string? denseWorkbenchBudgetVersion = null,
+        bool? topMenuBarEnabled = null,
+        bool? toolstripEnabled = null,
+        string? tabStripDensity = null,
+        bool? compactListDetailPanes = null,
+        bool? compactInspectorForms = null,
+        string? statusStripPosture = null,
+        string? compactSpacingScale = null,
+        string? compactHeaderScale = null,
+        string? rowSpacingMax = null,
+        string? cardPaddingMax = null,
+        string? inputPaddingHorizontalMax = null,
+        string? inputPaddingVerticalMax = null,
+        string? bannerHeightCeiling = null,
+        string? badgeDensityCeiling = null,
+        string? persistentBannerCountMax = null,
+        string? persistentSecondaryBadgeClusterMax = null,
+        string? compactFieldHeight = null,
+        string? compactButtonHeight = null,
+        string? compactButtonMinHeightMax = null,
+        string? compactIconButtonSizeMax = null,
+        string? heroBannerHeightMax = null,
+        string? cardNestingDepthMax = null,
+        string? dashboardTileCountInToolstripMax = null,
+        string? decorativeLandingChromeInWorkbenchMax = null,
+        string? menuHeightMax = null,
+        string? toolstripHeightMax = null,
+        bool? workspaceContextStripRequired = null,
+        string? tabStripHeightMax = null,
+        string? leftNavigationWidthMin = null,
+        string? leftNavigationWidthMax = null,
+        string? rightInspectorWidthMin = null,
+        string? rightInspectorWidthMax = null,
+        string? menuAndToolstripCombinedHeightMax = null,
+        string? statusStripHeightMax = null,
+        bool? centerPaneMustDominate = null,
+        bool? sectionRhythmMustRemainVisible = null,
+        string? headerToContentRatioMax = null,
+        string? denseListRowHeightMax = null,
+        string? denseListVisibleRowMin = null,
+        string? denseDetailGroupVisibleFieldMin = null,
+        string? builderRouteVisibleRowsAt1440x900Min = null,
+        string? builderRouteVisibleRowsAt1366x768Min = null,
         IReadOnlyList<string>? proofFamilyIds = null,
         IReadOnlyList<string>? chromeRegressionSentinels = null,
-        bool flagshipDefaultForAvalonia = true)
+        bool? flagshipDefaultForAvalonia = null)
     {
-        PresetId = string.IsNullOrWhiteSpace(presetId) ? throw new ArgumentException("Preset id is required.", nameof(presetId)) : presetId.Trim();
-        DenseWorkbenchBudgetVersion = string.IsNullOrWhiteSpace(denseWorkbenchBudgetVersion) ? throw new ArgumentException("Dense workbench budget version is required.", nameof(denseWorkbenchBudgetVersion)) : denseWorkbenchBudgetVersion.Trim();
-        TopMenuBarEnabled = topMenuBarEnabled;
-        ToolstripEnabled = toolstripEnabled;
-        TabStripDensity = string.IsNullOrWhiteSpace(tabStripDensity) ? throw new ArgumentException("Tab strip density is required.", nameof(tabStripDensity)) : tabStripDensity.Trim();
-        CompactListDetailPanes = compactListDetailPanes;
-        CompactInspectorForms = compactInspectorForms;
-        StatusStripPosture = string.IsNullOrWhiteSpace(statusStripPosture) ? throw new ArgumentException("Status strip posture is required.", nameof(statusStripPosture)) : statusStripPosture.Trim();
-        CompactSpacingScale = string.IsNullOrWhiteSpace(compactSpacingScale) ? throw new ArgumentException("Compact spacing scale is required.", nameof(compactSpacingScale)) : compactSpacingScale.Trim();
-        CompactHeaderScale = string.IsNullOrWhiteSpace(compactHeaderScale) ? throw new ArgumentException("Compact header scale is required.", nameof(compactHeaderScale)) : compactHeaderScale.Trim();
-        RowSpacingMax = string.IsNullOrWhiteSpace(rowSpacingMax) ? throw new ArgumentException("Row spacing maximum is required.", nameof(rowSpacingMax)) : rowSpacingMax.Trim();
-        CardPaddingMax = string.IsNullOrWhiteSpace(cardPaddingMax) ? throw new ArgumentException("Card padding maximum is required.", nameof(cardPaddingMax)) : cardPaddingMax.Trim();
-        InputPaddingHorizontalMax = string.IsNullOrWhiteSpace(inputPaddingHorizontalMax) ? throw new ArgumentException("Input padding horizontal maximum is required.", nameof(inputPaddingHorizontalMax)) : inputPaddingHorizontalMax.Trim();
-        InputPaddingVerticalMax = string.IsNullOrWhiteSpace(inputPaddingVerticalMax) ? throw new ArgumentException("Input padding vertical maximum is required.", nameof(inputPaddingVerticalMax)) : inputPaddingVerticalMax.Trim();
-        BannerHeightCeiling = string.IsNullOrWhiteSpace(bannerHeightCeiling) ? throw new ArgumentException("Banner height ceiling is required.", nameof(bannerHeightCeiling)) : bannerHeightCeiling.Trim();
-        BadgeDensityCeiling = string.IsNullOrWhiteSpace(badgeDensityCeiling) ? throw new ArgumentException("Badge density ceiling is required.", nameof(badgeDensityCeiling)) : badgeDensityCeiling.Trim();
-        PersistentBannerCountMax = string.IsNullOrWhiteSpace(persistentBannerCountMax) ? throw new ArgumentException("Persistent banner count maximum is required.", nameof(persistentBannerCountMax)) : persistentBannerCountMax.Trim();
-        PersistentSecondaryBadgeClusterMax = string.IsNullOrWhiteSpace(persistentSecondaryBadgeClusterMax) ? throw new ArgumentException("Persistent secondary badge-cluster maximum is required.", nameof(persistentSecondaryBadgeClusterMax)) : persistentSecondaryBadgeClusterMax.Trim();
-        CompactFieldHeight = string.IsNullOrWhiteSpace(compactFieldHeight) ? throw new ArgumentException("Compact field height is required.", nameof(compactFieldHeight)) : compactFieldHeight.Trim();
-        CompactButtonHeight = string.IsNullOrWhiteSpace(compactButtonHeight) ? throw new ArgumentException("Compact button height is required.", nameof(compactButtonHeight)) : compactButtonHeight.Trim();
-        CompactButtonMinHeightMax = string.IsNullOrWhiteSpace(compactButtonMinHeightMax) ? throw new ArgumentException("Compact button minimum-height maximum is required.", nameof(compactButtonMinHeightMax)) : compactButtonMinHeightMax.Trim();
-        CompactIconButtonSizeMax = string.IsNullOrWhiteSpace(compactIconButtonSizeMax) ? throw new ArgumentException("Compact icon-button size maximum is required.", nameof(compactIconButtonSizeMax)) : compactIconButtonSizeMax.Trim();
-        HeroBannerHeightMax = string.IsNullOrWhiteSpace(heroBannerHeightMax) ? throw new ArgumentException("Hero banner height maximum is required.", nameof(heroBannerHeightMax)) : heroBannerHeightMax.Trim();
-        CardNestingDepthMax = string.IsNullOrWhiteSpace(cardNestingDepthMax) ? throw new ArgumentException("Card nesting depth maximum is required.", nameof(cardNestingDepthMax)) : cardNestingDepthMax.Trim();
-        DashboardTileCountInToolstripMax = string.IsNullOrWhiteSpace(dashboardTileCountInToolstripMax) ? throw new ArgumentException("Dashboard tile count maximum is required.", nameof(dashboardTileCountInToolstripMax)) : dashboardTileCountInToolstripMax.Trim();
-        DecorativeLandingChromeInWorkbenchMax = string.IsNullOrWhiteSpace(decorativeLandingChromeInWorkbenchMax) ? throw new ArgumentException("Decorative landing chrome maximum is required.", nameof(decorativeLandingChromeInWorkbenchMax)) : decorativeLandingChromeInWorkbenchMax.Trim();
-        MenuHeightMax = string.IsNullOrWhiteSpace(menuHeightMax) ? throw new ArgumentException("Menu height maximum is required.", nameof(menuHeightMax)) : menuHeightMax.Trim();
-        ToolstripHeightMax = string.IsNullOrWhiteSpace(toolstripHeightMax) ? throw new ArgumentException("Toolstrip height maximum is required.", nameof(toolstripHeightMax)) : toolstripHeightMax.Trim();
-        WorkspaceContextStripRequired = workspaceContextStripRequired;
-        TabStripHeightMax = string.IsNullOrWhiteSpace(tabStripHeightMax) ? throw new ArgumentException("Tab-strip height maximum is required.", nameof(tabStripHeightMax)) : tabStripHeightMax.Trim();
-        LeftNavigationWidthMin = string.IsNullOrWhiteSpace(leftNavigationWidthMin) ? throw new ArgumentException("Left-navigation width minimum is required.", nameof(leftNavigationWidthMin)) : leftNavigationWidthMin.Trim();
-        LeftNavigationWidthMax = string.IsNullOrWhiteSpace(leftNavigationWidthMax) ? throw new ArgumentException("Left-navigation width maximum is required.", nameof(leftNavigationWidthMax)) : leftNavigationWidthMax.Trim();
-        RightInspectorWidthMin = string.IsNullOrWhiteSpace(rightInspectorWidthMin) ? throw new ArgumentException("Right-inspector width minimum is required.", nameof(rightInspectorWidthMin)) : rightInspectorWidthMin.Trim();
-        RightInspectorWidthMax = string.IsNullOrWhiteSpace(rightInspectorWidthMax) ? throw new ArgumentException("Right-inspector width maximum is required.", nameof(rightInspectorWidthMax)) : rightInspectorWidthMax.Trim();
-        MenuAndToolstripCombinedHeightMax = string.IsNullOrWhiteSpace(menuAndToolstripCombinedHeightMax) ? throw new ArgumentException("Menu and toolstrip combined height maximum is required.", nameof(menuAndToolstripCombinedHeightMax)) : menuAndToolstripCombinedHeightMax.Trim();
-        StatusStripHeightMax = string.IsNullOrWhiteSpace(statusStripHeightMax) ? throw new ArgumentException("Status strip height maximum is required.", nameof(statusStripHeightMax)) : statusStripHeightMax.Trim();
-        CenterPaneMustDominate = centerPaneMustDominate;
-        SectionRhythmMustRemainVisible = sectionRhythmMustRemainVisible;
-        HeaderToContentRatioMax = string.IsNullOrWhiteSpace(headerToContentRatioMax) ? throw new ArgumentException("Header-to-content ratio maximum is required.", nameof(headerToContentRatioMax)) : headerToContentRatioMax.Trim();
-        DenseListRowHeightMax = string.IsNullOrWhiteSpace(denseListRowHeightMax) ? throw new ArgumentException("Dense-list row-height maximum is required.", nameof(denseListRowHeightMax)) : denseListRowHeightMax.Trim();
-        DenseListVisibleRowMin = string.IsNullOrWhiteSpace(denseListVisibleRowMin) ? throw new ArgumentException("Dense list visible row minimum is required.", nameof(denseListVisibleRowMin)) : denseListVisibleRowMin.Trim();
-        DenseDetailGroupVisibleFieldMin = string.IsNullOrWhiteSpace(denseDetailGroupVisibleFieldMin) ? throw new ArgumentException("Dense detail-group visible field minimum is required.", nameof(denseDetailGroupVisibleFieldMin)) : denseDetailGroupVisibleFieldMin.Trim();
-        BuilderRouteVisibleRowsAt1440x900Min = string.IsNullOrWhiteSpace(builderRouteVisibleRowsAt1440x900Min) ? throw new ArgumentException("Builder-route visible row minimum for 1440x900 is required.", nameof(builderRouteVisibleRowsAt1440x900Min)) : builderRouteVisibleRowsAt1440x900Min.Trim();
-        BuilderRouteVisibleRowsAt1366x768Min = string.IsNullOrWhiteSpace(builderRouteVisibleRowsAt1366x768Min) ? throw new ArgumentException("Builder-route visible row minimum for 1366x768 is required.", nameof(builderRouteVisibleRowsAt1366x768Min)) : builderRouteVisibleRowsAt1366x768Min.Trim();
+        var defaultCanon = TokenCanon.CreateDefault();
+
+        PresetId = ResolveTokenOrDefault(defaultCanon, presetId, "classic.dense.workbench.preset.id", nameof(presetId), "Preset id is required.");
+        DenseWorkbenchBudgetVersion = ResolveTokenOrDefault(defaultCanon, denseWorkbenchBudgetVersion, "classic.dense.workbench.budget.version", nameof(denseWorkbenchBudgetVersion), "Dense workbench budget version is required.");
+        TopMenuBarEnabled = topMenuBarEnabled ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.top.menu.enabled");
+        ToolstripEnabled = toolstripEnabled ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.toolstrip.enabled");
+        TabStripDensity = ResolveTokenOrDefault(defaultCanon, tabStripDensity, "workbench.layout.tab.strip.density", nameof(tabStripDensity), "Tab strip density is required.");
+        CompactListDetailPanes = compactListDetailPanes ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.list.detail.compact");
+        CompactInspectorForms = compactInspectorForms ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.inspector.forms.compact");
+        StatusStripPosture = ResolveTokenOrDefault(defaultCanon, statusStripPosture, "workbench.layout.status.strip.posture", nameof(statusStripPosture), "Status strip posture is required.");
+        CompactSpacingScale = ResolveTokenOrDefault(defaultCanon, compactSpacingScale, "noise.budget.compact.spacing.scale", nameof(compactSpacingScale), "Compact spacing scale is required.");
+        CompactHeaderScale = ResolveTokenOrDefault(defaultCanon, compactHeaderScale, "noise.budget.compact.header.scale", nameof(compactHeaderScale), "Compact header scale is required.");
+        RowSpacingMax = ResolveTokenOrDefault(defaultCanon, rowSpacingMax, "noise.budget.row.spacing.max", nameof(rowSpacingMax), "Row spacing maximum is required.");
+        CardPaddingMax = ResolveTokenOrDefault(defaultCanon, cardPaddingMax, "noise.budget.card.padding.max", nameof(cardPaddingMax), "Card padding maximum is required.");
+        InputPaddingHorizontalMax = ResolveTokenOrDefault(defaultCanon, inputPaddingHorizontalMax, "noise.budget.input.padding.horizontal.max", nameof(inputPaddingHorizontalMax), "Input padding horizontal maximum is required.");
+        InputPaddingVerticalMax = ResolveTokenOrDefault(defaultCanon, inputPaddingVerticalMax, "noise.budget.input.padding.vertical.max", nameof(inputPaddingVerticalMax), "Input padding vertical maximum is required.");
+        BannerHeightCeiling = ResolveTokenOrDefault(defaultCanon, bannerHeightCeiling, "noise.budget.banner.height.max", nameof(bannerHeightCeiling), "Banner height ceiling is required.");
+        BadgeDensityCeiling = ResolveTokenOrDefault(defaultCanon, badgeDensityCeiling, "noise.budget.badge.density.max", nameof(badgeDensityCeiling), "Badge density ceiling is required.");
+        PersistentBannerCountMax = ResolveTokenOrDefault(defaultCanon, persistentBannerCountMax, "noise.budget.persistent.banner.count.max", nameof(persistentBannerCountMax), "Persistent banner count maximum is required.");
+        PersistentSecondaryBadgeClusterMax = ResolveTokenOrDefault(defaultCanon, persistentSecondaryBadgeClusterMax, "noise.budget.badge.cluster.secondary.max", nameof(persistentSecondaryBadgeClusterMax), "Persistent secondary badge-cluster maximum is required.");
+        CompactFieldHeight = ResolveTokenOrDefault(defaultCanon, compactFieldHeight, "noise.budget.field.height.compact", nameof(compactFieldHeight), "Compact field height is required.");
+        CompactButtonHeight = ResolveTokenOrDefault(defaultCanon, compactButtonHeight, "noise.budget.button.height.compact", nameof(compactButtonHeight), "Compact button height is required.");
+        CompactButtonMinHeightMax = ResolveTokenOrDefault(defaultCanon, compactButtonMinHeightMax, "noise.budget.button.min.height.max", nameof(compactButtonMinHeightMax), "Compact button minimum-height maximum is required.");
+        CompactIconButtonSizeMax = ResolveTokenOrDefault(defaultCanon, compactIconButtonSizeMax, "noise.budget.icon.button.size.compact.max", nameof(compactIconButtonSizeMax), "Compact icon-button size maximum is required.");
+        HeroBannerHeightMax = ResolveTokenOrDefault(defaultCanon, heroBannerHeightMax, "noise.budget.hero.banner.height.max", nameof(heroBannerHeightMax), "Hero banner height maximum is required.");
+        CardNestingDepthMax = ResolveTokenOrDefault(defaultCanon, cardNestingDepthMax, "noise.budget.card.nesting.depth.max", nameof(cardNestingDepthMax), "Card nesting depth maximum is required.");
+        DashboardTileCountInToolstripMax = ResolveTokenOrDefault(defaultCanon, dashboardTileCountInToolstripMax, "noise.budget.toolstrip.dashboard.tile.max", nameof(dashboardTileCountInToolstripMax), "Dashboard tile count maximum is required.");
+        DecorativeLandingChromeInWorkbenchMax = ResolveTokenOrDefault(defaultCanon, decorativeLandingChromeInWorkbenchMax, "noise.budget.decorative.landing.chrome.max", nameof(decorativeLandingChromeInWorkbenchMax), "Decorative landing chrome maximum is required.");
+        MenuHeightMax = ResolveTokenOrDefault(defaultCanon, menuHeightMax, "workbench.layout.menu.height.max", nameof(menuHeightMax), "Menu height maximum is required.");
+        ToolstripHeightMax = ResolveTokenOrDefault(defaultCanon, toolstripHeightMax, "workbench.layout.toolstrip.height.max", nameof(toolstripHeightMax), "Toolstrip height maximum is required.");
+        WorkspaceContextStripRequired = workspaceContextStripRequired ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.workspace.context.strip.required");
+        TabStripHeightMax = ResolveTokenOrDefault(defaultCanon, tabStripHeightMax, "workbench.layout.tab.strip.height.max", nameof(tabStripHeightMax), "Tab-strip height maximum is required.");
+        LeftNavigationWidthMin = ResolveTokenOrDefault(defaultCanon, leftNavigationWidthMin, "workbench.layout.left.navigation.width.min", nameof(leftNavigationWidthMin), "Left-navigation width minimum is required.");
+        LeftNavigationWidthMax = ResolveTokenOrDefault(defaultCanon, leftNavigationWidthMax, "workbench.layout.left.navigation.width.max", nameof(leftNavigationWidthMax), "Left-navigation width maximum is required.");
+        RightInspectorWidthMin = ResolveTokenOrDefault(defaultCanon, rightInspectorWidthMin, "workbench.layout.right.inspector.width.min", nameof(rightInspectorWidthMin), "Right-inspector width minimum is required.");
+        RightInspectorWidthMax = ResolveTokenOrDefault(defaultCanon, rightInspectorWidthMax, "workbench.layout.right.inspector.width.max", nameof(rightInspectorWidthMax), "Right-inspector width maximum is required.");
+        MenuAndToolstripCombinedHeightMax = ResolveTokenOrDefault(defaultCanon, menuAndToolstripCombinedHeightMax, "workbench.layout.menu.toolstrip.height.max", nameof(menuAndToolstripCombinedHeightMax), "Menu and toolstrip combined height maximum is required.");
+        StatusStripHeightMax = ResolveTokenOrDefault(defaultCanon, statusStripHeightMax, "workbench.layout.status.strip.height.max", nameof(statusStripHeightMax), "Status strip height maximum is required.");
+        CenterPaneMustDominate = centerPaneMustDominate ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.center.pane.must.dominate");
+        SectionRhythmMustRemainVisible = sectionRhythmMustRemainVisible ?? ReadRequiredBooleanToken(defaultCanon, "workbench.layout.section.rhythm.must.remain.visible");
+        HeaderToContentRatioMax = ResolveTokenOrDefault(defaultCanon, headerToContentRatioMax, "workbench.layout.header.to.content.ratio.max", nameof(headerToContentRatioMax), "Header-to-content ratio maximum is required.");
+        DenseListRowHeightMax = ResolveTokenOrDefault(defaultCanon, denseListRowHeightMax, "workbench.visible.list.row.height.max", nameof(denseListRowHeightMax), "Dense-list row-height maximum is required.");
+        DenseListVisibleRowMin = ResolveTokenOrDefault(defaultCanon, denseListVisibleRowMin, "workbench.visible.dense.list.row.min", nameof(denseListVisibleRowMin), "Dense list visible row minimum is required.");
+        DenseDetailGroupVisibleFieldMin = ResolveTokenOrDefault(defaultCanon, denseDetailGroupVisibleFieldMin, "workbench.visible.dense.detail.group.field.min", nameof(denseDetailGroupVisibleFieldMin), "Dense detail-group visible field minimum is required.");
+        BuilderRouteVisibleRowsAt1440x900Min = ResolveTokenOrDefault(defaultCanon, builderRouteVisibleRowsAt1440x900Min, "workbench.visible.builder.rows.1440x900.min", nameof(builderRouteVisibleRowsAt1440x900Min), "Builder-route visible row minimum for 1440x900 is required.");
+        BuilderRouteVisibleRowsAt1366x768Min = ResolveTokenOrDefault(defaultCanon, builderRouteVisibleRowsAt1366x768Min, "workbench.visible.builder.rows.1366x768.min", nameof(builderRouteVisibleRowsAt1366x768Min), "Builder-route visible row minimum for 1366x768 is required.");
         ProofFamilyIds = PrimitiveGuards.NormalizeExactContractIdList(
             proofFamilyIds,
             nameof(proofFamilyIds),
@@ -608,7 +610,7 @@ public sealed class ClassicDenseWorkbenchPreset
                 PersistentSecondaryBadgeClusterMax,
                 CardNestingDepthMax,
                 CenterPaneMustDominate));
-        FlagshipDefaultForAvalonia = flagshipDefaultForAvalonia;
+        FlagshipDefaultForAvalonia = flagshipDefaultForAvalonia ?? ReadRequiredBooleanToken(defaultCanon, "classic.dense.workbench.flagship.avalonia.default");
     }
 
     public string PresetId { get; }
@@ -743,6 +745,19 @@ public sealed class ClassicDenseWorkbenchPreset
         ArgumentNullException.ThrowIfNull(tokenCanon);
 
         return tokenCanon[key];
+    }
+
+    private static string ResolveTokenOrDefault(
+        TokenCanon tokenCanon,
+        string? value,
+        string tokenKey,
+        string paramName,
+        string missingValueMessage)
+    {
+        var resolvedValue = value ?? ReadRequiredToken(tokenCanon, tokenKey);
+        return string.IsNullOrWhiteSpace(resolvedValue)
+            ? throw new ArgumentException(missingValueMessage, paramName)
+            : resolvedValue.Trim();
     }
 
     private static bool ReadRequiredBooleanToken(TokenCanon tokenCanon, string key)
