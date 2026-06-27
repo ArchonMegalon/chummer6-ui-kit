@@ -154,7 +154,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("ApprovalChip", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseColumnHeader(DenseColumnHeader header)
+    public static UiAdapterPayload AdaptDenseColumnHeader(ClassicDenseColumnHeader header)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -170,7 +170,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("DenseColumnHeader", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseRowMetadata(DenseRowMetadata row)
+    public static UiAdapterPayload AdaptDenseRowMetadata(ClassicDenseRowMetadata row)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -188,7 +188,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("DenseRow", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseTableSummary(DenseTableSummary summary)
+    public static UiAdapterPayload AdaptDenseTableSummary(ClassicDenseTableSummary summary)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -204,7 +204,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("DenseTable", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptExplainChip(ExplainChip chip)
+    public static UiAdapterPayload AdaptExplainChip(ClassicExplainChip chip)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -219,7 +219,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("ExplainChip", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptSpiderStatusCard(SpiderStatusCard card)
+    public static UiAdapterPayload AdaptSpiderStatusCard(ClassicSpiderStatusCard card)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -235,7 +235,7 @@ public static class AvaloniaUiKitAdapter
         return new UiAdapterPayload("SpiderStatusCard", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptArtifactStatusCard(ArtifactStatusCard card)
+    public static UiAdapterPayload AdaptArtifactStatusCard(ClassicArtifactStatusCard card)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {

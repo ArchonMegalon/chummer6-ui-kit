@@ -28,7 +28,7 @@ public enum StaleState
     Failed
 }
 
-public enum DenseSortDirection
+public enum ClassicDenseSortDirection
 {
     None,
     Ascending,
@@ -52,7 +52,7 @@ public enum ExplainAffinity
     High
 }
 
-public enum ExplainChipTone
+public enum ClassicExplainChipTone
 {
     Neutral,
     Informative,
@@ -127,9 +127,9 @@ public sealed class ApprovalChip
     public string? Approver { get; }
 }
 
-public sealed class DenseColumnHeader
+public sealed class ClassicDenseColumnHeader
 {
-    public DenseColumnHeader(string key, string label, DenseSortDirection sortDirection = DenseSortDirection.None, bool sortable = false, bool numeric = false)
+    public ClassicDenseColumnHeader(string key, string label, ClassicDenseSortDirection sortDirection = ClassicDenseSortDirection.None, bool sortable = false, bool numeric = false)
     {
         Key = string.IsNullOrWhiteSpace(key) ? throw new ArgumentException("Key is required.", nameof(key)) : key.Trim();
         Label = string.IsNullOrWhiteSpace(label) ? throw new ArgumentException("Label is required.", nameof(label)) : label.Trim();
@@ -140,14 +140,14 @@ public sealed class DenseColumnHeader
 
     public string Key { get; }
     public string Label { get; }
-    public DenseSortDirection SortDirection { get; }
+    public ClassicDenseSortDirection SortDirection { get; }
     public bool Sortable { get; }
     public bool Numeric { get; }
 }
 
-public sealed class DenseRowMetadata
+public sealed class ClassicDenseRowMetadata
 {
-    public DenseRowMetadata(string rowKey, string primaryText, string? secondaryText = null, RowEmphasis emphasis = RowEmphasis.Default, ExplainAffinity explainAffinity = ExplainAffinity.None, bool selected = false, bool disabled = false)
+    public ClassicDenseRowMetadata(string rowKey, string primaryText, string? secondaryText = null, RowEmphasis emphasis = RowEmphasis.Default, ExplainAffinity explainAffinity = ExplainAffinity.None, bool selected = false, bool disabled = false)
     {
         RowKey = string.IsNullOrWhiteSpace(rowKey) ? throw new ArgumentException("Row key is required.", nameof(rowKey)) : rowKey.Trim();
         PrimaryText = string.IsNullOrWhiteSpace(primaryText) ? throw new ArgumentException("Primary text is required.", nameof(primaryText)) : primaryText.Trim();
@@ -167,9 +167,9 @@ public sealed class DenseRowMetadata
     public bool Disabled { get; }
 }
 
-public sealed class DenseTableSummary
+public sealed class ClassicDenseTableSummary
 {
-    public DenseTableSummary(string label, int rowCount, int visibleColumnCount, bool compact = true, bool zebraStripes = true)
+    public ClassicDenseTableSummary(string label, int rowCount, int visibleColumnCount, bool compact = true, bool zebraStripes = true)
     {
         Label = string.IsNullOrWhiteSpace(label) ? throw new ArgumentException("Label is required.", nameof(label)) : label.Trim();
         RowCount = rowCount < 0 ? throw new ArgumentOutOfRangeException(nameof(rowCount)) : rowCount;
@@ -185,9 +185,9 @@ public sealed class DenseTableSummary
     public bool ZebraStripes { get; }
 }
 
-public sealed class ExplainChip
+public sealed class ClassicExplainChip
 {
-    public ExplainChip(string label, string evidenceCountLabel, ExplainChipTone tone = ExplainChipTone.Neutral, bool interactive = false)
+    public ClassicExplainChip(string label, string evidenceCountLabel, ClassicExplainChipTone tone = ClassicExplainChipTone.Neutral, bool interactive = false)
     {
         Label = string.IsNullOrWhiteSpace(label) ? throw new ArgumentException("Label is required.", nameof(label)) : label.Trim();
         EvidenceCountLabel = string.IsNullOrWhiteSpace(evidenceCountLabel) ? throw new ArgumentException("Evidence count label is required.", nameof(evidenceCountLabel)) : evidenceCountLabel.Trim();
@@ -197,13 +197,13 @@ public sealed class ExplainChip
 
     public string Label { get; }
     public string EvidenceCountLabel { get; }
-    public ExplainChipTone Tone { get; }
+    public ClassicExplainChipTone Tone { get; }
     public bool Interactive { get; }
 }
 
-public sealed class SpiderStatusCard
+public sealed class ClassicSpiderStatusCard
 {
-    public SpiderStatusCard(string title, string summary, string postureLabel, CardTone tone = CardTone.Neutral, bool requiresAttention = false)
+    public ClassicSpiderStatusCard(string title, string summary, string postureLabel, CardTone tone = CardTone.Neutral, bool requiresAttention = false)
     {
         Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
         Summary = string.IsNullOrWhiteSpace(summary) ? throw new ArgumentException("Summary is required.", nameof(summary)) : summary.Trim();
@@ -219,9 +219,9 @@ public sealed class SpiderStatusCard
     public bool RequiresAttention { get; }
 }
 
-public sealed class ArtifactStatusCard
+public sealed class ClassicArtifactStatusCard
 {
-    public ArtifactStatusCard(string title, string statusLabel, string detail, CardTone tone = CardTone.Neutral, bool previewReady = false)
+    public ClassicArtifactStatusCard(string title, string statusLabel, string detail, CardTone tone = CardTone.Neutral, bool previewReady = false)
     {
         Title = string.IsNullOrWhiteSpace(title) ? throw new ArgumentException("Title is required.", nameof(title)) : title.Trim();
         StatusLabel = string.IsNullOrWhiteSpace(statusLabel) ? throw new ArgumentException("Status label is required.", nameof(statusLabel)) : statusLabel.Trim();

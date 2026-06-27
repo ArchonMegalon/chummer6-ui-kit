@@ -160,7 +160,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-chip", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseColumnHeader(DenseColumnHeader header)
+    public static UiAdapterPayload AdaptDenseColumnHeader(ClassicDenseColumnHeader header)
     {
         var sort = header.SortDirection.ToString().ToLowerInvariant();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
@@ -183,7 +183,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-dense-header", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseRowMetadata(DenseRowMetadata row)
+    public static UiAdapterPayload AdaptDenseRowMetadata(ClassicDenseRowMetadata row)
     {
         var emphasis = row.Emphasis.ToString().ToLowerInvariant();
         var affinity = row.ExplainAffinity.ToString().ToLowerInvariant();
@@ -204,7 +204,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-dense-row", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptDenseTableSummary(DenseTableSummary summary)
+    public static UiAdapterPayload AdaptDenseTableSummary(ClassicDenseTableSummary summary)
     {
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -221,7 +221,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-dense-table", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptExplainChip(ExplainChip chip)
+    public static UiAdapterPayload AdaptExplainChip(ClassicExplainChip chip)
     {
         var tone = chip.Tone.ToString().ToLowerInvariant();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
@@ -238,7 +238,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-explain-chip", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptSpiderStatusCard(SpiderStatusCard card)
+    public static UiAdapterPayload AdaptSpiderStatusCard(ClassicSpiderStatusCard card)
     {
         var tone = card.Tone.ToString().ToLowerInvariant();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)
@@ -256,7 +256,7 @@ public static class BlazorUiKitAdapter
         return new UiAdapterPayload("chummer-status-card", new ReadOnlyDictionary<string, string>(attrs));
     }
 
-    public static UiAdapterPayload AdaptArtifactStatusCard(ArtifactStatusCard card)
+    public static UiAdapterPayload AdaptArtifactStatusCard(ClassicArtifactStatusCard card)
     {
         var tone = card.Tone.ToString().ToLowerInvariant();
         var attrs = new Dictionary<string, string>(StringComparer.Ordinal)

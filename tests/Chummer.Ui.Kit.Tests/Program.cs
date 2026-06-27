@@ -519,21 +519,21 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var banner = new Banner("Read-only", "Data synced is paused.", BannerTone.Warning, pinned: true);
     var stale = new StaleStateBadge(StaleState.Failed, "Expired cache");
     var approval = new ApprovalChip(false, "Manager decision", "Alex");
-    var denseHeader = new DenseColumnHeader("initiative", "Initiative", DenseSortDirection.Descending, sortable: true, numeric: true);
-    var denseRow = new DenseRowMetadata("row-7", "Mystic Adept", "6 edge remaining", RowEmphasis.Warning, ExplainAffinity.High, selected: true);
-    var denseTable = new DenseTableSummary("Active effects", 14, 5);
-    var explainChip = new ExplainChip("Explain modifiers", "3 facts", ExplainChipTone.Informative, interactive: true);
-    var spiderCard = new SpiderStatusCard("Spider posture", "Escalation routed to GM host.", "Attention needed", CardTone.Warning, requiresAttention: true);
-    var artifactCard = new ArtifactStatusCard("Alpha build", "Preview ready", "Signed artifact available for install.", CardTone.Success, previewReady: true);
+    var classicDenseHeader = new ClassicDenseColumnHeader("initiative", "Initiative", ClassicDenseSortDirection.Descending, sortable: true, numeric: true);
+    var classicDenseRow = new ClassicDenseRowMetadata("row-7", "Mystic Adept", "6 edge remaining", RowEmphasis.Warning, ExplainAffinity.High, selected: true);
+    var classicDenseTable = new ClassicDenseTableSummary("Active effects", 14, 5);
+    var classicExplainChip = new ClassicExplainChip("Explain modifiers", "3 facts", ClassicExplainChipTone.Informative, interactive: true);
+    var classicSpiderCard = new ClassicSpiderStatusCard("Spider posture", "Escalation routed to GM host.", "Attention needed", CardTone.Warning, requiresAttention: true);
+    var classicArtifactCard = new ClassicArtifactStatusCard("Alpha build", "Preview ready", "Signed artifact available for install.", CardTone.Success, previewReady: true);
     var offline = new OfflineBanner("Runtime Relay", isOffline: true);
     var accessibility = new AccessibilityState("assertive", busy: true, disabled: false, label: "Loading panel", describedBy: "panel-help");
-    var denseHeader = new DenseTableHeader("initiative", "Initiative", sortable: true, sortDirection: DenseSortDirection.Desc);
-    var denseHeaderDefault = new DenseTableHeader("name", "Name");
-    var denseHeaderInvalidUnsortable = new DenseTableHeader("edge", "Edge", sortable: false, sortDirection: DenseSortDirection.Desc);
-    var denseRow = new DenseRowMetadata("row-17", DenseRowEmphasis.Highlighted, selected: true, explainAffinity: true);
-    var explainChip = new ExplainChip("Explain armor stack", ExplainChipTone.Info, active: true, hint: "Includes temporary modifiers");
-    var spiderCard = new SpiderStatusCard("Spider Relay", "Pending Approval", "Awaiting reviewer action", stale: true);
-    var artifactCard = new ArtifactStatusCard("Run Log 13", "Dossier", "Published", available: false);
+    var sharedDenseHeader = new DenseTableHeader("initiative", "Initiative", sortable: true, sortDirection: DenseSortDirection.Desc);
+    var sharedDenseHeaderDefault = new DenseTableHeader("name", "Name");
+    var sharedDenseHeaderInvalidUnsortable = new DenseTableHeader("edge", "Edge", sortable: false, sortDirection: DenseSortDirection.Desc);
+    var sharedDenseRow = new DenseRowMetadata("row-17", DenseRowEmphasis.Highlighted, selected: true, explainAffinity: true);
+    var sharedExplainChip = new ExplainChip("Explain armor stack", ExplainChipTone.Info, active: true, hint: "Includes temporary modifiers");
+    var sharedSpiderCard = new SpiderStatusCard("Spider Relay", "Pending Approval", "Awaiting reviewer action", stale: true);
+    var sharedArtifactCard = new ArtifactStatusCard("Run Log 13", "Dossier", "Published", available: false);
     var roleTransition = new RoleTransition("Observer", "GM", RoleTransitionPhase.InProgress, requiresAcknowledgement: true, detail: "Awaiting owner handoff.");
     var progressToast = new ProgressToast("Syncing campaign", "Applying replay packets", 72, ProgressToastTone.Info, allowCancel: true, allowResume: true);
     var resumeAffordance = new ResumeAffordance("Resume run", "Checkpoint: Scene 4", "Resume from checkpoint", requiresRecovery: true, detail: "One conflict needs review.");
@@ -561,7 +561,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
     var classicDenseWorkbench = new ClassicDenseWorkbenchPreset();
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeader),
+        BlazorUiKitAdapter.AdaptDenseTableHeader(sharedDenseHeader),
         "chummer-dense-header",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -575,7 +575,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-header payload");
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeaderDefault),
+        BlazorUiKitAdapter.AdaptDenseTableHeader(sharedDenseHeaderDefault),
         "chummer-dense-header",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -589,7 +589,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-header default payload");
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseTableHeader(denseHeaderInvalidUnsortable),
+        BlazorUiKitAdapter.AdaptDenseTableHeader(sharedDenseHeaderInvalidUnsortable),
         "chummer-dense-header",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -603,7 +603,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-header unsortable-normalized payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseTableHeader(denseHeader),
+        AvaloniaUiKitAdapter.AdaptDenseTableHeader(sharedDenseHeader),
         "DenseHeader",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -616,7 +616,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "avalonia dense-header payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseTableHeader(denseHeaderInvalidUnsortable),
+        AvaloniaUiKitAdapter.AdaptDenseTableHeader(sharedDenseHeaderInvalidUnsortable),
         "DenseHeader",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -630,7 +630,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia dense-header unsortable-normalized payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        BlazorUiKitAdapter.AdaptDenseRowMetadata(sharedDenseRow),
         "chummer-dense-row",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -643,7 +643,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-row payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        AvaloniaUiKitAdapter.AdaptDenseRowMetadata(sharedDenseRow),
         "DenseRow",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -657,7 +657,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia dense-row payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptExplainChip(explainChip),
+        BlazorUiKitAdapter.AdaptExplainChip(sharedExplainChip),
         "chummer-explain-chip",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -671,7 +671,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor explain-chip payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptExplainChip(explainChip),
+        AvaloniaUiKitAdapter.AdaptExplainChip(sharedExplainChip),
         "ExplainChip",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -685,7 +685,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia explain-chip payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        BlazorUiKitAdapter.AdaptSpiderStatusCard(sharedSpiderCard),
         "chummer-card-spider",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -699,7 +699,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor spider-card payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        AvaloniaUiKitAdapter.AdaptSpiderStatusCard(sharedSpiderCard),
         "SpiderStatusCard",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -713,7 +713,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia spider-card payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        BlazorUiKitAdapter.AdaptArtifactStatusCard(sharedArtifactCard),
         "chummer-card-artifact",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -727,7 +727,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor artifact-card payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        AvaloniaUiKitAdapter.AdaptArtifactStatusCard(sharedArtifactCard),
         "ArtifactStatusCard",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -852,7 +852,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia approval-chip payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseColumnHeader(denseHeader),
+        BlazorUiKitAdapter.AdaptDenseColumnHeader(classicDenseHeader),
         "chummer-dense-header",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -867,7 +867,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-header payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseColumnHeader(denseHeader),
+        AvaloniaUiKitAdapter.AdaptDenseColumnHeader(classicDenseHeader),
         "DenseColumnHeader",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -882,7 +882,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia dense-header payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        BlazorUiKitAdapter.AdaptDenseRowMetadata(classicDenseRow),
         "chummer-dense-row",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -899,7 +899,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-row payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseRowMetadata(denseRow),
+        AvaloniaUiKitAdapter.AdaptDenseRowMetadata(classicDenseRow),
         "DenseRow",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -916,7 +916,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia dense-row payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptDenseTableSummary(denseTable),
+        BlazorUiKitAdapter.AdaptDenseTableSummary(classicDenseTable),
         "chummer-dense-table",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -931,7 +931,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor dense-table payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptDenseTableSummary(denseTable),
+        AvaloniaUiKitAdapter.AdaptDenseTableSummary(classicDenseTable),
         "DenseTable",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -946,7 +946,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia dense-table payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptExplainChip(explainChip),
+        BlazorUiKitAdapter.AdaptExplainChip(classicExplainChip),
         "chummer-explain-chip",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -960,7 +960,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor explain-chip payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptExplainChip(explainChip),
+        AvaloniaUiKitAdapter.AdaptExplainChip(classicExplainChip),
         "ExplainChip",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -974,7 +974,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia explain-chip payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        BlazorUiKitAdapter.AdaptSpiderStatusCard(classicSpiderCard),
         "chummer-status-card",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -989,7 +989,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor spider-card payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptSpiderStatusCard(spiderCard),
+        AvaloniaUiKitAdapter.AdaptSpiderStatusCard(classicSpiderCard),
         "SpiderStatusCard",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -1004,7 +1004,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         "avalonia spider-card payload");
 
     ExpectPayload(
-        BlazorUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        BlazorUiKitAdapter.AdaptArtifactStatusCard(classicArtifactCard),
         "chummer-status-card",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -1019,7 +1019,7 @@ static void BlazorAndAvaloniaPayloadsStayDeterministic()
         },
         "blazor artifact-card payload");
     ExpectPayload(
-        AvaloniaUiKitAdapter.AdaptArtifactStatusCard(artifactCard),
+        AvaloniaUiKitAdapter.AdaptArtifactStatusCard(classicArtifactCard),
         "ArtifactStatusCard",
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
