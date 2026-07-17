@@ -11,6 +11,7 @@ AGENT_MEMORY.md
 .tmp/
 .local/
 .artifacts/
+/.vexp/
 audit.md
 skillsneeded.txt
 day1.prompt.txt
