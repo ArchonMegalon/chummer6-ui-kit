@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
-python3 - <<'PY'
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+python3 - "$repo_root" <<'PY'
+import sys
 from pathlib import Path
-root = Path('/docker/chummercomplete/chummer-ui-kit')
+
+root = Path(sys.argv[1]).resolve()
 manifest = root / 'README.md'
 if not manifest.exists():
     raise SystemExit(f"missing ui-kit README: {manifest}")
@@ -12,3 +16,5 @@ for forbidden in ('httpclient', 'dbcontext', 'sqlconnection'):
         raise SystemExit(f"ui-kit README or package docs drift on forbidden token: {forbidden}")
 print('ui-kit package release ok')
 PY
+
+bash "$repo_root/scripts/ai/verify_downstream_package_compatibility.sh"

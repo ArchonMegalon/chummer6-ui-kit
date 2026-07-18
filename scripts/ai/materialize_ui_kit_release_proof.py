@@ -169,6 +169,7 @@ M142_SNAPSHOT_PATHS = (
 )
 
 VERIFY_SCRIPT_MARKERS = (
+    "scripts/ai/verify_downstream_package_compatibility.sh",
     "docs/m121-live-action-economy-evidence.md",
     "docs/m142-classic-dense-workbench-evidence.md",
     "TASK_LOCAL_TELEMETRY.generated.json",
