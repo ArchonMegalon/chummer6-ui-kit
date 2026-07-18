@@ -1,0 +1,62 @@
+name: UI Kit pull-request controls
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  package-and-consumers:
+    name: Package, portability, and no-siblings consumers
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact source
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+      - name: Install locked .NET SDK
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        with:
+          dotnet-version: 10.0.103
+      - name: Verify checkout and Python contracts
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain --untracked-files=all)"
+          python3 -m unittest \
+            tests/test_materialize_ui_kit_release_proof.py \
+            tests/test_verify_package_hygiene.py
+      - name: Build exact pinned downstream package consumers
+        shell: bash
+        run: bash scripts/ai/verify_downstream_package_compatibility.sh
+      - name: Run package-owned primitive tests
+        shell: bash
+        run: dotnet run --project tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj --configuration Release --nologo
+      - name: Recheck tracked source cleanliness
+        shell: bash
+        run: test -z "$(git status --porcelain --untracked-files=all)"
+
+  dependency-review:
+    name: Dependency vulnerability and package license review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact source
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          persist-credentials: false
+      - name: Install locked .NET SDK
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9
+        with:
+          dotnet-version: 10.0.103
+      - name: Reject vulnerable package graph or license drift
+        shell: bash
+        run: |
+          dotnet list src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj package --vulnerable --include-transitive
+          python3 scripts/ai/verify_package_hygiene.py \
+            --repo-root . \
+            --manifest tests/compatibility/downstream-pins.json

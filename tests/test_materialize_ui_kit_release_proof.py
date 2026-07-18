@@ -81,6 +81,59 @@ class ProofFloorMarkerTests(unittest.TestCase):
         self.assertIn("classic dense-workbench stale chrome sentinel list fails closed", markers)
         self.assertIn("classic dense-workbench non-canonical proof family broadening fails closed", markers)
 
+
+class PortableReceiptTests(unittest.TestCase):
+    def test_repo_references_are_relative_and_contained(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            evidence = root / "docs" / "evidence.md"
+            evidence.parent.mkdir()
+            evidence.write_text("proof", encoding="utf-8")
+
+            self.assertEqual("docs/evidence.md", MODULE.repo_reference(root, evidence))
+            with self.assertRaisesRegex(ValueError, "escapes"):
+                MODULE.repo_reference(root, root.parent / "outside.md")
+
+    def test_fleet_runtime_reference_removes_host_root(self) -> None:
+        first = Path(
+            "/docker/fleet/state/chummer_design_supervisor/shard-2/runs/run-1/"
+            "TASK_LOCAL_TELEMETRY.generated.json"
+        )
+        second = Path(
+            "/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs/run-1/"
+            "TASK_LOCAL_TELEMETRY.generated.json"
+        )
+        expected = (
+            "fleet-runtime://chummer_design_supervisor/shard-2/runs/run-1/"
+            "TASK_LOCAL_TELEMETRY.generated.json"
+        )
+        self.assertEqual(expected, MODULE.fleet_runtime_reference(first))
+        self.assertEqual(expected, MODULE.fleet_runtime_reference(second))
+
+    def test_portability_guard_rejects_machine_local_paths(self) -> None:
+        for value in (
+            "/tmp/proof.json",
+            "/var/tmp/proof.json",
+            "/docker/chummercomplete/proof.json",
+            "/workspace/proof.json",
+            "/home/operator/proof.json",
+            "/var/lib/codex-fleet/proof.json",
+        ):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "machine-local"):
+                MODULE.assert_portable_payload({"path": value})
+
+    def test_tracked_release_proof_uses_portable_v2_contract(self) -> None:
+        receipt_path = (
+            Path(__file__).resolve().parents[1]
+            / ".codex-studio"
+            / "published"
+            / "UI_KIT_LOCAL_RELEASE_PROOF.generated.json"
+        )
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        self.assertEqual(2, receipt["schema_version"])
+        self.assertEqual(MODULE.PORTABLE_PATH_CONTRACT, receipt["path_contract"])
+        MODULE.assert_portable_payload(receipt)
+
     def test_verify_script_markers_require_same_guard_floor(self) -> None:
         markers = MODULE.VERIFY_SCRIPT_MARKERS
 
