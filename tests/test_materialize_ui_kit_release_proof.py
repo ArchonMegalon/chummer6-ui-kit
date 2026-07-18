@@ -84,6 +84,7 @@ class ProofFloorMarkerTests(unittest.TestCase):
     def test_verify_script_markers_require_same_guard_floor(self) -> None:
         markers = MODULE.VERIFY_SCRIPT_MARKERS
 
+        self.assertIn("scripts/ai/verify_downstream_package_compatibility.sh", markers)
         self.assertIn("FlagshipClassicDenseWorkbenchDefaultIsTokenBacked", markers)
         self.assertIn("classic dense-workbench stale chrome sentinel list fails closed", markers)
         self.assertIn("classic dense-workbench non-canonical proof family broadening fails closed", markers)

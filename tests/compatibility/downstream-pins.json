@@ -1,0 +1,41 @@
+{
+  "contract": "chummer6-ui-kit.downstream-compatibility/v1",
+  "package": {
+    "id": "Chummer.Ui.Kit",
+    "license_expression": "GPL-3.0-only",
+    "target_framework": "net10.0",
+    "version": "0.1.0-preview"
+  },
+  "consumers": [
+    {
+      "compatibility_mode": "exact_source_snapshot",
+      "compatibility_project": "tests/compatibility/chummer6-ui/Chummer.Ui.Kit.Downstream.Ui.csproj",
+      "compatibility_project_sha256": "5d04f447158c8b9658dca90a861a96e47326859028c190feb0a0fb958cc5e7bb",
+      "compatibility_source": "tests/compatibility/chummer6-ui/ChummerPatternBoundary.cs",
+      "compatibility_source_sha256": "d530bf4c66920e4684e719c43bed1aecdb63a70e96fce41bc5e64a16f27fd56e",
+      "consumer_project": "Chummer.Presentation/Chummer.Presentation.csproj",
+      "consumer_project_sha256": "3d3f9f847cb3056f97463e1f453ac4ddfb0c4abe33e74b764ec9573be3aab37b",
+      "id": "chummer6-ui",
+      "package_version": "0.1.0-preview",
+      "repository": "https://github.com/ArchonMegalon/chummer6-ui.git",
+      "source_commit": "4cf2824585e36df5ec4d530096d81d9ef25c8e39",
+      "version_declaration": "Directory.Build.props",
+      "version_declaration_sha256": "fffa9482da64a8999a35cef27401efac08ffce6694c27bbf36a371c85eef9866"
+    },
+    {
+      "compatibility_mode": "package_reference_plus_representative_surface",
+      "compatibility_project": "tests/compatibility/chummer6-mobile/Chummer.Ui.Kit.Downstream.Mobile.csproj",
+      "compatibility_project_sha256": "5d04f447158c8b9658dca90a861a96e47326859028c190feb0a0fb958cc5e7bb",
+      "compatibility_source": "tests/compatibility/chummer6-mobile/PinnedMobileCompatibilityContract.cs",
+      "compatibility_source_sha256": "f2be357cbf68eaa266a6e02a41d8a9462b9d1c967210a01dff892da1a0122e6c",
+      "consumer_project": "src/Chummer.Play.Components/Chummer.Play.Components.csproj",
+      "consumer_project_sha256": "d8a7f23e4b8a2d132713d864dcf32e086948c79d7e6bced341ca0f303716a99f",
+      "id": "chummer6-mobile",
+      "package_version": "0.1.0-preview",
+      "repository": "https://github.com/ArchonMegalon/chummer6-mobile.git",
+      "source_commit": "a7e19c53bf8fe0cb1ee714a3b7debd2bbd257e92",
+      "version_declaration": "Directory.Packages.props",
+      "version_declaration_sha256": "4db4f73f91272c564cb9cda761de9ad90d9aacdb6be5dfd1b6c2f39acfe02421"
+    }
+  ]
+}

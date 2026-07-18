@@ -42,6 +42,15 @@ Copy and fill this block per downstream repo:
 1. Both downstream repos submit complete evidence blocks.
 2. The submitted package version maps to a verified `U7` baseline (green verify run, no drift).
 
+## Executable pinned-consumer gate (2026-07-18)
+
+`tests/compatibility/downstream-pins.json` now binds the package coordinate to full immutable source commits for both downstream owners:
+
+- `chummer6-ui` at `4cf2824585e36df5ec4d530096d81d9ef25c8e39`
+- `chummer6-mobile` at `a7e19c53bf8fe0cb1ee714a3b7debd2bbd257e92`
+
+`bash scripts/ai/verify_downstream_package_compatibility.sh` packs `Chummer.Ui.Kit` `0.1.0-preview`, verifies the emitted `GPL-3.0-only` NuGet metadata, and restores from a temporary feed with no sibling projects. The UI lane compiles the exact pinned `ChummerPatternBoundary.cs` source snapshot. Mobile currently exposes only its package reference at the pinned commit, so its lane validates that exact project/version authority and compiles a representative package-only public-surface contract; the manifest records those two proof modes separately. The manifest also binds the exact downstream version-declaration and consumer-project files by SHA256 so a moving branch or unreviewed version drift cannot stand in for compatibility evidence.
+
 ## Dense workbench baseline linkage (2026-04-11)
 
 - Added package-owned classic dense-workbench preset and noise-budget tokens in UI Kit (`classic_dense_workbench`).

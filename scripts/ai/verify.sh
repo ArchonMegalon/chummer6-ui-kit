@@ -129,6 +129,8 @@ dotnet build "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj"
 dotnet pack "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" -c Release --nologo
 dotnet run --project "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj" --no-build --nologo
 python3 -m unittest "$repo_root/tests/test_materialize_ui_kit_release_proof.py"
+python3 -m unittest "$repo_root/tests/test_verify_package_hygiene.py"
+bash "$repo_root/scripts/ai/verify_downstream_package_compatibility.sh"
 python3 "$repo_root/scripts/ai/materialize_ui_kit_release_proof.py" \
   --repo-root "$repo_root" \
   --check \

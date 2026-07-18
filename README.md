@@ -118,6 +118,18 @@ Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.
 5. Downstream adoption evidence gate:
    - Include proof for both `chummer6-ui` and `chummer6-mobile` before release closure.
 
+## Package identity and downstream compatibility
+
+`Chummer.Ui.Kit` is packed as `0.1.0-preview` with the `GPL-3.0-only` license expression, matching the GPL Core/UI side of the program boundary. Hosted Hub code remains outside this package boundary.
+
+The executable downstream floor is pinned in `tests/compatibility/downstream-pins.json` to exact `chummer6-ui` and `chummer6-mobile` commits. The gate packs the package, inspects the emitted NuGet metadata, restores from only the temporary local feed, and compiles representative UI and Mobile contracts without sibling project references:
+
+```bash
+bash scripts/ai/verify_downstream_package_compatibility.sh
+```
+
+Updating a consumer pin requires updating its immutable commit, authority-file digests, compatibility fixture, and fixture digests in one reviewed change.
+
 ## Current maturity note
 
 - the boundary is clear

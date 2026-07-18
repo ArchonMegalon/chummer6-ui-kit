@@ -2,8 +2,14 @@
   <PropertyGroup>
     <RootNamespace>Chummer.Ui.Kit</RootNamespace>
     <AssemblyName>Chummer.Ui.Kit</AssemblyName>
+    <PackageId>Chummer.Ui.Kit</PackageId>
+    <PackageVersion>0.1.0-preview</PackageVersion>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
-    <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 </Project>
