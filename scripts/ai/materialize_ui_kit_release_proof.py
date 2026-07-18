@@ -4,9 +4,17 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 from pathlib import Path
+from typing import Any
 
 UTC = dt.timezone.utc
+DEFAULT_REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_OUTPUT_PATH = DEFAULT_REPO_ROOT / ".codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json"
+PORTABLE_PATH_CONTRACT = "repo-relative-or-authority-uri/v1"
+FORBIDDEN_HOST_PATH = re.compile(
+    r"(?:^|[\s\"'])(?:/tmp/|/var/tmp/|/docker/|/workspace/|/home/|/var/lib/codex-fleet/)"
+)
 M142_PACKAGE_ID = "next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t"
 M142_WORK_TASK_ID = "142.2"
 M142_CANONICAL_QUEUE_FRONTIER_ID = "1752713026"
@@ -208,12 +216,48 @@ def _iso_now() -> str:
     return dt.datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def repo_reference(repo_root: Path, path: Path) -> str:
+    resolved_root = repo_root.resolve()
+    resolved_path = path.resolve()
+    try:
+        relative = resolved_path.relative_to(resolved_root)
+    except ValueError as exc:
+        raise ValueError(f"repo evidence path escapes the repository root: {path}") from exc
+    return relative.as_posix()
+
+
+def fleet_runtime_reference(path: Path | None) -> str:
+    if path is None:
+        return ""
+    resolved = path.resolve()
+    parts = resolved.parts
+    try:
+        boundary = parts.index("chummer_design_supervisor")
+    except ValueError as exc:
+        raise ValueError("Fleet runtime evidence is outside chummer_design_supervisor") from exc
+    suffix = "/".join(parts[boundary:])
+    return f"fleet-runtime://{suffix}"
+
+
+def assert_portable_payload(value: Any, label: str = "payload") -> None:
+    if isinstance(value, dict):
+        for key, item in value.items():
+            assert_portable_payload(item, f"{label}.{key}")
+        return
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            assert_portable_payload(item, f"{label}[{index}]")
+        return
+    if isinstance(value, str) and FORBIDDEN_HOST_PATH.search(value):
+        raise ValueError(f"{label} contains a machine-local path")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Materialize UI kit local release proof artifact.")
-    parser.add_argument("--repo-root", default="/docker/chummercomplete/chummer-ui-kit")
+    parser.add_argument("--repo-root", default=str(DEFAULT_REPO_ROOT))
     parser.add_argument(
         "--out",
-        default="/docker/chummercomplete/chummer-ui-kit/.codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json",
+        default=str(DEFAULT_OUTPUT_PATH),
     )
     parser.add_argument(
         "--check",
@@ -356,14 +400,14 @@ def main() -> int:
             f"Missing milestone 142 snapshot anchor: {relative_path}",
             reasons,
         )
-    if require_file(SUCCESSOR_QUEUE_PATH, f"Missing canonical successor queue mirror: {SUCCESSOR_QUEUE_PATH}", reasons):
+    if require_file(SUCCESSOR_QUEUE_PATH, "Missing canonical successor queue mirror.", reasons):
         require_markers(
             SUCCESSOR_QUEUE_PATH,
             M142_QUEUE_MARKERS,
             "Canonical successor queue mirror drifted away from the M142 ui-kit package row",
             reasons,
         )
-    if require_file(SUCCESSOR_REGISTRY_PATH, f"Missing canonical successor registry: {SUCCESSOR_REGISTRY_PATH}", reasons):
+    if require_file(SUCCESSOR_REGISTRY_PATH, "Missing canonical successor registry.", reasons):
         require_markers(
             SUCCESSOR_REGISTRY_PATH,
             M142_REGISTRY_MARKERS,
@@ -390,7 +434,7 @@ def main() -> int:
             "Milestone 142 evidence drifted away from the dynamic worker-receipt closure rule",
             reasons,
         )
-    if runtime_handoff_path is not None and task_local_telemetry_path is not None and require_file(runtime_handoff_path, f"Missing runtime handoff snapshot: {runtime_handoff_path}", reasons):
+    if runtime_handoff_path is not None and task_local_telemetry_path is not None and require_file(runtime_handoff_path, "Missing runtime handoff snapshot.", reasons):
         if task_local_telemetry_path is not None:
             require_markers(
                 runtime_handoff_path,
@@ -417,34 +461,37 @@ def main() -> int:
 
     payload = {
         "contract_name": "chummer6-ui-kit.local_release_proof",
-        "schema_version": 1,
+        "schema_version": 2,
+        "path_contract": PORTABLE_PATH_CONTRACT,
         "generated_at": _iso_now() if not args.check else "CHECK_MODE_STABLE_TIMESTAMP",
         "status": status,
-        "repo_root": str(repo_root),
+        "repo_root": ".",
         "evidence": {
             "m142_successor_package_id": M142_PACKAGE_ID,
             "m142_work_task_id": M142_WORK_TASK_ID,
             "m142_canonical_queue_frontier_id": M142_CANONICAL_QUEUE_FRONTIER_ID,
             "m142_task_local_handoff_frontier_id": M142_TASK_LOCAL_HANDOFF_FRONTIER_ID,
-            "shared_surface_signoff_path": str(signoff_doc),
-            "u7_u8_release_adoption_evidence_path": str(adoption_doc),
-            "m121_live_action_economy_evidence_path": str(milestone_121_doc),
-            "m121_source_anchor_paths": [str((repo_root / relative_path).resolve()) for relative_path in M121_SOURCE_MARKERS],
-            "m121_snapshot_anchor_paths": [str((repo_root / relative_path).resolve()) for relative_path in M121_SNAPSHOT_PATHS],
-            "m142_classic_dense_workbench_evidence_path": str(milestone_142_doc),
-            "m142_source_anchor_paths": [str((repo_root / relative_path).resolve()) for relative_path in M142_SOURCE_MARKERS],
-            "m142_snapshot_anchor_paths": [str((repo_root / relative_path).resolve()) for relative_path in M142_SNAPSHOT_PATHS],
-            "m142_successor_queue_path": str(SUCCESSOR_QUEUE_PATH),
-            "m142_successor_registry_path": str(SUCCESSOR_REGISTRY_PATH),
-            "task_local_telemetry_runs_root": str(task_local_telemetry_runs_root) if task_local_telemetry_runs_root else "",
+            "shared_surface_signoff_path": repo_reference(repo_root, signoff_doc),
+            "u7_u8_release_adoption_evidence_path": repo_reference(repo_root, adoption_doc),
+            "m121_live_action_economy_evidence_path": repo_reference(repo_root, milestone_121_doc),
+            "m121_source_anchor_paths": [repo_reference(repo_root, repo_root / relative_path) for relative_path in M121_SOURCE_MARKERS],
+            "m121_snapshot_anchor_paths": [repo_reference(repo_root, repo_root / relative_path) for relative_path in M121_SNAPSHOT_PATHS],
+            "m142_classic_dense_workbench_evidence_path": repo_reference(repo_root, milestone_142_doc),
+            "m142_source_anchor_paths": [repo_reference(repo_root, repo_root / relative_path) for relative_path in M142_SOURCE_MARKERS],
+            "m142_snapshot_anchor_paths": [repo_reference(repo_root, repo_root / relative_path) for relative_path in M142_SNAPSHOT_PATHS],
+            "m142_successor_queue_path": "fleet://.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml",
+            "m142_successor_registry_path": "chummer6-design://products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml",
+            "task_local_telemetry_runs_root": fleet_runtime_reference(task_local_telemetry_runs_root),
             "task_local_telemetry_selector": TASK_LOCAL_TELEMETRY_SELECTOR,
-            "runtime_handoff_path": str(runtime_handoff_path) if runtime_handoff_path else "",
+            "runtime_handoff_path": fleet_runtime_reference(runtime_handoff_path),
             "runtime_handoff_receipt_rule": build_runtime_handoff_rule(),
-            "verify_script_path": str(verify_script),
-            "worklist_path": str(worklist_path),
+            "verify_script_path": repo_reference(repo_root, verify_script),
+            "worklist_path": repo_reference(repo_root, worklist_path),
         },
         "reasons": reasons,
     }
+
+    assert_portable_payload(payload)
 
     serialized = json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
