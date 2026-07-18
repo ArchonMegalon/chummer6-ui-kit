@@ -122,7 +122,7 @@ Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.
 
 `Chummer.Ui.Kit` is packed as `0.1.0-preview` with the `GPL-3.0-only` license expression, matching the GPL Core/UI side of the program boundary. Hosted Hub code remains outside this package boundary.
 
-The executable downstream floor is pinned in `tests/compatibility/downstream-pins.json` to exact `chummer6-ui` and `chummer6-mobile` commits. The gate packs the package, inspects the emitted NuGet metadata, restores from only the temporary local feed, and compiles representative UI and Mobile contracts without sibling project references:
+The executable downstream floor is pinned in `tests/compatibility/downstream-pins.json` to exact `chummer6-ui` and `chummer6-mobile` commits. The gate acquires each canonical repository at only that SHA into an isolated temporary bare partial clone, verifies authority blobs and fixture bytes from the acquired Git objects, packs the package, inspects the emitted NuGet metadata, restores from only the temporary local feed, and compiles UI and Mobile contracts without sibling project references:
 
 ```bash
 bash scripts/ai/verify_downstream_package_compatibility.sh

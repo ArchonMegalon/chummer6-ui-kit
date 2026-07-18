@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 import zipfile
@@ -173,6 +175,145 @@ class CompatibilityProjectTests(unittest.TestCase):
             errors = MODULE.validate_fixture_project(project, "0.1.0-preview")
 
         self.assertTrue(any("must not use sibling/source ProjectReference" in error for error in errors))
+
+
+class AuthorityRepositoryTests(unittest.TestCase):
+    def run_git(self, *args: str, cwd: Path | None = None) -> str:
+        completed = subprocess.run(
+            ["git", *args],
+            cwd=cwd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        return completed.stdout.strip()
+
+    def build_authorities(
+        self,
+        root: Path,
+    ) -> tuple[Path, dict[str, object], dict[str, Path]]:
+        fixture_root = root / "fixture-root"
+        payload = json.loads(
+            (REPO_ROOT / "tests/compatibility/downstream-pins.json").read_text(encoding="utf-8")
+        )
+        authorities: dict[str, Path] = {}
+
+        for consumer in payload["consumers"]:
+            consumer_id = consumer["id"]
+            source_repo = root / f"source-{consumer_id}"
+            source_repo.mkdir()
+            self.run_git("init", "--quiet", cwd=source_repo)
+            self.run_git("config", "user.name", "UI Kit Tests", cwd=source_repo)
+            self.run_git("config", "user.email", "ui-kit-tests@example.invalid", cwd=source_repo)
+
+            version_bytes = f"{consumer_id} version authority\n".encode()
+            project_bytes = f"{consumer_id} project authority\n".encode()
+            version_path = source_repo / consumer["version_declaration"]
+            project_path = source_repo / consumer["consumer_project"]
+            version_path.parent.mkdir(parents=True, exist_ok=True)
+            project_path.parent.mkdir(parents=True, exist_ok=True)
+            version_path.write_bytes(version_bytes)
+            project_path.write_bytes(project_bytes)
+            consumer["version_declaration_sha256"] = hashlib.sha256(version_bytes).hexdigest()
+            consumer["consumer_project_sha256"] = hashlib.sha256(project_bytes).hexdigest()
+
+            if consumer["compatibility_mode"] == "exact_source_snapshot":
+                fixture_source = fixture_root / consumer["compatibility_source"]
+                fixture_source.parent.mkdir(parents=True, exist_ok=True)
+                fixture_bytes = (
+                    REPO_ROOT / consumer["compatibility_source"]
+                ).read_bytes()
+                fixture_source.write_bytes(fixture_bytes)
+                authority_source = source_repo / consumer["authority_source"]
+                authority_source.parent.mkdir(parents=True, exist_ok=True)
+                authority_source.write_bytes(fixture_bytes)
+                digest = hashlib.sha256(fixture_bytes).hexdigest()
+                consumer["compatibility_source_sha256"] = digest
+                consumer["authority_source_sha256"] = digest
+
+            self.run_git("add", ".", cwd=source_repo)
+            self.run_git("commit", "--quiet", "-m", f"fixture {consumer_id}", cwd=source_repo)
+            source_commit = self.run_git("rev-parse", "HEAD", cwd=source_repo)
+            consumer["source_commit"] = source_commit
+
+            authority_repo = root / f"authority-{consumer_id}.git"
+            self.run_git("init", "--quiet", "--bare", str(authority_repo))
+            self.run_git(
+                f"--git-dir={authority_repo}",
+                "fetch",
+                "--quiet",
+                "--no-tags",
+                str(source_repo),
+                source_commit,
+            )
+            self.run_git(
+                f"--git-dir={authority_repo}",
+                "remote",
+                "add",
+                "origin",
+                consumer["repository"],
+            )
+            authorities[consumer_id] = authority_repo
+
+        return fixture_root, payload, authorities
+
+    def test_exact_pinned_authority_bytes_pass(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture_root, payload, authorities = self.build_authorities(Path(tmp))
+
+            errors = MODULE.validate_authority_repositories(
+                fixture_root,
+                payload,
+                authorities,
+            )
+
+        self.assertEqual([], errors)
+
+    def test_forged_authority_hashes_fail_against_acquired_commit_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture_root, payload, authorities = self.build_authorities(Path(tmp))
+            payload["consumers"][0]["version_declaration_sha256"] = "0" * 64
+            payload["consumers"][1]["consumer_project_sha256"] = "f" * 64
+
+            errors = MODULE.validate_authority_repositories(
+                fixture_root,
+                payload,
+                authorities,
+            )
+
+        self.assertTrue(any("version_declaration digest mismatch" in error for error in errors))
+        self.assertTrue(any("consumer_project digest mismatch" in error for error in errors))
+
+    def test_forged_ui_fixture_fails_byte_for_byte_authority_comparison(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture_root, payload, authorities = self.build_authorities(Path(tmp))
+            ui = next(item for item in payload["consumers"] if item["id"] == "chummer6-ui")
+            (fixture_root / ui["compatibility_source"]).write_text(
+                "forged local fixture\n",
+                encoding="utf-8",
+            )
+
+            errors = MODULE.validate_authority_repositories(
+                fixture_root,
+                payload,
+                authorities,
+            )
+
+        self.assertTrue(any("fixture bytes do not match" in error for error in errors))
+
+    def test_changed_pin_fails_against_acquired_fetch_head(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture_root, payload, authorities = self.build_authorities(Path(tmp))
+            payload["consumers"][0]["source_commit"] = "0" * 40
+
+            errors = MODULE.validate_authority_repositories(
+                fixture_root,
+                payload,
+                authorities,
+            )
+
+        self.assertTrue(any("does not match pin" in error for error in errors))
 
 
 class PackedMetadataTests(unittest.TestCase):
