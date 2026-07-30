@@ -3,7 +3,10 @@
     <RootNamespace>Chummer.Ui.Kit</RootNamespace>
     <AssemblyName>Chummer.Ui.Kit</AssemblyName>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</RuntimeIdentifiers>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 </Project>

@@ -123,6 +123,8 @@ rg -n '\[x\] Expanded the preset contract to carry split chrome-height, width-bo
   "$repo_root/WORKLIST.md" >/dev/null
 rg -n 'System re-entry evidence update \(2026-05-06, M142 successor closure pass\):|next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proof-for-these-families-into-t|1752713026|1971223526' \
   "$repo_root/WORKLIST.md" >/dev/null
+rg -n '<PackageReadmeFile>README\.md</PackageReadmeFile>|<None Include="../../README\.md" Pack="true" PackagePath="/" />' \
+  "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" >/dev/null
 
 dotnet build "$repo_root/src/Chummer.Ui.Kit/Chummer.Ui.Kit.csproj" --nologo
 dotnet build "$repo_root/tests/Chummer.Ui.Kit.Tests/Chummer.Ui.Kit.Tests.csproj" --nologo
