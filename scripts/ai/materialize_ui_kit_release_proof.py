@@ -19,17 +19,10 @@ M142_PACKAGE_ID = "next90-m142-ui-kit-bind-dense-workbench-and-noise-budget-proo
 M142_WORK_TASK_ID = "142.2"
 M142_CANONICAL_QUEUE_FRONTIER_ID = "1752713026"
 M142_TASK_LOCAL_HANDOFF_FRONTIER_ID = "1971223526"
-SUCCESSOR_QUEUE_PATH = Path("/docker/fleet/.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml")
-SUCCESSOR_REGISTRY_PATH = Path("/docker/chummercomplete/chummer-design/products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml")
-TASK_LOCAL_TELEMETRY_RUNS_ROOT_CANDIDATES = (
-    Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/runs"),
-    Path("/docker/fleet/state/chummer_design_supervisor/shard-2/runs"),
-    Path("/docker/fleet/state/chummer_design_supervisor/runs"),
-)
-RUNTIME_HANDOFF_PATH_CANDIDATES = (
-    Path("/var/lib/codex-fleet/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md"),
-    Path("/docker/fleet/state/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md"),
-    Path("/docker/fleet/state/chummer_design_supervisor/ACTIVE_RUN_HANDOFF.generated.md"),
+# Historical evidence prose is validated as repo content, never as an input path.
+DOCUMENTED_TELEMETRY_SELECTOR = (
+    "latest matching worker receipt under /var/lib/codex-fleet/chummer_design_supervisor/"
+    "shard-2/runs/*/TASK_LOCAL_TELEMETRY.generated.json"
 )
 TASK_LOCAL_TELEMETRY_SELECTOR = (
     "latest matching worker receipt under the active Fleet design-supervisor runs root "
@@ -180,8 +173,6 @@ VERIFY_SCRIPT_MARKERS = (
     "scripts/ai/verify_downstream_package_compatibility.sh",
     "docs/m121-live-action-economy-evidence.md",
     "docs/m142-classic-dense-workbench-evidence.md",
-    "TASK_LOCAL_TELEMETRY.generated.json",
-    "ACTIVE_RUN_HANDOFF.generated.md",
     "family:dense_builder_and_career_workflows",
     "family:dice_initiative_and_table_utilities",
     "family:identity_contacts_lifestyles_history",
@@ -264,7 +255,20 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Validate the tracked artifact is up to date without writing it.",
     )
-    return parser.parse_args()
+    parser.add_argument("--check-repo", action="store_true",
+                        help="Check repo content and the recorded local proof; do not verify Fleet state or write evidence.")
+    parser.add_argument("--fleet-queue", type=Path)
+    parser.add_argument("--design-registry", type=Path)
+    parser.add_argument("--telemetry-runs-root", type=Path)
+    parser.add_argument("--runtime-handoff", type=Path)
+    args = parser.parse_args()
+    external = (args.fleet_queue, args.design_registry, args.telemetry_runs_root, args.runtime_handoff)
+    if args.check_repo:
+        if args.check or any(external):
+            parser.error("--check-repo cannot be combined with --check or Fleet inputs")
+    elif not all(external):
+        parser.error("Fleet proof requires --fleet-queue, --design-registry, --telemetry-runs-root, and --runtime-handoff; use --check-repo for local verification")
+    return args
 
 
 def require_file(path: Path, reason: str, reasons: list[str]) -> bool:
@@ -400,48 +404,51 @@ def main() -> int:
             f"Missing milestone 142 snapshot anchor: {relative_path}",
             reasons,
         )
-    if require_file(SUCCESSOR_QUEUE_PATH, "Missing canonical successor queue mirror.", reasons):
-        require_markers(
-            SUCCESSOR_QUEUE_PATH,
-            M142_QUEUE_MARKERS,
-            "Canonical successor queue mirror drifted away from the M142 ui-kit package row",
-            reasons,
-        )
-    if require_file(SUCCESSOR_REGISTRY_PATH, "Missing canonical successor registry.", reasons):
-        require_markers(
-            SUCCESSOR_REGISTRY_PATH,
-            M142_REGISTRY_MARKERS,
-            "Canonical successor registry drifted away from the M142 ui-kit work-task row",
-            reasons,
-        )
-    task_local_telemetry_runs_root = resolve_first_existing_path(TASK_LOCAL_TELEMETRY_RUNS_ROOT_CANDIDATES)
-    runtime_handoff_path = resolve_first_existing_path(RUNTIME_HANDOFF_PATH_CANDIDATES)
-    task_local_telemetry_path = (
-        resolve_task_local_telemetry_path(task_local_telemetry_runs_root)
-        if task_local_telemetry_runs_root is not None
-        else None
-    )
-    if task_local_telemetry_path is not None:
-        require_markers(
-            task_local_telemetry_path,
-            TASK_LOCAL_TELEMETRY_MARKERS,
-            "Task-local telemetry drifted away from the M142 ui-kit worker package receipt",
-            reasons,
-        )
+    if milestone_142_doc.is_file():
         require_markers(
             milestone_142_doc,
-            (TASK_LOCAL_TELEMETRY_SELECTOR, "ACTIVE_RUN_HANDOFF.generated.md", build_runtime_handoff_rule()),
-            "Milestone 142 evidence drifted away from the dynamic worker-receipt closure rule",
+            (DOCUMENTED_TELEMETRY_SELECTOR, "ACTIVE_RUN_HANDOFF.generated.md", build_runtime_handoff_rule()),
+            "Milestone 142 evidence drifted away from its documented worker-receipt closure rule",
             reasons,
         )
-    if runtime_handoff_path is not None and task_local_telemetry_path is not None and require_file(runtime_handoff_path, "Missing runtime handoff snapshot.", reasons):
-        if task_local_telemetry_path is not None:
+    task_local_telemetry_runs_root = None
+    runtime_handoff_path = None
+    if not args.check_repo:
+        if require_file(args.fleet_queue, "Missing canonical successor queue mirror.", reasons):
             require_markers(
-                runtime_handoff_path,
-                build_runtime_handoff_markers(task_local_telemetry_path),
-                "Runtime handoff drifted away from the current M142 ui-kit worker receipt",
+                args.fleet_queue,
+                M142_QUEUE_MARKERS,
+                "Canonical successor queue mirror drifted away from the M142 ui-kit package row",
                 reasons,
             )
+        if require_file(args.design_registry, "Missing canonical successor registry.", reasons):
+            require_markers(
+                args.design_registry,
+                M142_REGISTRY_MARKERS,
+                "Canonical successor registry drifted away from the M142 ui-kit work-task row",
+                reasons,
+            )
+        task_local_telemetry_runs_root = args.telemetry_runs_root
+        runtime_handoff_path = args.runtime_handoff
+        task_local_telemetry_path = resolve_task_local_telemetry_path(task_local_telemetry_runs_root)
+        if task_local_telemetry_path is None:
+            reasons.append("Missing matching M142 task-local telemetry receipt in the supplied runs root.")
+        require_file(runtime_handoff_path, "Missing runtime handoff snapshot.", reasons)
+        if task_local_telemetry_path is not None:
+            require_markers(
+                task_local_telemetry_path,
+                TASK_LOCAL_TELEMETRY_MARKERS,
+                "Task-local telemetry drifted away from the M142 ui-kit worker package receipt",
+                reasons,
+            )
+        if runtime_handoff_path is not None and task_local_telemetry_path is not None and require_file(runtime_handoff_path, "Missing runtime handoff snapshot.", reasons):
+            if task_local_telemetry_path is not None:
+                require_markers(
+                    runtime_handoff_path,
+                    build_runtime_handoff_markers(task_local_telemetry_path),
+                    "Runtime handoff drifted away from the current M142 ui-kit worker receipt",
+                    reasons,
+                )
     if require_file(verify_script, "Missing ui-kit verify lane script.", reasons):
         require_markers(
             verify_script,
@@ -456,6 +463,11 @@ def main() -> int:
             "Worklist drifted away from the recorded milestone 142 closure evidence",
             reasons,
         )
+
+    if reasons:
+        for reason in reasons:
+            print(reason)
+        return 1
 
     status = "passed" if not reasons else "failed"
 
@@ -494,6 +506,29 @@ def main() -> int:
     assert_portable_payload(payload)
 
     serialized = json.dumps(payload, indent=2, sort_keys=True) + "\n"
+
+    if args.check_repo:
+        if not out_path.is_file():
+            reasons.append(f"Missing recorded repo proof: {out_path}")
+        else:
+            try:
+                current = json.loads(out_path.read_text(encoding="utf-8"))
+                assert_portable_payload(current)
+                for key in ("contract_name", "schema_version", "path_contract", "status", "repo_root", "reasons"):
+                    if current.get(key) != payload[key]:
+                        reasons.append(f"Recorded repo proof drifted: {key}")
+                evidence = current.get("evidence", {})
+                for key, expected in payload["evidence"].items():
+                    if key not in ("task_local_telemetry_runs_root", "runtime_handoff_path") and evidence.get(key) != expected:
+                        reasons.append(f"Recorded repo evidence drifted: {key}")
+            except (ValueError, TypeError, AttributeError) as exc:
+                reasons.append(f"Invalid recorded repo proof: {exc}")
+        for reason in reasons:
+            print(reason)
+        if reasons:
+            return 1
+        print("ui-kit repo proof checks passed; Fleet queue, registry, telemetry and handoff integration not executed")
+        return 0
 
     if args.check:
         if not out_path.is_file():

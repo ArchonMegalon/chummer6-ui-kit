@@ -2,7 +2,13 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
+from contextlib import redirect_stdout
+from unittest import mock
+import argparse
+import io
 import unittest
 from pathlib import Path
 
@@ -141,6 +147,60 @@ class PortableReceiptTests(unittest.TestCase):
         self.assertIn("FlagshipClassicDenseWorkbenchDefaultIsTokenBacked", markers)
         self.assertIn("classic dense-workbench stale chrome sentinel list fails closed", markers)
         self.assertIn("classic dense-workbench non-canonical proof family broadening fails closed", markers)
+
+
+class VerificationScopeTests(unittest.TestCase):
+    def repo_args(self, *, out: Path | None = None) -> argparse.Namespace:
+        root = MODULE_PATH.parents[2]
+        return argparse.Namespace(repo_root=str(root), out=str(out or root / ".codex-studio/published/UI_KIT_LOCAL_RELEASE_PROOF.generated.json"),
+                                  check_repo=True, check=False, fleet_queue=None, design_registry=None,
+                                  telemetry_runs_root=None, runtime_handoff=None)
+
+    def test_repo_check_does_not_resolve_live_telemetry(self) -> None:
+        output = io.StringIO()
+        with mock.patch.object(MODULE, "parse_args", return_value=self.repo_args()), \
+             mock.patch.object(MODULE, "resolve_task_local_telemetry_path", side_effect=AssertionError("external lookup")), \
+             redirect_stdout(output):
+            code = MODULE.main()
+        self.assertEqual(code, 0, output.getvalue())
+        self.assertIn("integration not executed", output.getvalue())
+
+    def test_repo_check_rejects_missing_product_snapshot(self) -> None:
+        output = io.StringIO()
+        with mock.patch.object(MODULE, "parse_args", return_value=self.repo_args()), \
+             mock.patch.object(MODULE, "M121_SNAPSHOT_PATHS", (*MODULE.M121_SNAPSHOT_PATHS, "tests/missing.snapshot")), \
+             redirect_stdout(output):
+            code = MODULE.main()
+        self.assertEqual(code, 1)
+        self.assertIn("Missing milestone 121 snapshot", output.getvalue())
+
+    def test_repo_check_rejects_recorded_local_evidence_drift(self) -> None:
+        payload = json.loads(Path(self.repo_args().out).read_text(encoding="utf-8"))
+        payload["evidence"]["m121_snapshot_anchor_paths"] = []
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "proof.json"
+            out.write_text(json.dumps(payload), encoding="utf-8")
+            with mock.patch.object(MODULE, "parse_args", return_value=self.repo_args(out=out)), redirect_stdout(io.StringIO()):
+                code = MODULE.main()
+        self.assertEqual(code, 1)
+
+    def test_fleet_check_requires_explicit_inputs(self) -> None:
+        completed = subprocess.run([sys.executable, str(MODULE_PATH), "--check"], text=True,
+                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=10)
+        self.assertEqual(completed.returncode, 2, completed.stdout)
+        self.assertIn("Fleet proof requires", completed.stdout)
+
+    def test_fleet_check_fails_for_missing_external_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            command = [sys.executable, str(MODULE_PATH), "--check"]
+            for option in ("--fleet-queue", "--design-registry", "--telemetry-runs-root", "--runtime-handoff"):
+                command.extend((option, str(Path(tmp) / "missing")))
+            completed = subprocess.run(command, text=True, stdout=subprocess.PIPE,
+                                       stderr=subprocess.STDOUT, timeout=10)
+        self.assertEqual(completed.returncode, 1, completed.stdout)
+        self.assertIn("Missing canonical successor", completed.stdout)
+        self.assertIn("Missing matching M142", completed.stdout)
+        self.assertNotIn("up to date", completed.stdout)
 
 
 if __name__ == "__main__":

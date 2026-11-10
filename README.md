@@ -118,15 +118,39 @@ Do not cut or tag a `Chummer.Ui.Kit` release unless all gates pass.
 5. Downstream adoption evidence gate:
    - Include proof for both `chummer6-ui` and `chummer6-mobile` before release closure.
 
+## Portable verification and external integration
+
+From a standalone checkout, run `bash scripts/ai/verify.sh`. It needs the SDK selected by `global.json`, Python 3 and ripgrep. The default checks repo documentation, source anchors and snapshots; builds, packs and runs the primitive tests; runs Python contracts; compiles the pinned downstream fixtures from a temporary local package feed; and validates the recorded local proof. It does not read Fleet/parent checkouts or acquire downstream Git authority. A failed product check still fails the command.
+
+The local proof check can also run without managed builds:
+
+```bash
+python3 scripts/ai/materialize_ui_kit_release_proof.py --check-repo
+```
+
+Fleet evidence is a separate integration gate. All inputs must be supplied; missing queue, registry, matching telemetry or handoff fails. Supply an exported runtime hierarchy retaining its `chummer_design_supervisor/...` suffix so its portable authority URI matches the recorded proof:
+
+```bash
+bash scripts/ai/verify_fleet_integration.sh \
+  --fleet-queue /path/to/fleet/.codex-studio/published/NEXT_90_DAY_QUEUE_STAGING.generated.yaml \
+  --design-registry /path/to/design/products/chummer/NEXT_90_DAY_PRODUCT_ADVANCE_REGISTRY.yaml \
+  --telemetry-runs-root /path/to/chummer_design_supervisor/shard-2/runs \
+  --runtime-handoff /path/to/chummer_design_supervisor/shard-2/ACTIVE_RUN_HANDOFF.generated.md
+```
+
+This compares the recorded artifact without writing it. To deliberately regenerate integration evidence, use the same four arguments with `python3 scripts/ai/materialize_ui_kit_release_proof.py` and omit `--check`. Repo verification never certifies current Fleet state. PR CI runs the default command and separately retains the networked downstream authority gate below; Fleet integration needs operator-supplied inputs and is not claimed by public PR CI.
+
 ## Package identity and downstream compatibility
 
 `Chummer.Ui.Kit` is packed as `0.1.0-preview` with the `GPL-3.0-only` license expression, matching the GPL Core/UI side of the program boundary. Hosted Hub code remains outside this package boundary.
 
-The executable downstream floor is pinned in `tests/compatibility/downstream-pins.json` to exact `chummer6-ui` and `chummer6-mobile` commits. The gate acquires each canonical repository at only that SHA into an isolated temporary bare partial clone, verifies authority blobs and fixture bytes from the acquired Git objects, packs the package, inspects the emitted NuGet metadata, restores from only the temporary local feed, and compiles UI and Mobile contracts without sibling project references:
+The external downstream authority gate is pinned in `tests/compatibility/downstream-pins.json` to exact `chummer6-ui` and `chummer6-mobile` commits. The gate acquires each canonical repository at only that SHA into an isolated temporary bare partial clone, verifies authority blobs and fixture bytes from the acquired Git objects, packs the package, inspects the emitted NuGet metadata, restores from only the temporary local feed, and compiles UI and Mobile contracts without sibling project references:
 
 ```bash
 bash scripts/ai/verify_downstream_package_compatibility.sh
 ```
+
+The default verifier uses `bash scripts/ai/verify_downstream_package_compatibility.sh --repo-only` to retain package inspection, fixture digest checks and actual consumer compilation without fetching authority repositories. This is local compatibility evidence; only the separate command above verifies upstream authority.
 
 Updating a consumer pin requires updating its immutable commit, authority-file digests, compatibility fixture, and fixture digests in one reviewed change.
 
